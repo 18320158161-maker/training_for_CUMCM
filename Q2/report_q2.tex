@@ -1,0 +1,129 @@
+% !TeX program = xelatex
+\documentclass[12pt,a4paper]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage[UTF8]{ctex}
+\geometry{margin=2.5cm}
+\title{Q2 Logistic Model: Symmetric Antagonistic $\alpha$, $\beta$}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Model Formulation}
+
+$\alpha$（促进系数）与 $\beta$（抑制系数）地位相同、结构对称，以拮抗关系分别作用于
+logistic 模型的两个独立参数：
+
+\begin{equation}\label{eq:ode}
+\frac{dx}{dt} = \frac{\gamma}{1+\beta} \cdot x \cdot \left(1 - \frac{x}{K(1+\alpha)}\right)
+\end{equation}
+
+\begin{itemize}
+  \item $\alpha \geq 0$（促进）：扩大有效饱和容量 $\;\rightarrow\; K_{\text{eff}} = K(1+\alpha)$
+  \item $\beta \geq 0$（抑制）：降低有效增长率 $\;\rightarrow\; r = \gamma/(1+\beta)$
+\end{itemize}
+
+两者均以 $(1+c)^{\pm 1}$ 的函数形式（$c$ 为对应系数）体现对等地位；拮抗方向相反：
+$\alpha$ 推高饱和平台，$\beta$ 拖慢趋近速度。当 $\alpha = \beta = 0$ 时退化为 Q1。
+
+\section{Standard Logistic Form}
+
+\begin{equation}\label{eq:logistic}
+\frac{dx}{dt} = r \cdot x \cdot \left(1 - \frac{x}{K_{\text{eff}}}\right)
+\end{equation}
+\begin{equation}
+r = \frac{\gamma}{1+\beta}, \qquad K_{\text{eff}} = K(1+\alpha)
+\end{equation}
+
+解析解：
+\begin{equation}\label{eq:solution}
+x(t) = \frac{K_{\text{eff}}}{1 + \left(\dfrac{K_{\text{eff}}}{x_0} - 1\right) e^{-r t}}
+\end{equation}
+
+\section{Parameter Identification}
+
+式 (\ref{eq:solution}) 含两个独立拟合参数 $r$ 和 $K_{\text{eff}}$，拟合后：
+\begin{equation}
+\beta = \frac{\gamma}{r} - 1, \qquad \alpha = \frac{K_{\text{eff}}}{K} - 1
+\end{equation}
+
+$r \leq \gamma \Rightarrow \beta \geq 0$，$K_{\text{eff}} \geq K \Rightarrow \alpha \geq 0$，由拟合约束自然保证。
+
+\section{Parameters}
+
+\begin{center}
+\begin{tabular}{llrl}
+\toprule
+类别 & 符号 & 拟合值 & 单位 \\
+\midrule
+固定          & $K$                & 8011        & tons/day \\
+固定          & $\gamma$           & 0.022       & 1/day \\
+固定          & $x_0$              & 6314        & tons/day \\
+\midrule
+\textbf{拟合} & $r$                & $\mathbf{0.008485} \pm 0.000655$ & 1/day \\
+\textbf{拟合} & $K_{\text{eff}}$   & $\mathbf{8142.22} \pm 72.77$ & tons/day \\
+\midrule
+导出          & $\alpha$           & $\mathbf{0.016379}$ & --- \\
+导出          & $\beta$            & $\mathbf{1.592906}$ & --- \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{物理解释}：
+\begin{itemize}
+  \item $\alpha = 0.0164 > 0$：促进使有效容量扩大 $1.64\%$，$K_{\text{eff}} = 8142 > K = 8011$
+  \item $\beta = 1.5929 > 0$：抑制使有效增长率降至 $r = \gamma/(1+\beta) = 0.0085$，
+        仅为固有增长率的 $38.6\%$
+  \item $r/\gamma = 1/(1+\beta) = 0.386$：增长显著放缓，抑制占据主导
+\end{itemize}
+
+\section{Evaluation}
+
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+Metric & Q1 (no $\alpha,\beta$) & Q2 (with $\alpha,\beta$) \\
+\midrule
+$R^2$  & 0.5319 & \textbf{0.9915} \\
+MAE    & 315.6  & \textbf{38.3} \\
+MAPE   & 4.42\% & \textbf{0.53\%} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Predictions}
+
+\begin{center}
+\begin{tabular}{crrrr}
+\toprule
+$t$ (days) & Actual & Predicted & Residual & Rel.\ Error \\
+\midrule
+0   & 6314 & 6314.0 & $-0.0$    & $-0.00\%$ \\
+30  & 6542 & 6649.5 & $-107.5$  & $-1.64\%$ \\
+60  & 6875 & 6935.3 & $-60.3$   & $-0.88\%$ \\
+90  & 7173 & 7174.2 & $-1.2$    & $-0.02\%$ \\
+120 & 7368 & 7371.2 & $-3.2$    & $-0.04\%$ \\
+150 & 7591 & 7531.5 & $+59.5$   & $+0.78\%$ \\
+180 & 7724 & 7660.6 & $+63.4$   & $+0.82\%$ \\
+270 & 7896 & 7910.5 & $-14.5$   & $-0.18\%$ \\
+365 & 8002 & 8037.1 & $-35.1$   & $-0.44\%$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Key Findings}
+
+\begin{itemize}
+  \item $\alpha = 0.0164 > 0$，$\beta = 1.5929 > 0$：两者均为正数，分别识别
+  \item $\alpha$ 与 $\beta$ 地位对等：对称的 $(1+c)^{\pm 1}$ 结构
+  \item 拮抗关系：$\alpha$ 扩展容量（$+1.64\%$），$\beta$ 抑制速率（降至 $38.6\%$）
+  \item $K_{\text{eff}} = 8142$：促进将有效容量推至理论值 $K=8011$ 之上
+  \item 结构稳定性：当 $\alpha, \beta \geq 0$ 时，$r > 0$ 恒成立，系统不存在分岔、不会崩溃
+\end{itemize}
+
+\end{document}

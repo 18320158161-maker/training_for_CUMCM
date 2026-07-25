@@ -1,0 +1,121 @@
+% !TeX program = xelatex
+\documentclass[12pt,a4paper]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage[UTF8]{ctex}
+\geometry{margin=2.5cm}
+\title{Q1: 基础 Logistic 模型（零自由参数）}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{模型建立}
+
+基于经典 logistic 增长理论，假设回收量 $x(t)$ 受固有增长率 $\gamma$ 和环境容量 $K$ 约束，
+无任何调制参数：
+
+\begin{equation}\label{eq:ode}
+\frac{dx}{dt} = \gamma \cdot x \cdot \left(1 - \frac{x}{K}\right), \qquad x(0) = x_0
+\end{equation}
+
+解析解：
+
+\begin{equation}\label{eq:solution}
+x(t) = \frac{K}{1 + \left(\dfrac{K}{x_0} - 1\right) e^{-\gamma t}}
+     = \frac{K}{1 + A \cdot e^{-\gamma t}}, \qquad A = \frac{K}{x_0} - 1
+\end{equation}
+
+\textbf{注意}：此模型不含任何自由参数——$\gamma$、$K$、$x_0$ 均为给定固定值，
+拟合自由度为零。
+
+\section{参数}
+
+\begin{center}
+\begin{tabular}{lrll}
+\toprule
+参数 & 符号 & 数值 & 单位 \\
+\midrule
+饱和容量      & $K$      & 8011   & tons/day \\
+固有增长率    & $\gamma$ & 0.022  & 1/day \\
+初始回收量    & $x_0$    & 6314   & tons/day \\
+导出常数      & $A$      & 0.2688 & --- \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{模型评估}
+
+\begin{center}
+\begin{tabular}{lc}
+\toprule
+指标 & 数值 \\
+\midrule
+$R^2$  & 0.5319 \\
+MAE    & 315.6 \\
+MAPE   & 4.42\% \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{预测与残差}
+
+\begin{center}
+\begin{tabular}{crrrr}
+\toprule
+$t$ (days) & Actual & Predicted & Residual & Rel.\ Error \\
+\midrule
+0   & 6314 & 6314.0 & $-0.0$   & $-0.00\%$ \\
+30  & 6542 & 7033.9 & $-491.9$ & $-7.52\%$ \\
+60  & 6875 & 7474.4 & $-599.4$ & $-8.72\%$ \\
+90  & 7173 & 7724.4 & $-551.4$ & $-7.69\%$ \\
+120 & 7368 & 7860.2 & $-492.2$ & $-6.68\%$ \\
+150 & 7591 & 7932.4 & $-341.4$ & $-4.50\%$ \\
+180 & 7724 & 7970.2 & $-246.2$ & $-3.19\%$ \\
+270 & 7896 & 8005.3 & $-109.3$ & $-1.38\%$ \\
+365 & 8002 & 8010.3 & $-8.3$   & $-0.10\%$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{系统性偏差}：全部残差均为负值（模型高估），最大偏差出现在 $t=60$ 天
+（$-599.4$ tons/day）。这说明 $\gamma = 0.022$ 显著大于实际有效增长率——
+数据中的增长被某种抑制因素拖慢了。
+
+\section{远期预测}
+
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+$t$ (days) & $x(t)$ (tons/day) & 占 $K$ 比例 \\
+\midrule
+400 & 8010.7 & 99.996\% \\
+450 & 8010.9 & 99.999\% \\
+500 & 8011.0 & 100.00\% \\
+600 & 8011.0 & 100.00\% \\
+730 & 8011.0 & 100.00\% \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+模型在 400 天后已基本饱和，渐近趋近 $K = 8011$。由于不存在促进效应，
+回收量无法突破基准容量 $K$。
+
+\section{关键结论}
+
+\begin{enumerate}
+  \item \textbf{零参数局限性}：$R^2 = 0.532$、MAE$=315.6$，仅能解释约 $53\%$ 的方差；
+        模型在中期（30--150 天）存在显著系统性高估。
+  \item \textbf{有效增长率偏低}：全部残差为负，表明基准 $\gamma = 0.022$ 高估了增长速度；
+        需要引入\textbf{抑制系数} $\beta$ 进行调制。
+  \item \textbf{容量假设过强}：模型强制 $x(t) \to K = 8011$，但实测数据在 $t = 365$ 已达
+        $8002$，接近饱和平台；若存在\textbf{促进效应}，实际饱和值应高于 $K$。
+  \item \textbf{为 Q2 建模提供方向}：需要在 Q1 基础上引入促进系数 $\alpha$ 和抑制系数
+        $\beta$，分别调节有效容量 $K_{\text{eff}}$ 和有效增长率 $r$。
+\end{enumerate}
+
+\end{document}
