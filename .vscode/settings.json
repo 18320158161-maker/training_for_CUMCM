@@ -2,18 +2,13 @@
     "latex-workshop.latex.tools": [
     {
         "name": "xelatex",
-        "command": "xelatex",
+        "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\MiKTeX\\miktex\\bin\\x64\\xelatex.exe",
         "args": [
             "-synctex=1",
             "-interaction=nonstopmode",
             "-file-line-error",
-            "%DOCFILE%"
+            "%DOC%"
         ]
-    },
-    {
-        "name": "bibtex",
-        "command": "bibtex",
-        "args": ["%DOCFILE%"]
     }
-],
+]
 }
