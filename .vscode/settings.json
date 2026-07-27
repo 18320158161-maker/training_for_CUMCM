@@ -1,0 +1,14 @@
+{
+    "latex-workshop.latex.tools": [
+    {
+        "name": "xelatex",
+        "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\MiKTeX\\miktex\\bin\\x64\\xelatex.exe",
+        "args": [
+            "-synctex=1",
+            "-interaction=nonstopmode",
+            "-file-line-error",
+            "%DOC%"
+        ]
+    }
+]
+}
