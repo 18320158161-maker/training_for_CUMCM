@@ -1,0 +1,704 @@
+% !TeX program = xelatex
+\documentclass[12pt,a4paper]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage[UTF8]{ctex}
+\geometry{margin=2.5cm}
+
+% ============ Custom boxes ============
+\newtcolorbox{theorybox}[1][]{
+  colback=blue!5!white, colframe=blue!60!black, fonttitle=\bfseries,
+  title=#1, sharp corners=south, boxrule=0.8pt
+}
+\newtcolorbox{keypoint}[1][]{
+  colback=red!5!white, colframe=red!60!black, fonttitle=\bfseries,
+  title=#1, sharp corners=south, boxrule=0.8pt
+}
+
+\title{\textbf{稳定性分析的数学方法详解}\\[5pt]
+\large ——以``沪尚回收''回收体系模型为例}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+% ===================================================================
+\section{我们要解决什么问题？}
+% ===================================================================
+
+\textbf{问题背景}：上海市``沪尚回收''体系是一个覆盖全市的绿色回收网络，
+拥有超过1.5万个基础回收服务点、4300余台智能回收箱。
+我们用微分方程描述回收量随时间的变化规律。
+
+\textbf{问题3的核心问题}：
+\begin{center}
+\fbox{%
+\begin{minipage}{0.88\textwidth}
+这个回收体系会不会出现``断崖式崩溃''？\\
+在怎样的参数范围内，系统是安全的？\\
+如何划定安全边界来预警风险？
+\end{minipage}}
+\end{center}
+
+\textbf{本文要讲清楚的事}：
+\begin{enumerate}[label=(\arabic*)]
+  \item 这个微分方程模型是怎么来的，每个符号是什么意思
+  \item 什么是``平衡点''——系统会停在哪些状态
+  \item 什么是``稳定性''——系统受到干扰后，能回到原来的状态吗
+  \item 如何用数学严格判断稳定性
+  \item 什么是``结构稳定性''——参数变化会导致系统行为发生质的改变吗
+  \item 如何划定实用的安全边界
+\end{enumerate}
+
+% ===================================================================
+\section{微分方程模型：从现实到数学}
+% ===================================================================
+
+\subsection{第一步：描述变化率}
+
+我们关心的核心量是 $x(t)$——第 $t$ 天上海市每天的可回收物回收量（吨/天）。
+
+微分方程的基本思想很简单：\textbf{不直接写 $x(t)$ 的表达式，而是写 $x$ 的变化率 $\frac{dx}{dt}$ 与 $x$ 本身之间的关系}。
+
+\medskip
+\textbf{类比理解}：银行账户。如果你不直接知道账户余额随时间的变化公式，但你知道``余额越多，利息越多；利息 = 利率 $\times$ 余额''，那么这个关系就是
+\[
+\frac{dB}{dt} = r \cdot B
+\]
+其中 $B$ 是余额，$r$ 是利率。这就是一个微分方程——它描述了余额的变化规律，但本身不直接给出余额的值。解这个方程，我们可以得到 $B(t) = B_0 e^{rt}$（指数增长）。
+
+\subsection{第二步：Logistic 方程——自然增长 + 饱和约束}
+
+纯粹指数增长不现实——回收量不可能无限增长，城市的人口和消费能力有限。
+
+最经典的修正来自比利时数学家 Pierre Fran\c{c}ois Verhulst（1838年），他提出了\textbf{Logistic 方程}：
+\[
+\frac{dx}{dt} = \gamma \cdot x \cdot \left(1 - \frac{x}{K}\right)
+\]
+
+逐项解释：
+\begin{itemize}
+  \item $\gamma > 0$：\textbf{固有增长率}。当 $x$ 远小于 $K$ 时（$x/K \approx 0$），方程近似为 $\frac{dx}{dt} \approx \gamma x$——是指数增长。$\gamma$ 反映了居民基础参与度和政策推动效率。题目给出 $\gamma = 0.022$ /天。
+  \item $K > 0$：\textbf{饱和容量}（或称环境承载力）。当 $x = K$ 时，括号内的 $(1 - x/K) = 0$，变化率为零——系统达到上限，不再增长。题目给出 $K = 8011$ 吨/天。
+  \item $(1 - x/K)$：\textbf{剩余空间因子}。它像是一个``刹车''——$x$ 越接近 $K$，刹车踩得越重。
+\end{itemize}
+
+\subsection{第三步：引入促进和抑制——Q2 的对称拮抗模型}
+
+现实比纯 Logistic 更复杂：
+\begin{itemize}
+  \item \textbf{促进效应}：站点覆盖率提升、宣传力度加大、投递便捷性改善 → 应该扩大有效容量。
+  \item \textbf{抑制效应}：清运不及时、智能回收箱满溢、老年群体操作困难 → 应该降低有效增长速度。
+\end{itemize}
+
+Q2 引入两个\textbf{非负}系数来刻画这两类效应：
+\begin{itemize}
+  \item $\alpha \geq 0$：\textbf{促进系数}。作用于容量——$K_{\text{eff}} = K(1+\alpha)$，促进越强，有效容量越大。
+  \item $\beta \geq 0$：\textbf{抑制系数}。作用于增长率——$r = \gamma/(1+\beta)$，抑制越强，有效增长率越低。
+\end{itemize}
+
+得到的模型是 Q2 的核心成果：
+\begin{equation}\label{eq:model}
+\boxed{\frac{dx}{dt} = \frac{\gamma}{1+\beta} \cdot x \cdot \left(1 - \frac{x}{K(1+\alpha)}\right)}
+\end{equation}
+
+为书写方便，定义两个\textbf{有效参数}：
+\begin{equation}\label{eq:effective}
+r = \frac{\gamma}{1+\beta}, \qquad K_{\text{eff}} = K(1+\alpha)
+\end{equation}
+
+则方程化为标准 Logistic 形式：
+\begin{equation}\label{eq:standard}
+\boxed{\frac{dx}{dt} = r \cdot x \cdot \Bigl(1 - \frac{x}{K_{\text{eff}}}\Bigr)}
+\end{equation}
+
+\begin{keypoint}[关键约束]
+\textbf{$\alpha \geq 0$ 和 $\beta \geq 0$ 不是随意加的——它们由定义本身决定}：
+\begin{itemize}
+  \item 促进效应用 $\alpha$ 衡量，如果 $\alpha < 0$，那就是``负促进''，这在物理上意味着站点越多、宣传越好反而回收越少，不合理。所以定义上 $\alpha \geq 0$。
+  \item 抑制效应用 $\beta$ 衡量，如果 $\beta < 0$，那就是``负抑制''（即促进），这在物理上意味着清运越差反而回收越快，也不合理。所以定义上 $\beta \geq 0$。
+\end{itemize}
+\textbf{这个看似平凡的事实，将成为整个稳定性分析的关键。}
+\end{keypoint}
+
+\subsection*{参数数值一览}
+
+Q2 通过拟合实测数据得到（$\gamma = 0.022, K = 8011$ 是题目给定的固定值）：
+
+\begin{center}
+\begin{tabular}{lclc}
+\toprule
+参数 & 符号 & 数值 & 单位 \\
+\midrule
+固有增长率 & $\gamma$ & 0.022 & /天 \\
+饱和容量 & $K$ & 8011 & 吨/天 \\
+\textbf{拟合：有效增长率} & $r$ & $\mathbf{0.008485}$ & /天 \\
+\textbf{拟合：有效容量} & $K_{\text{eff}}$ & $\mathbf{8142.22}$ & 吨/天 \\
+\midrule
+\textbf{导出：促进系数} & $\alpha = K_{\text{eff}}/K - 1$ & $\mathbf{0.0164}$ & 无量纲 \\
+\textbf{导出：抑制系数} & $\beta = \gamma/r - 1$ & $\mathbf{1.5929}$ & 无量纲 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{数值含义}：
+\begin{itemize}
+  \item $r/\gamma = 1/(1+\beta) = 0.386$：抑制效应使有效增长率降至固有增长率的\textbf{仅 38.6\%}——抑制占据绝对主导。
+  \item $K_{\text{eff}}/K = 1+\alpha = 1.0164$：促进效应仅将有效容量提升了\textbf{1.64\%}——促进效应较弱。
+\end{itemize}
+
+% ===================================================================
+\section{预备知识：稳定性理论}
+% ===================================================================
+
+在分析模型之前，先把稳定性理论完整地建立起来。
+\textbf{每一步都有推导。}
+
+\subsection{什么是``自治微分方程''？}
+
+如果微分方程的右边不显含时间 $t$，只依赖于 $x$ 本身，就称为\textbf{自治微分方程}（autonomous ODE）：
+\[
+\frac{dx}{dt} = f(x)
+\]
+其中 $f(x)$ 是某个已知函数。我们的模型正是这个形式：
+\[
+f(x) = r \cdot x \cdot \left(1 - \frac{x}{K_{\text{eff}}}\right)
+\]
+
+\textbf{物理直觉}：自治意味着``游戏规则不随时间改变''——今天和明天的变化规律是一样的。
+
+\subsection{什么是``平衡点''？}
+
+\begin{theorybox}[定义：平衡点（Equilibrium Point）]
+如果某个 $x^*$ 满足 $f(x^*) = 0$，则称 $x^*$ 为方程 $\frac{dx}{dt} = f(x)$ 的\textbf{平衡点}（也称不动点、临界点、稳态）。
+\end{theorybox}
+
+\textbf{为什么叫平衡点？} 因为如果在 $t=0$ 时系统恰好在 $x^*$，那么 $\frac{dx}{dt}\big|_{x=x^*} = f(x^*) = 0$，
+变化率为零——系统永远停在那里不动。
+
+\begin{theorybox}[寻找平衡点的方法]
+解代数方程：$f(x) = 0$。这是代数问题，不是微分方程问题——因为平衡点上 $dx/dt = 0$，微分方程退化成了代数方程。
+\end{theorybox}
+
+\subsection{稳定性：核心概念}
+
+找到平衡点只是第一步。真正的问题是：\textbf{如果系统没恰好停在平衡点，而是在附近，会发生什么？}
+
+\begin{theorybox}[直观定义：稳定性]
+考虑平衡点 $x^*$。假设在 $t = 0$ 时，系统不在 $x^*$，而在 $x^* + \delta$（$\delta$ 是一个微小偏差）：
+\begin{itemize}
+  \item 如果 $\delta$ 随时间\textbf{衰减到零}（系统回到 $x^*$），则 $x^*$ 是\textbf{渐近稳定的}。
+  \item 如果 $\delta$ 随时间\textbf{增长}（系统远离 $x^*$），则 $x^*$ 是\textbf{不稳定的}。
+  \item 如果 $\delta$ 既不增长也不衰减（保持常值或振荡），则需要更精细的分析。
+\end{itemize}
+\end{theorybox}
+
+\textbf{类比}：
+\begin{itemize}
+  \item 碗底的弹珠 → 稳定平衡（推一下，它会滚回碗底）。
+  \item 山顶的弹珠 → 不稳定平衡（推一下，它会滚下山）。
+  \item 桌面上的弹珠 → 中性稳定（推一下，它停在新的位置，不回原处也不继续滚）。
+\end{itemize}
+
+\subsection{线性化方法}
+
+\subsubsection*{关键思想：在平衡点附近，用切线代替曲线}
+
+考虑 $f(x)$ 在 $x^*$ 附近的\textbf{一阶 Taylor 展开}：
+\[
+f(x) = f(x^*) + f'(x^*)(x - x^*) + \underbrace{\frac{f''(\xi)}{2}(x - x^*)^2}_{\text{高阶小量，当 } x \to x^* \text{ 时可忽略}}
+\]
+
+因为 $x^*$ 是平衡点，$f(x^*) = 0$，所以：
+\[
+f(x) \approx f'(x^*) \cdot (x - x^*)
+\]
+
+\textbf{这就是线性化}：用直线（切线）来近似曲线，只保留一阶项。当 $x$ 离 $x^*$ 足够近时，这个近似是有效的。
+
+\subsubsection*{得到线性微分方程}
+
+令 $u(t) = x(t) - x^*$ 表示偏离平衡点的``偏差量''。则：
+\[
+\frac{du}{dt} = \frac{dx}{dt} = f(x) \approx f'(x^*) \cdot (x - x^*) = f'(x^*) \cdot u
+\]
+
+记 $\lambda = f'(x^*)$，我们得到一个极其简单的微分方程：
+\[
+\boxed{\frac{du}{dt} = \lambda \cdot u}
+\]
+
+\subsubsection*{解这个线性方程}
+
+用\textbf{分离变量法}求解：
+\begin{align*}
+\frac{du}{dt} &= \lambda u \\
+\frac{du}{u} &= \lambda \, dt \quad \text{（两边分离变量）}\\
+\int \frac{du}{u} &= \int \lambda \, dt \\
+\ln|u| &= \lambda t + C \\
+|u| &= e^{\lambda t + C} = e^C \cdot e^{\lambda t}
+\end{align*}
+
+令 $u_0 = u(0)$（初始偏差），则 $e^C = |u_0|$，去掉绝对值号后：
+\[
+\boxed{u(t) = u_0 \cdot e^{\lambda t}}
+\]
+
+\subsubsection*{稳定性判据}
+
+\begin{keypoint}[线性化稳定性判据（一维系统）]
+对于自治方程 $\frac{dx}{dt} = f(x)$ 和平衡点 $x^*$（满足 $f(x^*) = 0$），
+计算 $\lambda = f'(x^*)$：
+\[
+\begin{cases}
+\lambda < 0: & \text{渐近稳定——偏差以 } e^{\lambda t} \text{ 指数衰减到零} \\
+\lambda > 0: & \text{不稳定——偏差以 } e^{\lambda t} \text{ 指数放大} \\
+\lambda = 0: & \text{线性化无法判断，需要更高阶分析}
+\end{cases}
+\]
+\end{keypoint}
+
+\textbf{为什么 $\lambda$ 叫``特征值''？} 在一维系统中，$\lambda = f'(x^*)$ 就是 Jacobi 矩阵（此时退化为一个数）的特征值。在多维系统中（如捕食者-猎物模型），$f'(x^*)$ 是一个矩阵，我们需要计算其特征值。但这里是一维系统，所以``特征值''就是 $f'(x^*)$ 这一个数字——不需要任何矩阵知识。
+
+\begin{theorybox}[为什么线性化是可靠的？（Hartman--Grobman 定理的通俗表述）]
+如果 $\lambda = f'(x^*) \neq 0$（即平衡点是\textbf{双曲的}），那么非线性系统
+$\frac{dx}{dt} = f(x)$ 在 $x^*$ 附近的定性行为，与其线性近似
+$\frac{du}{dt} = f'(x^*) u$ 完全相同。也就是说：\textbf{只要 $f'(x^*) \neq 0$，
+线性化给出的稳定/不稳定结论就是严格正确的}。
+\end{theorybox}
+
+\subsection{一维相线：最直观的理解方式}
+
+对于一维自治系统，有一个非常直观的工具——\textbf{相线（Phase Line）}。
+
+\begin{theorybox}[相线的画法]
+\begin{enumerate}[label=(\arabic*)]
+  \item 在数轴上标出所有平衡点（$f(x) = 0$ 的解）。
+  \item 平衡点将数轴分割为若干区间。
+  \item 在每个区间内，判断 $f(x)$ 的符号：
+  \begin{itemize}
+    \item $f(x) > 0$（变化率为正）$\Rightarrow$ $x$ 向\textbf{右}（增大方向）运动 → 画右箭头
+    \item $f(x) < 0$（变化率为负）$\Rightarrow$ $x$ 向\textbf{左}（减小方向）运动 → 画左箭头
+  \end{itemize}
+  \item 观察箭头走向：
+  \begin{itemize}
+    \item 两边箭头\textbf{都指向}平衡点 → \textbf{稳定}（汇，sink）
+    \item 两边箭头\textbf{都背离}平衡点 → \textbf{不稳定}（源，source）
+    \item 一边指向、一边背离 → \textbf{半稳定}（鞍点退化）
+  \end{itemize}
+\end{enumerate}
+\end{theorybox}
+
+\textbf{为什么相线与线性化等价？} 因为 $f'(x^*) > 0$ 意味着 $f(x)$ 在 $x^*$ 处是递增的——左边 $f(x) < 0$（箭头向左），右边 $f(x) > 0$（箭头向右）——所以箭头背离平衡点，对应不稳定。$f'(x^*) < 0$ 同理对应稳定。两种方法给出的结论完全一致，但相线更直观，线性化更定量。
+
+% ===================================================================
+\section{模型分析第一步：找平衡点}
+% ===================================================================
+
+现在回到我们的模型：
+\[
+f(x) = r \cdot x \cdot \left(1 - \frac{x}{K_{\text{eff}}}\right), \qquad r = \frac{\gamma}{1+\beta}, \quad K_{\text{eff}} = K(1+\alpha)
+\]
+
+\subsection{求解 $f(x) = 0$}
+
+\begin{align*}
+r \cdot x \cdot \left(1 - \frac{x}{K_{\text{eff}}}\right) &= 0
+\end{align*}
+
+因为 $r > 0$（$\gamma > 0$，$1+\beta \geq 1$，所以 $r$ 恒为正），乘积为零的条件是：
+\[
+x = 0 \quad \text{或} \quad 1 - \frac{x}{K_{\text{eff}}} = 0 \;\Rightarrow\; x = K_{\text{eff}}
+\]
+
+得到\textbf{两个平衡点}：
+\begin{equation}\label{eq:equilibria}
+\boxed{x_1^* = 0, \qquad x_2^* = K_{\text{eff}} = K(1+\alpha)}
+\end{equation}
+
+\textbf{物理含义}：
+\begin{itemize}
+  \item $x_1^* = 0$：回收量为零——体系完全瘫痪的状态。
+  \item $x_2^* = K_{\text{eff}}$：回收量达到有效饱和容量的状态。
+\end{itemize}
+
+\subsection*{数值代入}
+\[
+x_1^* = 0, \qquad x_2^* = 8142.22 \text{ 吨/天}
+\]
+
+% ===================================================================
+\section{模型分析第二步：判断稳定性——线性化方法}
+% ===================================================================
+
+\subsection{计算导数 $f'(x)$}
+
+\begin{align*}
+f(x) &= r x - \frac{r}{K_{\text{eff}}} x^2 \\[5pt]
+f'(x) &= r - \frac{2r}{K_{\text{eff}}} x = r\left(1 - \frac{2x}{K_{\text{eff}}}\right)
+\end{align*}
+
+推导过程（逐项求导）：
+\begin{itemize}
+  \item 第一项 $r x$ 对 $x$ 求导：$\frac{d}{dx}(r x) = r$。
+  \item 第二项 $-\frac{r}{K_{\text{eff}}} x^2$ 对 $x$ 求导：$-\frac{r}{K_{\text{eff}}} \cdot 2x = -\frac{2r}{K_{\text{eff}}}x$。
+  \item 合并：$f'(x) = r - \frac{2r}{K_{\text{eff}}}x = r\left(1 - \frac{2x}{K_{\text{eff}}}\right)$。
+\end{itemize}
+
+\subsection{评估每个平衡点的 $\lambda = f'(x^*)$}
+
+\subsubsection*{平衡点 $x_1^* = 0$}
+
+\[
+\lambda_1 = f'(0) = r\left(1 - \frac{2 \cdot 0}{K_{\text{eff}}}\right) = r
+\]
+
+因为 $r = \frac{\gamma}{1+\beta} > 0$（$\gamma > 0$，$1+\beta \geq 1$）：
+\[
+\boxed{\lambda_1 = r > 0}
+\]
+
+\textbf{结论}：$\lambda_1 > 0$ $\Rightarrow$ $x_1^* = 0$ 是\textbf{不稳定的}。
+
+\textbf{物理含义}：只要稍微有一点点回收活动（$x(0) > 0$，哪怕很小），系统就会自动远离零状态，开始增长。这很好——回收体系不会自己``死掉''。
+
+\subsubsection*{平衡点 $x_2^* = K_{\text{eff}}$}
+
+\[
+\lambda_2 = f'(K_{\text{eff}}) = r\left(1 - \frac{2 \cdot K_{\text{eff}}}{K_{\text{eff}}}\right) = r(1 - 2) = -r
+\]
+
+因为 $r > 0$：
+\[
+\boxed{\lambda_2 = -r < 0}
+\]
+
+\textbf{结论}：$\lambda_2 < 0$ $\Rightarrow$ $x_2^* = K_{\text{eff}}$ 是\textbf{渐近稳定的}。
+
+\textbf{物理含义}：如果回收量因为某种原因偏离了有效容量（比如某个月因节假日波动偏高或偏低），系统会自动调节、回到 $K_{\text{eff}}$。这是一个``自愈''机制。
+
+\subsection*{数值代入}
+\[
+\lambda_1 = r = 0.008485 > 0 \quad \text{（不稳定）}, \qquad
+\lambda_2 = -r = -0.008485 < 0 \quad \text{（渐近稳定）}
+\]
+
+\subsection{结果总结}
+
+\begin{center}
+\begin{tabular}{lcccc}
+\toprule
+平衡点 & 表达式 & 数值（吨/天） & 特征值 $\lambda = f'(x^*)$ & 稳定性 \\
+\midrule
+$x_1^*$（零回收）  & $0$            & $0$      & $\lambda_1 = r = 0.008485 > 0$  & \textbf{不稳定} \\
+$x_2^*$（可持续） & $K(1+\alpha)$  & $8142.22$ & $\lambda_2 = -r = -0.008485 < 0$ & \textbf{渐近稳定} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% ===================================================================
+\section{模型分析第三步：相线验证}
+% ===================================================================
+
+用相线方法交叉验证线性化的结论。注意：我们只关心 $x \geq 0$（回收量不能为负），
+$f(x) = r \cdot x \cdot (1 - x/K_{\text{eff}})$ 是三个因子的乘积，$r > 0$ 恒成立。
+
+\subsection*{两个平衡点把正半轴切成两个区间}
+
+\[
+\underbrace{\rule{20pt}{0pt}}_{x_1^*=0}
+\;\; \underbrace{\qquad (0,\; K_{\text{eff}}) \qquad}_{\text{区间 I}}
+\;\; \underbrace{\rule{30pt}{0pt}}_{x_2^*=K_{\text{eff}}}
+\;\; \underbrace{\qquad (K_{\text{eff}},\; +\infty) \qquad}_{\text{区间 II}}
+\]
+
+\subsection*{逐区间、逐因子判断 $f(x)$ 的符号}
+
+\textbf{区间 I：$0 < x < K_{\text{eff}}$}
+
+\begin{center}
+\begin{tabular}{lcc|l}
+\toprule
+因子 & 表达式 & 符号 & 理由 \\
+\midrule
+因子 1 & $r$                              & $+$ & $\gamma>0,\;1+\beta>0$ 恒成立 \\
+因子 2 & $x$                              & $+$ & $x > 0$ \\
+因子 3 & $1 - x/K_{\text{eff}}$           & $+$ & $x < K_{\text{eff}} \;\Rightarrow\; x/K_{\text{eff}} < 1$ \\
+\midrule
+\multicolumn{3}{l}{\textbf{乘积 $f(x)$}} & \multicolumn{1}{c}{\boxed{$\;+\;$（正）}} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+$f(x) > 0$ $\Rightarrow$ 变化率为正 $\Rightarrow$ $x$ 随时间\textbf{增大} $\Rightarrow$ 箭头向\textbf{右} $\longrightarrow$
+
+\medskip
+\textbf{区间 II：$x > K_{\text{eff}}$}
+
+\begin{center}
+\begin{tabular}{lcc|l}
+\toprule
+因子 & 表达式 & 符号 & 理由 \\
+\midrule
+因子 1 & $r$                              & $+$ & $\gamma>0,\;1+\beta>0$ 恒成立 \\
+因子 2 & $x$                              & $+$ & $x > K_{\text{eff}} > 0$ \\
+因子 3 & $1 - x/K_{\text{eff}}$           & $-$ & $x > K_{\text{eff}} \;\Rightarrow\; x/K_{\text{eff}} > 1$ \\
+\midrule
+\multicolumn{3}{l}{\textbf{乘积 $f(x)$}} & \multicolumn{1}{c}{\boxed{$\;-\;$（负）}} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+$f(x) < 0$ $\Rightarrow$ 变化率为负 $\Rightarrow$ $x$ 随时间\textbf{减小} $\Rightarrow$ 箭头向\textbf{左} $\longleftarrow$
+
+\subsection*{画出相线}
+
+\[
+\begin{array}{ccccccc}
+& & f(x) > 0 & & f(x) < 0 & \\
+& & \longrightarrow & & \longleftarrow & \\
+\hline
+& x_1^* = 0 & & x_2^* = K_{\text{eff}} & & +\infty \\[6pt]
+& \text{不稳定} & & \text{渐近稳定} & &
+\end{array}
+\]
+
+\subsection*{判读}
+
+\begin{itemize}
+  \item \textbf{$x_2^* = K_{\text{eff}}$}：左边箭头向右 $\rightarrow$、右边箭头向左 $\leftarrow$，
+        \textbf{两边都指向它} $\Rightarrow$ \textbf{渐近稳定}。
+        不管初始回收量是偏低还是偏高，系统都自动回到 $K_{\text{eff}}$。
+  \item \textbf{$x_1^* = 0$}：右边的箭头向右 $\rightarrow$（背离它），
+        \textbf{箭头背离它} $\Rightarrow$ \textbf{不稳定}。
+        只要 $x$ 稍微大于零，系统就自动远离零。
+\end{itemize}
+
+\textbf{物理直觉}：
+\begin{itemize}
+  \item 回收量在 $(0, K_{\text{eff}})$ 之间 → 还有剩余空间，系统自动增长
+  \item 回收量超过 $K_{\text{eff}}$ → 超出承载能力，系统自动回落
+  \item 不管从哪出发（只要 $x(0) > 0$），最终都稳定在 $K_{\text{eff}}$
+\end{itemize}
+
+\textbf{这与线性化结论完全一致。}
+
+% ===================================================================
+\section{关键发现：为什么系统不会崩溃？}
+% ===================================================================
+
+我们得出了最重要的结论：
+
+\begin{center}
+\fbox{%
+\begin{minipage}{0.88\textwidth}
+\textbf{对任意正初值 $x(0) > 0$}（即初始时至少有一点点回收活动），\\
+\textbf{对任意 $\alpha \geq 0$, $\beta \geq 0$}（即促进和抑制都是正向的），\\
+系统\textbf{恒收敛}到 $x_2^* = K_{\text{eff}} > 0$——一个正的有效容量。
+\end{minipage}}
+\end{center}
+
+\textbf{证明只需一行}：
+\[
+\beta \geq 0 \;\Rightarrow\; 1+\beta \geq 1 \;\Rightarrow\; r = \frac{\gamma}{1+\beta} \in (0, \gamma]
+\;\Rightarrow\; \lambda_2 = -r < 0 \text{ 恒成立}
+\]
+
+\textbf{这意味着}：在整个有效的参数空间内（$\alpha \geq 0, \beta \geq 0$），稳定平衡点 $x_2^*$ 永远是稳定的，稳定性的符号永远不会翻转。系统不会因为参数变化而发生质的改变（比如突然从一个稳态跳到另一个不稳定的状态，或者平衡点消失）。
+
+这就是\textbf{结构稳定性}的含义。
+
+% ===================================================================
+\section{结构稳定性：更深入的理解}
+% ===================================================================
+
+\subsection{什么情况下稳定性会出问题？（但我们不会遇到）}
+
+为了理解结构稳定性的珍贵，我们来看一个反例：\textbf{如果可以将 $\beta$ 扩展到负值会怎样？}
+
+假设我们不考虑 $\beta \geq 0$ 的约束，允许 $\beta$ 取任意实数。那么当 $\beta = -1$ 时：
+\[
+r = \frac{\gamma}{1+\beta} = \frac{\gamma}{0} \;\rightarrow\; \text{无定义（奇点）}
+\]
+当 $\beta < -1$ 时：$1+\beta < 0$，所以 $r < 0$，这会导致 $\lambda_2 = -r > 0$——稳定平衡点变成了不稳定的！
+系统会从``趋于 $K_{\text{eff}}$''变为``远离 $K_{\text{eff}}$''——这就是\textbf{分岔（bifurcation）}。
+
+\textbf{但}：$\beta$ 是抑制系数，它的定义决定了 $\beta \geq 0$。我们\textbf{永远不会}接近 $\beta = -1$。
+
+\subsection{结构稳定性的定义}
+
+\begin{theorybox}[结构稳定性（通俗定义）]
+一个微分方程系统是\textbf{结构稳定}的，如果对参数（比如 $\alpha, \beta$）的微小改变，
+系统的\textbf{定性行为}不发生变化——平衡点的个数不变，每个平衡点的稳定/不稳定性质也不变。
+\end{theorybox}
+
+换个说法：结构稳定意味着系统的``拓扑相图''在参数扰动下保持不变。
+如果参数的变化会导致平衡点突然出现、消失，或稳定性翻转，
+就发生了\textbf{分岔}——系统就不是结构稳定的。
+
+\subsection{我们的模型为什么是结构稳定的？}
+
+因为稳定性由 $\lambda_2 = -r = -\gamma/(1+\beta)$ 的符号决定。
+而 $\text{sign}(\lambda_2) = \text{sign}(-\gamma/(1+\beta))$。
+
+在有效参数空间 $\{(\alpha, \beta) \mid \alpha \geq 0, \beta \geq 0\}$ 中：
+\[
+\gamma > 0,\; 1+\beta \geq 1 > 0 \;\Rightarrow\; r > 0 \;\Rightarrow\; \lambda_2 < 0
+\]
+
+\textbf{符号永远不会翻转。} 这就是结构稳定性的数学本质。
+
+\begin{keypoint}[关键结论]
+\begin{center}
+\textbf{``沪尚回收''体系在数学上不可能发生断崖式崩溃。}\\[3pt]
+只要促进效应和抑制效应保持其设计的物理含义（恒为正数），\\
+回收量将始终趋向正平衡值 $K_{\text{eff}}$。
+\end{center}
+\end{keypoint}
+
+\subsection*{那风险在哪里？}
+
+风险不在于数学崩溃，而在于\textbf{性能退化}：
+
+\begin{itemize}
+  \item 如果 $\beta$ 越来越大（运维质量越来越差），$r = \gamma/(1+\beta)$ 会趋近于零——系统理论上仍然收敛到 $K_{\text{eff}}$，但收敛得\textbf{极慢}，实际运营中看起来像``停滞''。
+  \item 如果 $\alpha$ 趋近于零，$K_{\text{eff}} \to K$，有效容量缩水到基准值。
+  \item 现实中，回收量在``缓慢爬升''时，居民看不到进展、管理者失去信心——这本身就会引发恶性循环。
+\end{itemize}
+
+\textbf{所以我们需要实用安全边界——下一节讨论。}
+
+% ===================================================================
+\section{实用安全边界：虽然不是分岔，但不能太慢}
+% ===================================================================
+
+结构稳定性给了我们定性的安全感，但运营管理还需要定量的警戒线。
+
+\subsection{增长率约束：不能收敛得太慢}
+
+设 $r_{\min}$ 为\textbf{最低可接受的有效增长率}。我们要求：
+\[
+r = \frac{\gamma}{1+\beta} \geq r_{\min}
+\]
+
+\textbf{为什么设这个约束？} 如果 $r$ 太小，系统虽然理论上会收敛到 $K_{\text{eff}}$，
+但需要极长时间。例如 $r = 0.001$ 时，恢复到平衡值 $99\%$ 需要约 $\ln(99)/0.001 \approx 4595$ 天（约 12.6 年）
+——这在实践中是不可接受的。
+
+解出 $\beta$ 的上界：
+\begin{align*}
+\frac{\gamma}{1+\beta} &\geq r_{\min} \\[3pt]
+\gamma &\geq r_{\min}(1+\beta) \\[3pt]
+\frac{\gamma}{r_{\min}} &\geq 1+\beta \\[3pt]
+\beta &\leq \frac{\gamma}{r_{\min}} - 1
+\end{align*}
+
+取 $r_{\min} = 0.005$（基于运营管理的最低要求：\\
+大约需要 $-\ln(0.01)/0.005 \approx 921$ 天恢复到 $99\%$ 的饱和水平）：
+\[
+\boxed{\beta_{\max} = \frac{0.022}{0.005} - 1 = 3.40}
+\]
+
+当前 $\beta = 1.59$，安全裕度 $= 3.40 - 1.59 = 1.81$——\textbf{裕度充足}。
+
+\subsection{容量约束：不能低于基准}
+
+设 $K_{\min}$ 为最低可接受的有效容量。我们取 $K_{\min} = K$（至少不能比纯自然的饱和值还低）：
+\[
+K_{\text{eff}} = K(1+\alpha) \geq K \;\Rightarrow\; 1+\alpha \geq 1 \;\Rightarrow\; \alpha \geq 0
+\]
+
+\textbf{这个约束由 $\alpha$ 的定义自然满足}——$\alpha \geq 0$ 就是促进系数的定义本身。
+
+\subsection{安全运行范围总表}
+
+\begin{center}
+\begin{tabular}{lcccc}
+\toprule
+参数 & 下界 & 上界 & 当前值 & 状态 \\
+\midrule
+$\alpha$（促进） & $0$（定义） & — 无上界 & $0.0164$ & 安全 \\
+$\beta$（抑制） & $0$（定义） & $3.40$（$r_{\min}$ 约束） & $1.59$ & 安全，裕度 $1.81$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% ===================================================================
+\section{解耦调控：模型的一个优雅特性}
+% ===================================================================
+
+观察有效参数的定义：
+\[
+r = \frac{\gamma}{1+\beta}, \qquad K_{\text{eff}} = K(1+\alpha)
+\]
+
+\textbf{发现}：
+\begin{itemize}
+  \item $\alpha$ 只出现在 $K_{\text{eff}}$ 中，不影响 $r$。
+  \item $\beta$ 只出现在 $r$ 中，不影响 $K_{\text{eff}}$。
+\end{itemize}
+
+\textbf{这意味着决策者可以独立调控两个维度：}
+\begin{itemize}
+  \item \textbf{想提升容量} → 增大 $\alpha$（扩大站点覆盖、改善投递便捷性）→ $K_{\text{eff}}$ 增大，但 $r$ 不变。
+  \item \textbf{想加快收敛速度} → 减小 $\beta$（改善清运效率、降低运维摩擦）→ $r$ 增大，但 $K_{\text{eff}}$ 不变。
+\end{itemize}
+
+这就像汽车的两个独立踏板——油门（$\alpha$）控制最终能跑多快（容量），
+离合器（$\beta$）控制换挡的平顺程度（收敛速度）。
+两个踏板互不干扰，可以分别优化。
+
+% ===================================================================
+\section{理论总结：完整逻辑链}
+% ===================================================================
+
+把从建模到最终结论的逻辑链串起来：
+
+\begin{enumerate}[label=\textbf{步骤 \arabic*}.]
+  \item \textbf{建立微分方程}：
+        \[
+        \frac{dx}{dt} = r \cdot x \cdot \left(1 - \frac{x}{K_{\text{eff}}}\right), \quad r = \frac{\gamma}{1+\beta}, \; K_{\text{eff}} = K(1+\alpha)
+        \]
+        其中 $\alpha \geq 0$（促进系数），$\beta \geq 0$（抑制系数），由定义保证。
+
+  \item \textbf{找平衡点}：令 $f(x) = r x (1 - x/K_{\text{eff}}) = 0$，得
+        \[
+        x_1^* = 0, \quad x_2^* = K_{\text{eff}}
+        \]
+
+  \item \textbf{线性化}：计算 $f'(x) = r(1 - 2x/K_{\text{eff}})$，在每个平衡点评估：
+        \[
+        \lambda_1 = f'(0) = r > 0 \;\Rightarrow\; x_1^* \text{ 不稳定}
+        \]
+        \[
+        \lambda_2 = f'(K_{\text{eff}}) = -r < 0 \;\Rightarrow\; x_2^* \text{ 渐近稳定}
+        \]
+
+  \item \textbf{结构稳定性论证}：因为 $\beta \geq 0 \Rightarrow r = \gamma/(1+\beta) > 0$ 恒成立，
+        所以 $\lambda_2 = -r < 0$ 在整个有效参数空间内恒成立。
+        \textbf{不存在任何参数取值使稳定性翻转}——系统是结构稳定的。
+
+  \item \textbf{实用安全边界}：虽然不会崩溃，但运营效率要求 $r \geq r_{\min}$，
+        推导出 $\beta \leq \gamma/r_{\min} - 1 = 3.40$（取 $r_{\min} = 0.005$）。
+
+  \item \textbf{解耦调控}：$\alpha$ 只控容量、$\beta$ 只控速度，可独立优化。
+\end{enumerate}
+
+\begin{keypoint}[核心方法总结]
+一维自治系统稳定性分析的核心工具只有三个：
+\begin{itemize}
+  \item \textbf{求解 $f(x) = 0$}（代数求解）——找平衡点
+  \item \textbf{求导 $f'(x)$}（微积分求导）——线性化
+  \item \textbf{判断导数的符号}（正负号分析）——稳定性判据
+\end{itemize}
+这就是一维自治系统稳定性分析的全部。多维系统才需要矩阵特征值；
+一维系统只需要一个导数和一个符号判断。
+\end{keypoint}
+
+\end{document}
