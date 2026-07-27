@@ -28,34 +28,28 @@
 f(x) = r \cdot x \cdot \left(1 - \frac{x}{K_{\text{eff}}}\right), \qquad r > 0,\; K_{\text{eff}} > 0
 \end{equation}
 
-两个平衡点（解 $f(x)=0$）：
-\[
-x_1^* = 0, \qquad x_2^* = K_{\text{eff}}
-\]
+$x$ 的物理定义域为 $[x_0, +\infty)$（回收量从 $x_0 = 6314$ 出发，$f(x) > 0$ 保证 $x$ 单调递增，不会回落）。
+代数方程 $f(x) = 0$ 有两个根：$x = 0$ 和 $x = K_{\text{eff}}$，但 $x = 0$ 远在定义域之外，
+物理上只存在一个平衡点：$x^* = K_{\text{eff}}$。
 
-问题：两个平衡点之间``只有一个区间''吗？怎么判断稳定性？
+\section{澄清：定义域内只有一个平衡点，它把定义域切成两个区间}
 
-\section{澄清：两个平衡点把正半轴切成了\textbf{两个}区间}
-
-我们只关心 $x \geq 0$（回收量不能为负），两个平衡点把正半轴切为两个区间：
+$x^* = K_{\text{eff}} = 8142.22$，初值 $x_0 = 6314$，$x_0 < K_{\text{eff}}$，平衡点将定义域切为两个区间：
 
 \[
-\underbrace{\rule{20pt}{0pt}}_{x_1^*=0}
-\;\; \underbrace{\qquad (0,\; K_{\text{eff}}) \qquad}_{\text{区间 I}}
-\;\; \underbrace{\rule{30pt}{0pt}}_{x_2^*=K_{\text{eff}}}
+\underbrace{\qquad [x_0,\; K_{\text{eff}}) \qquad}_{\text{区间 I}}
+\;\; \underbrace{\rule{30pt}{0pt}}_{x^* = K_{\text{eff}}}
 \;\; \underbrace{\qquad (K_{\text{eff}},\; +\infty) \qquad}_{\text{区间 II}}
 \]
 
-如果算上 $x < 0$ 的区间，则是三个：$(-\infty, 0)$、$(0, K_{\text{eff}})$、$(K_{\text{eff}}, +\infty)$。
-但物理上 $x \geq 0$，所以实际分析两个区间。
+（数学上的全实轴还有 $(-\infty, 0)$ 和 $(0, x_0)$，但它们不在 $x$ 的物理定义域内。）
 
 \section{逐区间、逐因子判断 $f(x)$ 的符号}
 
 $f(x) = r \cdot x \cdot (1 - x/K_{\text{eff}})$ 是\textbf{三个因子的乘积}。
-$r = \gamma/(1+\beta) > 0$ 恒成立（$\gamma > 0$，$1+\beta \geq 1$），
-所以最关键的判断在于后两个因子：$x$ 和 $(1 - x/K_{\text{eff}})$。
+$r = \gamma/(1+\beta) > 0$ 恒成立（$\gamma > 0$，$1+\beta \geq 1$）。
 
-\subsection*{区间 I：$0 < x < K_{\text{eff}}$}
+\subsection*{区间 I：$x_0 \leq x < K_{\text{eff}}$}
 
 \begin{center}
 \begin{tabular}{lcc|l}
@@ -63,7 +57,7 @@ $r = \gamma/(1+\beta) > 0$ 恒成立（$\gamma > 0$，$1+\beta \geq 1$），
 因子 & 表达式 & 符号 & 理由 \\
 \midrule
 因子 1 & $r$                              & $+$ & $\gamma>0,\;1+\beta>0$ 恒成立 \\
-因子 2 & $x$                              & $+$ & $x > 0$ \\
+因子 2 & $x$                              & $+$ & $x \geq x_0 = 6314 > 0$ \\
 因子 3 & $1 - x/K_{\text{eff}}$           & $+$ & $x < K_{\text{eff}} \;\Rightarrow\; x/K_{\text{eff}} < 1$ \\
 \midrule
 \multicolumn{4}{c}{\textbf{乘积 $f(x) \;=\; \boxed{+}$（正）}} \\
@@ -95,44 +89,17 @@ f(x) > 0 \;\Longrightarrow\; \frac{dx}{dt} > 0 \;\Longrightarrow\; x \text{ 随�
 f(x) < 0 \;\Longrightarrow\; \frac{dx}{dt} < 0 \;\Longrightarrow\; x \text{ 随时间 }\textbf{减小}\;\Longrightarrow\; \text{箭头向 }\textbf{左}\;\longleftarrow
 \]
 
-\subsection*{补：区间 $x < 0$（物理上不考虑，但数学上完整）}
-
-\begin{center}
-\begin{tabular}{lcc|l}
-\toprule
-因子 & 表达式 & 符号 & 理由 \\
-\midrule
-因子 1 & $r$                              & $+$ & 同上 \\
-因子 2 & $x$                              & $-$ & $x < 0$ \\
-因子 3 & $1 - x/K_{\text{eff}}$           & $+$ & $x < 0 < K_{\text{eff}} \;\Rightarrow\; x/K_{\text{eff}} < 0 < 1$ \\
-\midrule
-\multicolumn{4}{c}{\textbf{乘积 $f(x) \;=\; \boxed{-}$（负）}} \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-$f(x) < 0$ $\Rightarrow$ $x$ 随时间减小 $\Rightarrow$ 箭头向左 $\longleftarrow$（即远离 0，趋向 $-\infty$）。
-
 \section{画出相线}
 
-\[
-\begin{array}{ccccccc}
-& f(x) < 0 & & f(x) > 0 & & f(x) < 0 & \\
-& \longleftarrow & & \longrightarrow & & \longleftarrow & \\
-\hline
--\infty & & x_1^* = 0 & & x_2^* = K_{\text{eff}} & & +\infty \\[6pt]
-& & \text{不稳定} & & \text{渐近稳定} & &
-\end{array}
-\]
+物理定义域内的相线：
 
-物理区域（$x \geq 0$）只看中间和右边：
 \[
-\begin{array}{ccccccc}
-& & f(x) > 0 & & f(x) < 0 & \\
-& & \longrightarrow & & \longleftarrow & \\
+\begin{array}{cccccc}
+& f(x) > 0 & & f(x) < 0 & \\
+& \longrightarrow & & \longleftarrow & \\
 \hline
-& x_1^* = 0 & & x_2^* = K_{\text{eff}} & & +\infty \\[6pt]
-& \text{不稳定} & & \text{渐近稳定} & &
+x_0 & & x^* = K_{\text{eff}} & & +\infty \\[6pt]
+& & \text{渐近稳定} & &
 \end{array}
 \]
 
@@ -146,44 +113,32 @@ $f(x) < 0$ $\Rightarrow$ $x$ 随时间减小 $\Rightarrow$ 箭头向左 $\longle
 \end{itemize}
 \end{keypoint}
 
-\begin{itemize}
-  \item \textbf{$x_2^* = K_{\text{eff}}$}：
-        在区间 I 中 $f(x) > 0$（$\rightarrow$），在区间 II 中 $f(x) < 0$（$\leftarrow$），
-        \textbf{两边箭头都指向它} $\Rightarrow$ \textbf{渐近稳定}。
-
-  \item \textbf{$x_1^* = 0$}：
-        在区间 $x < 0$ 中 $f(x) < 0$（$\leftarrow$，背离），在区间 I 中 $f(x) > 0$（$\rightarrow$，也背离），
-        \textbf{两边箭头都背离它} $\Rightarrow$ \textbf{不稳定}。
-\end{itemize}
+在物理定义域内只有一个平衡点 $x^* = K_{\text{eff}}$，两边箭头都指向它：
+区间 I 中 $f(x) > 0$（$\rightarrow$），区间 II 中 $f(x) < 0$（$\leftarrow$）
+$\Rightarrow$ \textbf{渐近稳定}。
 
 \section{物理直觉}
 
 \begin{itemize}
-  \item 回收量在 $(0, K_{\text{eff}})$ 之间 $\rightarrow$ 还有剩余增长空间，系统\textbf{自动增长}
-  \item 回收量超过 $K_{\text{eff}}$ $\rightarrow$ 超出承载能力，系统\textbf{自动回落}
-  \item 回收量恰好为 0 $\rightarrow$ 不稳定，稍有扰动就会自动开始增长
-  \item \textbf{不管从哪出发（只要 $x(0) > 0$），最终都稳定在 $K_{\text{eff}}$}
+  \item 回收量在 $[x_0, K_{\text{eff}})$ 之间 $\rightarrow$ 还有剩余增长空间，系统\textbf{自动增长}
+  \item 回收量超过 $K_{\text{eff}}$（例如受外部冲击，如年末大扫除造成短期暴增）$\rightarrow$ 超出承载能力，系统\textbf{自动回落}
+  \item \textbf{从定义域内任何一点出发，最终都稳定在 $K_{\text{eff}}$}
 \end{itemize}
+
+（数学上 $x = 0$ 也是根且不稳定——这恰好解释了为什么回收体系不会自发``死掉''，但 $x = 0$ 在定义域 $[x_0, +\infty)$ 之外，不是系统的有效平衡点。）
 
 \section{相线与线性化的等价关系}
 
 线性化方法算的是 $f'(x^*)$ 的符号，相线方法看的是 $f(x)$ 在平衡点两侧的符号。
-二者给出相同结论的原因：
-
-\begin{itemize}
-  \item $f'(x^*) > 0$ $\Leftrightarrow$ $f(x)$ 在 $x^*$ 处递增 $\Leftrightarrow$ 左边 $f(x)<0$（$\leftarrow$）右边 $f(x)>0$（$\rightarrow$）$\Leftrightarrow$ 箭头背离 $\Leftrightarrow$ \textbf{不稳定}
-  \item $f'(x^*) < 0$ $\Leftrightarrow$ $f(x)$ 在 $x^*$ 处递减 $\Leftrightarrow$ 左边 $f(x)>0$（$\rightarrow$）右边 $f(x)<0$（$\leftarrow$）$\Leftrightarrow$ 箭头指向 $\Leftrightarrow$ \textbf{稳定}
-\end{itemize}
-
-\textbf{验证}：本模型中 $f'(x) = r(1 - 2x/K_{\text{eff}})$，
-$f'(0) = r > 0$（不稳定），$f'(K_{\text{eff}}) = -r < 0$（稳定）——与相线结论完全一致。
+本模型中 $f'(x) = r(1 - 2x/K_{\text{eff}})$，
+$f'(K_{\text{eff}}) = -r < 0$（稳定），与相线结论完全一致。
 
 \section{常见误区}
 
-\textbf{误区 1：}「两个平衡点之间只有一个区间」
+\textbf{误区 1：}「两个平衡点都在定义域内」
 
-错误。$N$ 个不同的平衡点将实轴分成 $N+1$ 个区间。
-两个平衡点 $\Rightarrow$ 三个区间。即使只考虑物理区域（$x \geq 0$），也有两个区间。
+错误。$x$ 的定义域是 $[x_0, +\infty)$（回收量从初值出发且单调递增），
+$x = 0$ 远在定义域外，系统永远无法到达。物理上只存在一个平衡点 $x^* = K_{\text{eff}}$。
 
 \medskip
 \textbf{误区 2：}「不用逐因子分析，直接代个数就行」

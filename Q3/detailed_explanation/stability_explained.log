@@ -1,9 +1,13 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.4) (preloaded format=xelatex 2026.5.4)  27 JUL 2026 15:06
+This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.4) (preloaded format=xelatex 2026.5.4)  27 JUL 2026 16:01
 entering extended mode
  restricted \write18 enabled.
+ file:line:error style messages enabled.
  %&-line parsing enabled.
-**./stability_explained.tex
-(stability_explained.tex
+**f:/Desktop/CUMCM/校内预选/training_for_CUMCM/Q3/detailed_explanation/stability_ex
+plained.tex
+
+(f:/Desktop/CUMCM/校内预选/training_for_CUMCM/Q3/detailed_explanation/stability_exp
+lained.tex
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-11-06>
 (C:\Program Files\MikTex\tex/latex/base\article.cls
@@ -1057,19 +1061,19 @@ Missing character: There is no ） in font [lmroman12-regular]:mapping=tex-text;
 Missing character: There is no （ in font [lmroman12-regular]:mapping=tex-text;!
 Missing character: There is no 负 in font [lmroman12-regular]:mapping=tex-text;!
 Missing character: There is no ） in font [lmroman12-regular]:mapping=tex-text;!
-[9] [10] [11] [12] [13] [14] (stability_explained.aux)
+[9] [10] [11] [12] [13] (stability_explained.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2022/07/14>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 21922 strings out of 402987
- 526675 string characters out of 5452872
+ 22050 strings out of 402987
+ 534207 string characters out of 5452872
  926263 words of memory out of 5000000
- 50293 multiletter control sequences out of 15000+600000
- 636903 words of font info for 108 fonts, out of 8000000 for 9000
+ 50413 multiletter control sequences out of 15000+600000
+ 638491 words of font info for 119 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 98i,13n,111p,466b,606s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 98i,13n,111p,529b,606s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on stability_explained.pdf (14 pages).
+Output written on stability_explained.pdf (13 pages).

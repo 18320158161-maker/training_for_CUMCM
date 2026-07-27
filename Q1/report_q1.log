@@ -1,10 +1,10 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.4) (preloaded format=xelatex 2026.5.4)  25 JUL 2026 23:20
+This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.4) (preloaded format=xelatex 2026.5.4)  27 JUL 2026 18:33
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**f:/Desktop/CUMCM/校内预选/Q1/report_q1.tex
-(f:/Desktop/CUMCM/校内预选/Q1/report_q1.tex
+**f:/Desktop/CUMCM/校内预选/training_for_CUMCM/Q1/report_q1.tex
+(f:/Desktop/CUMCM/校内预选/training_for_CUMCM/Q1/report_q1.tex
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-11-06>
 (C:\Program Files\MikTex\tex/latex/base\article.cls
@@ -637,8 +637,7 @@ Package fontspec Info:
 ))
 (C:\Program Files\MikTex\tex/latex/ctex/config\ctex.cfg
 File: ctex.cfg 2022/07/14 v2.5.10 Configuration file (CTEX)
-)
-No file report_q1.aux.
+) (report_q1.aux)
 \openout1 = `report_q1.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 14.
@@ -657,6 +656,7 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 14.
 LaTeX Font Info:    ... okay on input line 14.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 14.
 LaTeX Font Info:    ... okay on input line 14.
+
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
 *geometry* verbose mode - [ preamble ] result:
@@ -765,18 +765,14 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 LaTeX2e <2025-11-01>
 L3 programming layer <2022/07/14>
  ***********
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
- 8744 strings out of 402987
- 221673 string characters out of 5452872
+ 8747 strings out of 402987
+ 221782 string characters out of 5452872
  668133 words of memory out of 5000000
- 37341 multiletter control sequences out of 15000+600000
+ 37342 multiletter control sequences out of 15000+600000
  636791 words of font info for 94 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 93i,7n,111p,396b,284s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 93i,7n,111p,415b,284s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 Output written on report_q1.pdf (3 pages).

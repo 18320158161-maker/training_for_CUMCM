@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.4) (preloaded format=xelatex 2026.5.4)  27 JUL 2026 14:58
+This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.4) (preloaded format=xelatex 2026.5.4)  27 JUL 2026 16:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1040,7 +1040,7 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 22.
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
-] [2] [3] [4]
+] [2] [3]
 (phase_line_explained.aux)
  ***********
 LaTeX2e <2025-11-01>
@@ -1048,12 +1048,12 @@ L3 programming layer <2022/07/14>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 21363 strings out of 402987
- 508184 string characters out of 5452872
- 916539 words of memory out of 5000000
- 49737 multiletter control sequences out of 15000+600000
+ 21309 strings out of 402987
+ 504811 string characters out of 5452872
+ 913539 words of memory out of 5000000
+ 49683 multiletter control sequences out of 15000+600000
  638433 words of font info for 112 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 116i,13n,121p,469b,601s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 116i,13n,121p,469b,599s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on phase_line_explained.pdf (4 pages).
+Output written on phase_line_explained.pdf (3 pages).

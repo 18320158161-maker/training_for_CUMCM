@@ -317,16 +317,13 @@ r \cdot x \cdot \left(1 - \frac{x}{K_{\text{eff}}}\right) &= 0
 x = 0 \quad \text{或} \quad 1 - \frac{x}{K_{\text{eff}}} = 0 \;\Rightarrow\; x = K_{\text{eff}}
 \]
 
-得到\textbf{两个平衡点}：
+代数方程 $f(x) = 0$ 有两个数学解，但 $x$ 的实际定义域为 $[x_0, +\infty)$（回收量从 $x_0 = 6314$ 出发，$f(x) > 0$ 保证 $x$ 单调递增，不会回落），$x_1^* = 0$ 远在定义域之外。\\
+\textbf{物理上只存在一个平衡点：}
 \begin{equation}\label{eq:equilibria}
-\boxed{x_1^* = 0, \qquad x_2^* = K_{\text{eff}} = K(1+\alpha)}
+\boxed{x^* = K_{\text{eff}} = K(1+\alpha)}
 \end{equation}
 
-\textbf{物理含义}：
-\begin{itemize}
-  \item $x_1^* = 0$：回收量为零——体系完全瘫痪的状态。
-  \item $x_2^* = K_{\text{eff}}$：回收量达到有效饱和容量的状态。
-\end{itemize}
+\textbf{物理含义}：回收量达到有效饱和容量的状态。系统唯一可能停留的位置。
 
 \subsection*{数值代入}
 \[
@@ -351,53 +348,39 @@ f'(x) &= r - \frac{2r}{K_{\text{eff}}} x = r\left(1 - \frac{2x}{K_{\text{eff}}}\
   \item 合并：$f'(x) = r - \frac{2r}{K_{\text{eff}}}x = r\left(1 - \frac{2x}{K_{\text{eff}}}\right)$。
 \end{itemize}
 
-\subsection{评估每个平衡点的 $\lambda = f'(x^*)$}
+\subsection{评估物理平衡点 $x^* = K_{\text{eff}}$ 的稳定性（线性化）}
 
-\subsubsection*{平衡点 $x_1^* = 0$}
-
-\[
-\lambda_1 = f'(0) = r\left(1 - \frac{2 \cdot 0}{K_{\text{eff}}}\right) = r
-\]
-
-因为 $r = \frac{\gamma}{1+\beta} > 0$（$\gamma > 0$，$1+\beta \geq 1$）：
-\[
-\boxed{\lambda_1 = r > 0}
-\]
-
-\textbf{结论}：$\lambda_1 > 0$ $\Rightarrow$ $x_1^* = 0$ 是\textbf{不稳定的}。
-
-\textbf{物理含义}：只要稍微有一点点回收活动（$x(0) > 0$，哪怕很小），系统就会自动远离零状态，开始增长。这很好——回收体系不会自己``死掉''。
-
-\subsubsection*{平衡点 $x_2^* = K_{\text{eff}}$}
+$f'(x) = r - \frac{2r}{K_{\text{eff}}} x = r\left(1 - \frac{2x}{K_{\text{eff}}}\right)$，在 $x^* = K_{\text{eff}}$ 处：
 
 \[
-\lambda_2 = f'(K_{\text{eff}}) = r\left(1 - \frac{2 \cdot K_{\text{eff}}}{K_{\text{eff}}}\right) = r(1 - 2) = -r
+\lambda = f'(K_{\text{eff}}) = r\left(1 - \frac{2 \cdot K_{\text{eff}}}{K_{\text{eff}}}\right) = r(1 - 2) = -r
 \]
 
 因为 $r > 0$：
 \[
-\boxed{\lambda_2 = -r < 0}
+\boxed{\lambda = -r < 0}
 \]
 
-\textbf{结论}：$\lambda_2 < 0$ $\Rightarrow$ $x_2^* = K_{\text{eff}}$ 是\textbf{渐近稳定的}。
+\textbf{结论}：$\lambda < 0$ $\Rightarrow$ $x^* = K_{\text{eff}}$ 是\textbf{渐近稳定的}。
 
-\textbf{物理含义}：如果回收量因为某种原因偏离了有效容量（比如某个月因节假日波动偏高或偏低），系统会自动调节、回到 $K_{\text{eff}}$。这是一个``自愈''机制。
+\textbf{物理含义}：如果回收量因为外部冲击偏离了 $K_{\text{eff}}$（偏高或偏低），系统会自动调节、回到 $K_{\text{eff}}$——这是一个``自愈''机制。
+
+\medskip
+{\small （附注：数学上 $f(x)=0$ 还有一根 $x=0$，但它远在 $x$ 的定义域 $[x_0, +\infty)$ 之外——回收量从 $x_0 = 6314$ 出发且单调递增，永远不会到达零。$f'(0)=r>0$ 意味着零是不稳定的，这恰好解释了为什么体系不会自发``死掉''，但 $x=0$ 不是系统的有效平衡点。）}
 
 \subsection*{数值代入}
 \[
-\lambda_1 = r = 0.008485 > 0 \quad \text{（不稳定）}, \qquad
-\lambda_2 = -r = -0.008485 < 0 \quad \text{（渐近稳定）}
+\lambda = -r = -0.008485 < 0 \quad \text{（渐近稳定）}
 \]
 
 \subsection{结果总结}
 
 \begin{center}
-\begin{tabular}{lcccc}
+\begin{tabular}{lccc}
 \toprule
-平衡点 & 表达式 & 数值（吨/天） & 特征值 $\lambda = f'(x^*)$ & 稳定性 \\
+平衡点 & 数值（吨/天） & 特征值 $\lambda = f'(x^*)$ & 稳定性 \\
 \midrule
-$x_1^*$（零回收）  & $0$            & $0$      & $\lambda_1 = r = 0.008485 > 0$  & \textbf{不稳定} \\
-$x_2^*$（可持续） & $K(1+\alpha)$  & $8142.22$ & $\lambda_2 = -r = -0.008485 < 0$ & \textbf{渐近稳定} \\
+$x^* = K(1+\alpha)$ & $8142.22$ & $\lambda = -r = -0.008485 < 0$ & \textbf{渐近稳定} \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -406,21 +389,19 @@ $x_2^*$（可持续） & $K(1+\alpha)$  & $8142.22$ & $\lambda_2 = -r = -0.00848
 \section{模型分析第三步：相线验证}
 % ===================================================================
 
-用相线方法交叉验证线性化的结论。注意：我们只关心 $x \geq 0$（回收量不能为负），
-$f(x) = r \cdot x \cdot (1 - x/K_{\text{eff}})$ 是三个因子的乘积，$r > 0$ 恒成立。
-
-\subsection*{两个平衡点把正半轴切成两个区间}
+用相线方法交叉验证线性化的结论。$x$ 的物理定义域为 $[x_0, +\infty)$（回收量从 $x_0 = 6314$ 出发且单调递增），$x_0 < K_{\text{eff}}$，平衡点 $x^* = K_{\text{eff}}$ 将定义域切为两个区间：
 
 \[
-\underbrace{\rule{20pt}{0pt}}_{x_1^*=0}
-\;\; \underbrace{\qquad (0,\; K_{\text{eff}}) \qquad}_{\text{区间 I}}
-\;\; \underbrace{\rule{30pt}{0pt}}_{x_2^*=K_{\text{eff}}}
+\underbrace{\qquad [x_0,\; K_{\text{eff}}) \qquad}_{\text{区间 I}}
+\;\; \underbrace{\rule{30pt}{0pt}}_{x^*=K_{\text{eff}}}
 \;\; \underbrace{\qquad (K_{\text{eff}},\; +\infty) \qquad}_{\text{区间 II}}
 \]
 
+$f(x) = r \cdot x \cdot (1 - x/K_{\text{eff}})$ 是三个因子的乘积，$r > 0$ 恒成立。
+
 \subsection*{逐区间、逐因子判断 $f(x)$ 的符号}
 
-\textbf{区间 I：$0 < x < K_{\text{eff}}$}
+\textbf{区间 I：$x_0 \leq x < K_{\text{eff}}$}
 
 \begin{center}
 \begin{tabular}{lcc|l}
@@ -428,7 +409,7 @@ $f(x) = r \cdot x \cdot (1 - x/K_{\text{eff}})$ 是三个因子的乘积，$r > 
 因子 & 表达式 & 符号 & 理由 \\
 \midrule
 因子 1 & $r$                              & $+$ & $\gamma>0,\;1+\beta>0$ 恒成立 \\
-因子 2 & $x$                              & $+$ & $x > 0$ \\
+因子 2 & $x$                              & $+$ & $x \geq x_0 = 6314 > 0$ \\
 因子 3 & $1 - x/K_{\text{eff}}$           & $+$ & $x < K_{\text{eff}} \;\Rightarrow\; x/K_{\text{eff}} < 1$ \\
 \midrule
 \multicolumn{3}{l}{\textbf{乘积 $f(x)$}} & \multicolumn{1}{c}{\boxed{$\;+\;$（正）}} \\
@@ -460,31 +441,25 @@ $f(x) < 0$ $\Rightarrow$ 变化率为负 $\Rightarrow$ $x$ 随时间\textbf{减�
 \subsection*{画出相线}
 
 \[
-\begin{array}{ccccccc}
-& & f(x) > 0 & & f(x) < 0 & \\
-& & \longrightarrow & & \longleftarrow & \\
+\begin{array}{cccccc}
+& f(x) > 0 & & f(x) < 0 & \\
+& \longrightarrow & & \longleftarrow & \\
 \hline
-& x_1^* = 0 & & x_2^* = K_{\text{eff}} & & +\infty \\[6pt]
-& \text{不稳定} & & \text{渐近稳定} & &
+x_0 & & x^* = K_{\text{eff}} & & +\infty \\[6pt]
+& & \text{渐近稳定} & &
 \end{array}
 \]
 
 \subsection*{判读}
 
-\begin{itemize}
-  \item \textbf{$x_2^* = K_{\text{eff}}$}：左边箭头向右 $\rightarrow$、右边箭头向左 $\leftarrow$，
-        \textbf{两边都指向它} $\Rightarrow$ \textbf{渐近稳定}。
-        不管初始回收量是偏低还是偏高，系统都自动回到 $K_{\text{eff}}$。
-  \item \textbf{$x_1^* = 0$}：右边的箭头向右 $\rightarrow$（背离它），
-        \textbf{箭头背离它} $\Rightarrow$ \textbf{不稳定}。
-        只要 $x$ 稍微大于零，系统就自动远离零。
-\end{itemize}
+在物理定义域内只有一个平衡点 $x^* = K_{\text{eff}}$，两边箭头都指向它：
+左边箭头向右 $\rightarrow$、右边箭头向左 $\leftarrow$ $\Rightarrow$ \textbf{渐近稳定}。
 
 \textbf{物理直觉}：
 \begin{itemize}
-  \item 回收量在 $(0, K_{\text{eff}})$ 之间 → 还有剩余空间，系统自动增长
-  \item 回收量超过 $K_{\text{eff}}$ → 超出承载能力，系统自动回落
-  \item 不管从哪出发（只要 $x(0) > 0$），最终都稳定在 $K_{\text{eff}}$
+  \item 回收量在 $[x_0, K_{\text{eff}})$ 之间 → 还有剩余空间，系统自动增长
+  \item 回收量超过 $K_{\text{eff}}$（受外部冲击）→ 超出承载能力，系统自动回落
+  \item 不管从定义域内哪一点出发，最终都稳定在 $K_{\text{eff}}$
 \end{itemize}
 
 \textbf{这与线性化结论完全一致。}
@@ -498,19 +473,18 @@ $f(x) < 0$ $\Rightarrow$ 变化率为负 $\Rightarrow$ $x$ 随时间\textbf{减�
 \begin{center}
 \fbox{%
 \begin{minipage}{0.88\textwidth}
-\textbf{对任意正初值 $x(0) > 0$}（即初始时至少有一点点回收活动），\\
 \textbf{对任意 $\alpha \geq 0$, $\beta \geq 0$}（即促进和抑制都是正向的），\\
-系统\textbf{恒收敛}到 $x_2^* = K_{\text{eff}} > 0$——一个正的有效容量。
+系统\textbf{恒收敛}到 $x^* = K_{\text{eff}} > 0$——一个正的有效容量。
 \end{minipage}}
 \end{center}
 
 \textbf{证明只需一行}：
 \[
 \beta \geq 0 \;\Rightarrow\; 1+\beta \geq 1 \;\Rightarrow\; r = \frac{\gamma}{1+\beta} \in (0, \gamma]
-\;\Rightarrow\; \lambda_2 = -r < 0 \text{ 恒成立}
+\;\Rightarrow\; \lambda = -r < 0 \text{ 恒成立}
 \]
 
-\textbf{这意味着}：在整个有效的参数空间内（$\alpha \geq 0, \beta \geq 0$），稳定平衡点 $x_2^*$ 永远是稳定的，稳定性的符号永远不会翻转。系统不会因为参数变化而发生质的改变（比如突然从一个稳态跳到另一个不稳定的状态，或者平衡点消失）。
+\textbf{这意味着}：在整个有效的参数空间内（$\alpha \geq 0, \beta \geq 0$），平衡点 $x^*$ 永远是稳定的，稳定性的符号永远不会翻转。系统不会因为参数变化而发生质的改变。
 
 这就是\textbf{结构稳定性}的含义。
 
@@ -526,7 +500,7 @@ $f(x) < 0$ $\Rightarrow$ 变化率为负 $\Rightarrow$ $x$ 随时间\textbf{减�
 \[
 r = \frac{\gamma}{1+\beta} = \frac{\gamma}{0} \;\rightarrow\; \text{无定义（奇点）}
 \]
-当 $\beta < -1$ 时：$1+\beta < 0$，所以 $r < 0$，这会导致 $\lambda_2 = -r > 0$——稳定平衡点变成了不稳定的！
+当 $\beta < -1$ 时：$1+\beta < 0$，所以 $r < 0$，这会导致 $\lambda = -r > 0$——稳定平衡点变成了不稳定的！
 系统会从``趋于 $K_{\text{eff}}$''变为``远离 $K_{\text{eff}}$''——这就是\textbf{分岔（bifurcation）}。
 
 \textbf{但}：$\beta$ 是抑制系数，它的定义决定了 $\beta \geq 0$。我们\textbf{永远不会}接近 $\beta = -1$。
@@ -544,12 +518,12 @@ r = \frac{\gamma}{1+\beta} = \frac{\gamma}{0} \;\rightarrow\; \text{无定义（
 
 \subsection{我们的模型为什么是结构稳定的？}
 
-因为稳定性由 $\lambda_2 = -r = -\gamma/(1+\beta)$ 的符号决定。
-而 $\text{sign}(\lambda_2) = \text{sign}(-\gamma/(1+\beta))$。
+因为稳定性由 $\lambda = -r = -\gamma/(1+\beta)$ 的符号决定。
+而 $\text{sign}(\lambda) = \text{sign}(-\gamma/(1+\beta))$。
 
 在有效参数空间 $\{(\alpha, \beta) \mid \alpha \geq 0, \beta \geq 0\}$ 中：
 \[
-\gamma > 0,\; 1+\beta \geq 1 > 0 \;\Rightarrow\; r > 0 \;\Rightarrow\; \lambda_2 < 0
+\gamma > 0,\; 1+\beta \geq 1 > 0 \;\Rightarrow\; r > 0 \;\Rightarrow\; \lambda < 0
 \]
 
 \textbf{符号永远不会翻转。} 这就是结构稳定性的数学本质。
@@ -667,21 +641,15 @@ r = \frac{\gamma}{1+\beta}, \qquad K_{\text{eff}} = K(1+\alpha)
         \]
         其中 $\alpha \geq 0$（促进系数），$\beta \geq 0$（抑制系数），由定义保证。
 
-  \item \textbf{找平衡点}：令 $f(x) = r x (1 - x/K_{\text{eff}}) = 0$，得
-        \[
-        x_1^* = 0, \quad x_2^* = K_{\text{eff}}
-        \]
+  \item \textbf{找平衡点}：令 $f(x) = r x (1 - x/K_{\text{eff}}) = 0$。$x$ 的定义域为 $[x_0, +\infty)$，
+        只有 $x^* = K_{\text{eff}}$ 在定义域内。（数学上另有一根 $x=0$，远在定义域外。）
 
-  \item \textbf{线性化}：计算 $f'(x) = r(1 - 2x/K_{\text{eff}})$，在每个平衡点评估：
+  \item \textbf{线性化}：计算 $f'(x) = r(1 - 2x/K_{\text{eff}})$，在 $x^* = K_{\text{eff}}$ 处：
         \[
-        \lambda_1 = f'(0) = r > 0 \;\Rightarrow\; x_1^* \text{ 不稳定}
+        \lambda = f'(K_{\text{eff}}) = -r < 0 \;\Rightarrow\; x^* \text{ 渐近稳定}
         \]
-        \[
-        \lambda_2 = f'(K_{\text{eff}}) = -r < 0 \;\Rightarrow\; x_2^* \text{ 渐近稳定}
-        \]
-
   \item \textbf{结构稳定性论证}：因为 $\beta \geq 0 \Rightarrow r = \gamma/(1+\beta) > 0$ 恒成立，
-        所以 $\lambda_2 = -r < 0$ 在整个有效参数空间内恒成立。
+        所以 $\lambda = -r < 0$ 在整个有效参数空间内恒成立。
         \textbf{不存在任何参数取值使稳定性翻转}——系统是结构稳定的。
 
   \item \textbf{实用安全边界}：虽然不会崩溃，但运营效率要求 $r \geq r_{\min}$，
