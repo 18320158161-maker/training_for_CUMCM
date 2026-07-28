@@ -1,0 +1,52 @@
+\contentsline {section}{\numberline {1}引言}{3}{}%
+\contentsline {section}{\numberline {2}问题分析}{3}{}%
+\contentsline {section}{\numberline {3}模型假设}{4}{}%
+\contentsline {section}{\numberline {4}符号说明}{4}{}%
+\contentsline {section}{\numberline {5}问题一：基础动态模型}{4}{}%
+\contentsline {subsection}{\numberline {5.1}模型建立}{4}{}%
+\contentsline {subsection}{\numberline {5.2}参数}{5}{}%
+\contentsline {subsection}{\numberline {5.3}模型评估}{5}{}%
+\contentsline {subsection}{\numberline {5.4}预测与残差}{5}{}%
+\contentsline {subsection}{\numberline {5.5}远期预测}{5}{}%
+\contentsline {subsection}{\numberline {5.6}关键结论}{6}{}%
+\contentsline {section}{\numberline {6}问题二：引入促进与抑制作用的改进模型}{6}{}%
+\contentsline {subsection}{\numberline {6.1}模型建立}{6}{}%
+\contentsline {subsection}{\numberline {6.2}标准 Logistic 表达式}{7}{}%
+\contentsline {subsection}{\numberline {6.3}参数辨识}{7}{}%
+\contentsline {subsection}{\numberline {6.4}参数}{8}{}%
+\contentsline {subsection}{\numberline {6.5}计算}{8}{}%
+\contentsline {subsection}{\numberline {6.6}预测}{8}{}%
+\contentsline {subsection}{\numberline {6.7}关键结论}{9}{}%
+\contentsline {section}{\numberline {7}问题三：平衡点与稳定性分析}{9}{}%
+\contentsline {subsection}{\numberline {7.1}模型建立}{9}{}%
+\contentsline {subsection}{\numberline {7.2}平衡点与稳定性}{9}{}%
+\contentsline {subsection}{\numberline {7.3}结构稳定性}{10}{}%
+\contentsline {subsection}{\numberline {7.4}实用安全边界}{10}{}%
+\contentsline {subsubsection}{\numberline {7.4.1}增长率约束}{10}{}%
+\contentsline {subsubsection}{\numberline {7.4.2}容量约束}{10}{}%
+\contentsline {subsubsection}{\numberline {7.4.3}安全运行范围}{11}{}%
+\contentsline {subsection}{\numberline {7.5}解耦调控}{11}{}%
+\contentsline {subsection}{\numberline {7.6}关键结论}{11}{}%
+\contentsline {section}{\numberline {8}问题四：参数灵敏度分析}{11}{}%
+\contentsline {subsection}{\numberline {8.1}问题背景与分析目标}{11}{}%
+\contentsline {subsection}{\numberline {8.2}方法}{12}{}%
+\contentsline {subsubsection}{\numberline {8.2.1}模型回顾}{12}{}%
+\contentsline {subsubsection}{\numberline {8.2.2}参数物理意义（结合``沪尚回收''实际场景）}{12}{}%
+\contentsline {subsubsection}{\numberline {8.2.3}OAT 扰动方案}{12}{}%
+\contentsline {subsection}{\numberline {8.3}扰动结果与数据解读}{13}{}%
+\contentsline {subsubsection}{\numberline {8.3.1}$\gamma $（固有增长率）$\pm 10\%$}{13}{}%
+\contentsline {subsubsection}{\numberline {8.3.2}$\beta $（抑制系数）$\pm 10\%$}{13}{}%
+\contentsline {subsubsection}{\numberline {8.3.3}$\alpha $（促进系数）$\pm 10\%$}{14}{}%
+\contentsline {subsubsection}{\numberline {8.3.4}$K$（基准容量）$\pm 10\%$}{15}{}%
+\contentsline {subsection}{\numberline {8.4}灵敏度排序与参数等级}{15}{}%
+\contentsline {subsubsection}{\numberline {8.4.1}对 $R^2$ 的影响}{15}{}%
+\contentsline {subsubsection}{\numberline {8.4.2}对 MAE 的影响}{15}{}%
+\contentsline {subsubsection}{\numberline {8.4.3}综合敏感等级}{16}{}%
+\contentsline {subsection}{\numberline {8.5}解析弹性汇总}{16}{}%
+\contentsline {subsection}{\numberline {8.6}预测包络线分析}{16}{}%
+\contentsline {subsection}{\numberline {8.7}与 Q3 稳定性结论的联合分析}{16}{}%
+\contentsline {subsection}{\numberline {8.8}关键结论与长效调控策略}{18}{}%
+\contentsline {subsubsection}{\numberline {8.8.1}模型评价}{20}{}%
+\contentsline {subsubsection}{\numberline {8.8.2}模型优点}{20}{}%
+\contentsline {subsubsection}{\numberline {8.8.3}模型不足}{20}{}%
+\contentsline {section}{\numberline {9}结论}{21}{}%
