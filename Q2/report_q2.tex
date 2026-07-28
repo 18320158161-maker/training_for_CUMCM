@@ -16,22 +16,43 @@
 
 \section{Model Formulation}
 
-$\alpha$（促进系数）与 $\beta$（抑制系数）地位相同、结构对称，以拮抗关系分别作用于
-logistic 模型的两个独立参数：
+为进一步提高基础 Logistic 模型对实际恢复过程的描述能力，
+本文在 Q1 模型基础上引入两个具有拮抗作用的调节参数：
+促进系数 $\alpha$ 与抑制系数 $\beta$。
+
+其中，$\alpha$ 表征外部促进因素对系统潜在恢复能力的增强作用，
+通过提高有效环境容量 $K_{\mathrm{eff}}$ 改变系统长期稳定水平；
+$\beta$ 表征内部限制因素对恢复过程的约束作用，
+通过降低有效增长率 $r$ 调节系统接近稳定状态的速度。
+
+二者作用方向相反，但共同决定系统动态演化过程，
+因此形成具有促进—抑制拮抗机制的扩展 Logistic 模型：
 
 \begin{equation}\label{eq:ode}
 \frac{dx}{dt} = \frac{\gamma}{1+\beta} \cdot x \cdot \left(1 - \frac{x}{K(1+\alpha)}\right)
 \end{equation}
 
 \begin{itemize}
-  \item $\alpha \geq 0$（促进）：扩大有效饱和容量 $\;\rightarrow\; K_{\text{eff}} = K(1+\alpha)$
-  \item $\beta \geq 0$（抑制）：降低有效增长率 $\;\rightarrow\; r = \gamma/(1+\beta)$
+  \item $\alpha\ge0$ 表示外部促进作用，其通过提高系统潜在承载能力扩大有效环境容量：  $\;\rightarrow\; K_{\text{eff}} = K(1+\alpha)$
+  \item $\beta\ge0$ 表示内部抑制作用，其通过降低系统有效增长率影响恢复速度： $\;\rightarrow\; r = \gamma/(1+\beta)$
 \end{itemize}
 
-两者均以 $(1+c)^{\pm 1}$ 的函数形式（$c$ 为对应系数）体现对等地位；拮抗方向相反：
+两个调节参数均采用 $(1+c)^{\pm1}$ 的形式作用于模型参数，
+从数学结构上保持参数调整的对称性。
+
+其中，$\alpha$ 主要影响系统长期稳定水平，
+而 $\beta$ 主要影响系统达到稳定状态的速度。
+
+当 $\alpha=\beta=0$ 时，扩展模型退化为 Q1 中的基础 Logistic 模型。拮抗方向相反：
 $\alpha$ 推高饱和平台，$\beta$ 拖慢趋近速度。当 $\alpha = \beta = 0$ 时退化为 Q1。
 
 \section{Standard Logistic Form}
+
+经过参数变换后，扩展模型仍保持 Logistic 模型的标准形式，
+但其有效环境容量和有效增长率均由调节参数动态决定。
+
+因此，该模型既继承了 Logistic 模型的稳定收敛特性，
+又能够描述外部促进因素和内部限制因素共同作用下的恢复过程。
 
 \begin{equation}\label{eq:logistic}
 \frac{dx}{dt} = r \cdot x \cdot \left(1 - \frac{x}{K_{\text{eff}}}\right)
@@ -47,12 +68,21 @@ x(t) = \frac{K_{\text{eff}}}{1 + \left(\dfrac{K_{\text{eff}}}{x_0} - 1\right) e^
 
 \section{Parameter Identification}
 
-式 (\ref{eq:solution}) 含两个独立拟合参数 $r$ 和 $K_{\text{eff}}$，拟合后：
+由于扩展模型最终可以转化为标准 Logistic 形式，
+因此本文首先对有效增长率 $r$ 和有效环境容量 $K_{eff}$ 进行参数识别。
+
+完成参数拟合后，再根据参数映射关系反推出促进系数 $\alpha$
+和抑制系数 $\beta$：
 \begin{equation}
 \beta = \frac{\gamma}{r} - 1, \qquad \alpha = \frac{K_{\text{eff}}}{K} - 1
 \end{equation}
 
-$r \leq \gamma \Rightarrow \beta \geq 0$，$K_{\text{eff}} \geq K \Rightarrow \alpha \geq 0$，由拟合约束自然保证。
+根据模型设计要求，当拟合结果满足
+$r\le\gamma$ 且 $K_{eff}\ge K$ 时，
+可进一步保证 $\beta\ge0$ 和 $\alpha\ge0$。
+
+该约束条件符合实际恢复过程中的物理意义，
+即促进因素不会降低系统容量，而抑制因素不会提高增长速率。
 
 \section{Parameters}
 
@@ -74,15 +104,29 @@ $r \leq \gamma \Rightarrow \beta \geq 0$，$K_{\text{eff}} \geq K \Rightarrow \a
 \end{tabular}
 \end{center}
 
-\textbf{物理解释}：
+\textbf{参数物理意义分析}：
 \begin{itemize}
-  \item $\alpha = 0.0164 > 0$：促进使有效容量扩大 $1.64\%$，$K_{\text{eff}} = 8142 > K = 8011$
-  \item $\beta = 1.5929 > 0$：抑制使有效增长率降至 $r = \gamma/(1+\beta) = 0.0085$，
-        仅为固有增长率的 $38.6\%$
-  \item $r/\gamma = 1/(1+\beta) = 0.386$：增长显著放缓，抑制占据主导
+  \item $\alpha=0.0164>0$ 表明系统存在正向促进作用，
+使有效环境容量提高约 $1.64\%$，
+即 $K_{eff}$ 略高于基础模型中的理论容量 $K$。
+  \item $\beta=1.5929>0$ 表明系统受到明显抑制作用，
+有效增长率降低至
+$r=\gamma/(1+\beta)=0.0085$，
+约为原始增长率的 $38.6\%$。
+
+该结果说明实际恢复过程中的增长速度受到较强限制。
+  \item $r/\gamma = 1/(1+\beta) = 0.386$：综合分析可知，
+增长率修正幅度明显大于容量修正幅度，
+说明在当前恢复阶段，内部限制因素对系统演化过程起主要作用。
 \end{itemize}
 
 \section{Evaluation}
+
+为了验证扩展模型相对于基础 Logistic 模型的改进效果，
+本文将 Q1 基础模型与引入 $\alpha,\beta$ 参数后的扩展模型进行对比。
+
+通过比较两类模型的拟合指标，
+分析调节参数对于提高预测精度和降低系统误差的有效性。
 
 \begin{center}
 \begin{tabular}{lcc}
@@ -95,6 +139,13 @@ MAPE   & 4.42\% & \textbf{0.53\%} \\
 \bottomrule
 \end{tabular}
 \end{center}
+
+从预测结果可以看出，引入 $\alpha$ 和 $\beta$ 后，
+模型预测值与实际观测值之间的偏差明显降低。
+
+相比 Q1 中持续存在的系统性高估现象，
+扩展模型在整个时间范围内均保持较小残差，
+说明调节参数能够有效修正基础 Logistic 模型中增长率设定偏高的问题。
 
 \section{Predictions}
 
@@ -119,11 +170,40 @@ $t$ (days) & Actual & Predicted & Residual & Rel.\ Error \\
 \section{Key Findings}
 
 \begin{itemize}
-  \item $\alpha = 0.0164 > 0$，$\beta = 1.5929 > 0$：两者均为正数，分别识别
-  \item $\alpha$ 与 $\beta$ 地位对等：对称的 $(1+c)^{\pm 1}$ 结构
-  \item 拮抗关系：$\alpha$ 扩展容量（$+1.64\%$），$\beta$ 抑制速率（降至 $38.6\%$）
-  \item $K_{\text{eff}} = 8142$：促进将有效容量推至理论值 $K=8011$ 之上
-  \item 结构稳定性：当 $\alpha, \beta \geq 0$ 时，$r > 0$ 恒成立，系统不存在分岔、不会崩溃
+
+\item
+\textbf{促进与抑制机制同时存在：}
+拟合结果表明 $\alpha=0.0164>0$，
+$\beta=1.5929>0$，
+说明恢复系统同时受到外部促进作用和内部限制作用影响。
+
+\item
+\textbf{参数作用具有明显分工：}
+促进系数 $\alpha$ 主要影响系统长期稳定容量，
+使有效容量提高至 $K_{eff}=8142.22$ tons/day；
+抑制系数 $\beta$ 主要影响恢复速度，
+使有效增长率降低至原始增长率的 $38.6\%$。
+
+\item
+\textbf{模型预测能力显著提升：}
+引入调节参数后，
+模型决定系数由 Q1 的 $0.5319$ 提升至 $0.9915$，
+MAPE 从 $4.42\%$ 降低至 $0.53\%$，
+说明扩展 Logistic 模型能够更加准确地描述实际恢复过程。
+
+\item
+\textbf{模型具有良好的稳定性：}
+当 $\alpha,\beta\ge0$ 时，
+有效增长率保持正值且系统仍满足 Logistic 收敛性质，
+不会出现非物理发散现象。
+
+\item
+\textbf{后续研究方向：}
+虽然当前模型已经显著提高预测精度，
+但 $\alpha$ 与 $\beta$ 仍被假设为常数。
+未来可进一步考虑时间变化参数，
+以描述不同恢复阶段中促进和抑制作用的动态变化。
+
 \end{itemize}
 
 \end{document}
