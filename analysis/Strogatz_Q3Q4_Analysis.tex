@@ -1,0 +1,789 @@
+% !TeX program = xelatex
+\documentclass[12pt,a4paper]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage[UTF8]{ctex}
+\geometry{margin=2.5cm}
+\title{\textbf{基于 Strogatz《非线性动力学与混沌》的\\[4pt] 竞赛问题三、问题四 深度解析}}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{center}
+\small
+\textbf{参考教材}：Steven H. Strogatz, \textit{Nonlinear Dynamics and Chaos} (3rd Edition, 2024)\\[4pt]
+\textbf{涉及章节}：第2章（Flows on the Line）\S2.0--\S2.8；第3章（Bifurcations）\S3.0--\S3.4, \S3.6
+\end{center}
+
+\vspace{12pt}
+
+% ============================================================
+\section{前言：Strogatz 教材与竞赛问题的理论映射}
+
+Strogatz《非线性动力学与混沌》第2章和第3章是分析一维自治常微分方程
+$\dot{x} = f(x)$ 的核心理论基础。我们的竞赛模型——对称拮抗 Logistic 方程：
+\begin{equation}\label{eq:model}
+\frac{dx}{dt} = \frac{\gamma}{1+\beta} \cdot x \cdot \left(1 - \frac{x}{K(1+\alpha)}\right)
+= r \cdot x \cdot \left(1 - \frac{x}{K_{\text{eff}}}\right)
+\end{equation}
+正是一个典型的一维自治系统，适用 Strogatz 第2--3章的全部分析工具。
+
+下表梳理了教材核心内容与竞赛问题之间的对应关系：
+
+\begin{center}
+\begin{tabular}{p{5cm}p{5cm}p{4.5cm}}
+\toprule
+\textbf{Strogatz 章节与概念} & \textbf{竞赛问题} & \textbf{我们的应用} \\
+\midrule
+\S2.2 不动点与稳定性 &
+Q3：平衡点求解与稳定性判断 &
+求解 $f(x^*)=0$ 得到 $x^*=0$ 和 $x^*=K_{\text{eff}}$，
+画出相线判断稳定方向 \\
+
+\S2.4 线性稳定性分析 &
+Q3：特征值分析 &
+计算 $f'(x^*)$，$\lambda = f'(x^*) < 0 \Rightarrow$ 渐近稳定 \\
+
+\S2.6 振荡的不可能性 &
+Q3：稳定性的定性保证 &
+证明回收量 $x(t)$ 单调趋近平衡点，不存在超调和振荡 \\
+
+\S2.7 势函数 &
+Q3：稳定性的几何直观 &
+定义 $V(x) = -\int f(x)\,dx$，平衡点对应势能极值点 \\
+
+\S2.5 存在唯一性定理 &
+Q3：解的适定性 &
+$f(x)$ 和 $f'(x)$ 连续 $\Rightarrow$ 解存在且唯一 \\
+
+\S3.1 鞍-结分岔 &
+Q3：结构稳定性分析 &
+证明在我们的参数空间 $\alpha,\beta \geq 0$ 内，
+\textbf{不存在}鞍-结分岔——系统具有结构稳定性 \\
+
+\S3.2 跨临界分岔 &
+Q3：不动点的稳定性交换 &
+分析 $r$ 变号时 $x^*=0$ 和 $x^*=K_{\text{eff}}$ 的稳定性交换机制 \\
+
+\S3.4 叉形分岔 &
+Q3：对称性与分岔 &
+讨论模型的对称性（我们的模型\textbf{不对称}，故不出现叉形分岔） \\
+
+\S3.6 结构稳定性 &
+Q3/Q4：参数鲁棒性 &
+严格证明：$f(x)$ 的小扰动不改变相图的定性结构 \\
+
+—— &
+Q4：参数灵敏度分析 &
+各参数 $\pm 10\%$ 扰动对 $R^2$、MAE、$r$、$K_{\text{eff}}$ 的影响量化 \\
+
+—— &
+Q4：弹性分析与分岔距离 &
+评估参数弹性，判断系统距最近分岔点的安全裕度 \\
+
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{12pt}
+\hrule
+\vspace{12pt}
+
+% ============================================================
+\section{问题三：基于 Strogatz 第2章的稳定性分析}
+
+\subsection{模型回顾与标准化}
+
+\subsubsection{标准 Logistic 形式}
+我们的对称拮抗模型（Q2 建立）可简化为标准 logistic 形式：
+\begin{equation}\label{eq:logistic2}
+\dot{x} = f(x) = r x \left(1 - \frac{x}{K_{\text{eff}}}\right), \qquad
+r = \frac{\gamma}{1+\beta} > 0, \quad K_{\text{eff}} = K(1+\alpha) > 0
+\end{equation}
+
+这正是 Strogatz \S2.3（Population Growth，第23--25页）详细讨论的 logistic 方程。
+Strogatz 写道（教材原文，\S2.3）：
+
+\begin{quote}
+\small
+``This leads to the logistic equation $\dot{N} = rN(1 - N/K)$, first suggested to describe
+the growth of human populations by Verhulst in 1838.''
+
+\medskip
+``Fixed points occur at $N^* = 0$ and $N^* = K$\ldots $N^* = 0$ is an unstable fixed point
+and $N^* = K$ is a stable fixed point.''
+\end{quote}
+
+\subsubsection{物理定义域}
+\label{sec:domain}
+
+\textbf{关键约束}：回收体积 $x$ 的定义域是 $[x_0, +\infty)$，其中 $x_0 = 6314$ 吨/天
+为初始回收量。理由如下：
+\begin{itemize}
+  \item $x$ 表示累积回收量，在物流意义上\textbf{只能增加}（$\dot{x} \geq 0$ 在定义域内恒成立）；
+  \item 初始条件 $x(0) = x_0$ 是系统的最低物理状态。
+\end{itemize}
+
+\textbf{在物理定义域内，系统只有一个平衡点}：$x^* = K_{\text{eff}} = 8142.22$ 吨/天。
+数学上的 $x^*_1 = 0$ 虽然在方程中作为一个不动点存在，但它位于定义域之外，
+\textbf{不具有物理可达性}——回收量永远不会降到 $x_0$ 以下，更不可能达到零。
+这一观察对后续稳定性讨论至关重要。
+
+\subsection{\S2.2 不动点与稳定性：图形方法}
+
+Strogatz \S2.2（Fixed Points and Stability, 第18--21页）建立了不动点分析的基本框架：
+
+\begin{quote}
+\small
+``The appearance of the phase portrait is controlled by the fixed points $x^*$, defined by
+$f(x^*) = 0$; they correspond to stagnation points of the flow.''
+
+\medskip
+``In terms of the original differential equation, fixed points represent equilibrium solutions...
+An equilibrium is defined to be stable if all sufficiently small disturbances away from it damp
+out in time.''
+\end{quote}
+
+\subsubsection{求不动点}
+令 $f(x^*) = 0$：
+\begin{equation}
+r x^* \left(1 - \frac{x^*}{K_{\text{eff}}}\right) = 0
+\quad\Rightarrow\quad x^*_1 = 0,\;\; x^*_2 = K_{\text{eff}}
+\end{equation}
+
+在物理定义域 $[x_0, +\infty)$ 内，只有 $x^*_2 = K_{\text{eff}}$ 是物理可达的平衡点。
+
+\subsubsection{相线分析（Phase Line Analysis）}
+相线（phase line）是 Strogatz \S2.2 的核心工具。我们将 $x$ 轴视为一维相空间，
+在 $f(x) > 0$ 处画右箭头（$\to$），在 $f(x) < 0$ 处画左箭头（$\leftarrow$）。
+
+在物理定义域 $[x_0, K_{\text{eff}}) \cup (K_{\text{eff}}, +\infty)$ 内分析 $f(x)$ 的符号：
+\begin{align}
+f(x) &= r x \left(1 - \frac{x}{K_{\text{eff}}}\right) \nonumber\\
+     &= \underbrace{r}_{>0} \cdot \underbrace{x}_{>0}
+        \cdot \underbrace{\left(1 - \frac{x}{K_{\text{eff}}}\right)}_{\text{符号取决于 }x}
+\end{align}
+
+\textbf{逐因子符号表}：
+
+\begin{center}
+\begin{tabular}{c|c|c|c}
+\toprule
+区间 & $r$ & $x$ & $1 - x/K_{\text{eff}}$ \quad $\Rightarrow$ \quad $f(x)$ \\
+\midrule
+$[x_0,\; K_{\text{eff}})$ & $+$ & $+$ & $+$ \quad $\Rightarrow$ \quad $+$（增长） \\
+$(K_{\text{eff}},\; +\infty)$ & $+$ & $+$ & $-$ \quad $\Rightarrow$ \quad $-$（衰减） \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{物理相线}（只显示定义域内部分）：
+
+\begin{center}
+\begin{tabular}{c}
+$\xrightarrow{\hspace{2cm}} \xrightarrow{\hspace{2cm}} \xrightarrow{\hspace{2cm}}
+\;\bullet\; \xleftarrow{\hspace{2cm}} \xleftarrow{\hspace{2cm}}$ \\[4pt]
+$x_0$ \hspace{3.5cm} $K_{\text{eff}}$ \hspace{3.5cm}
+\end{tabular}
+\end{center}
+
+\textbf{结论}：箭头从两侧指向 $K_{\text{eff}}$，因此 $x^* = K_{\text{eff}}$ 是\textbf{渐近稳定的}——
+任意初值 $x(0) \in [x_0, +\infty)$ 都将单调趋近 $K_{\text{eff}}$。
+
+Strogatz 在教材 \S2.3 对 logistic 方程给出了完全相同的图形分析结论（第24页）：
+\begin{quote}
+\small
+``Figure 2.3.3 shows that if we start a phase point at any $N_0 > 0$, it will always flow
+toward $N = K$. Hence the population always approaches the carrying capacity.''
+\end{quote}
+
+\subsection{\S2.4 线性稳定性分析：定量刻画}
+
+\subsubsection{Strogatz 的线性化方法}
+Strogatz \S2.4（Linear Stability Analysis, 第25--27页）发展了 Lyapunov 间接法
+（线性化方法），核心步骤为：
+
+\begin{enumerate}[label=(\arabic*)]
+  \item 设 $x^*$ 为一个不动点，令 $\eta(t) = x(t) - x^*$ 为小扰动
+  \item 对 $f(x^* + \eta)$ 做 Taylor 展开：
+        \begin{equation}
+        f(x^* + \eta) = f(x^*) + f'(x^*)\eta + O(\eta^2)
+        \end{equation}
+  \item 由于 $f(x^*) = 0$（不动点定义），忽略 $O(\eta^2)$ 项得到线性化方程：
+        \begin{equation}
+        \dot{\eta} \approx f'(x^*)\,\eta
+        \end{equation}
+  \item 解析解：$\eta(t) = \eta_0 \, e^{\lambda t}$，其中 $\lambda = f'(x^*)$
+\end{enumerate}
+
+Strogatz 的关键结论（第26页）：
+\begin{quote}
+\small
+``The linearization shows that $\eta(t)$ grows exponentially if $f'(x^*) > 0$ and decays
+exponentially if $f'(x^*) < 0$. If $f'(x^*) = 0$, the $O(\eta^2)$ terms are not negligible
+and a nonlinear analysis is needed to determine stability.''
+\end{quote}
+
+\subsubsection{应用于我们的模型}
+
+计算导数：
+\begin{equation}
+f'(x) = \frac{d}{dx}\left[ r x \left(1 - \frac{x}{K_{\text{eff}}}\right) \right]
+       = r\left(1 - \frac{2x}{K_{\text{eff}}}\right)
+\end{equation}
+
+在不动点处求值：
+\begin{align}
+f'(0)      &= r\left(1 - 0\right) = r > 0
+            \;\Rightarrow\; \text{不稳定（数学上，但物理不可达）} \\[4pt]
+f'(K_{\text{eff}}) &= r\left(1 - 2\right) = -r < 0
+            \;\Rightarrow\; \textbf{渐近稳定}
+\end{align}
+
+\textbf{特征时间尺度}（Strogatz 第26页引入的概念）：
+\begin{equation}
+\tau = \frac{1}{|f'(K_{\text{eff}})|} = \frac{1}{r} = \frac{1+\beta}{\gamma}
+      = \frac{1+1.5929}{0.022} \approx 117.9 \text{ 天}
+\end{equation}
+
+这表示小扰动衰减到初始值的 $1/e \approx 37\%$ 大约需要 118 天。
+对于``沪尚回收''体系的运营而言，这意味着系统的\textbf{自然恢复周期}约为 4 个月——
+若受到短期冲击（如春节期间的回收量骤降），系统可在约 4 个月内恢复至正常水平。
+
+\subsubsection{Strogatz 教材中的 Logistic 例题}
+教材例 2.4.2（第27页）直接给出了 logistic 方程的线性稳定性分析：
+\begin{quote}
+\small
+``Classify the fixed points of the logistic equation, using linear stability analysis, and find
+the characteristic time scale in each case... $f'(0) = r$ and $f'(K) = -r$. Hence $N^* = 0$
+is unstable and $N^* = K$ is stable... In either case, the characteristic time scale is
+$1/|f'(N^*)| = 1/r$.''
+\end{quote}
+
+\subsection{\S2.6 振荡的不可能性：一维自治系统的拓扑约束}
+
+Strogatz \S2.6（Impossibility of Oscillations, 第30--31页）给出了一个深刻的结果：
+
+\begin{quote}
+\small
+``Fixed points dominate the dynamics of first-order systems... all trajectories either
+approached a fixed point, or diverged to $\pm\infty$... The approach to equilibrium is
+always monotonic; overshoot and damped oscillations can never occur in a first-order system.''
+\end{quote}
+
+\textbf{定理（Strogatz \S2.6）}：对任意一维自治系统 $\dot{x} = f(x)$，不存在周期解。
+原因是一维流上的运动必须是单调的——相点永远不能``回头''，因此不可能回到出发点。
+
+\textbf{应用于我们的模型}：这意味着``沪尚回收''体系的回收量 $x(t)$：
+\begin{itemize}
+  \item 从 $x_0 < K_{\text{eff}}$ 出发时，\textbf{单调递增}至 $K_{\text{eff}}$——不会出现先增后减的``超调''；
+  \item 从 $x_0 > K_{\text{eff}}$ 出发时（理论情形），\textbf{单调递减}至 $K_{\text{eff}}$——不会出现下冲反弹；
+  \item \textbf{绝对不会}出现周期性波动——不存在``回收量先涨后跌再涨''的循环。
+\end{itemize}
+
+这个结论具有\textbf{运营意义}：如果实际数据出现周期性波动（如季节效应），
+那一定是外力（政策调整、节假日、宣传周期等）驱动，而非系统内生动力学。
+一维自治系统\textbf{自身}无法产生任何振荡行为。
+
+教材还给出了机械类比（第31页）：将 $\dot{x} = f(x)$ 理解为过阻尼（overdamped）极限，
+即一个质量块浸没在极其黏稠的液体（如蜂蜜）中，惯性可忽略。
+此时质量块只能\textbf{缓慢滑向}平衡位置，不可能来回摆动。
+
+\subsection{\S2.7 势函数：几何直观}
+
+Strogatz \S2.7（Potentials, 第31--33页）引入势函数概念，给出稳定性的另一种几何视角：
+
+\begin{quote}
+\small
+``We picture a particle sliding down the walls of a potential well, where the potential $V(x)$
+is defined by $f(x) = -dV/dx$... The particle always moves 'downhill' as the motion proceeds.''
+\end{quote}
+
+\subsubsection{构造势函数}
+对我们的模型 $f(x) = r x(1 - x/K_{\text{eff}})$，势函数为：
+\begin{equation}
+V(x) = -\int f(x)\,dx
+      = -\int r x\left(1 - \frac{x}{K_{\text{eff}}}\right) dx
+      = -r\left(\frac{x^2}{2} - \frac{x^3}{3K_{\text{eff}}}\right) + C
+\end{equation}
+
+取 $C = 0$ 简化（势函数在差一个常数意义下唯一）。
+
+\subsubsection{势能分析}
+\begin{itemize}
+  \item $x = 0$：$\frac{dV}{dx} = -f(0) = 0$，$\frac{d^2V}{dx^2} = -f'(0) = -r < 0$——\textbf{局部极大值}，
+        对应不稳定不动点（Strogatz 第33页：``local maxima correspond to unstable fixed points''）
+  \item $x = K_{\text{eff}}$：$\frac{dV}{dx} = -f(K_{\text{eff}}) = 0$，
+        $\frac{d^2V}{dx^2} = -f'(K_{\text{eff}}) = r > 0$——\textbf{局部极小值}，
+        对应稳定不动点（Strogatz 第33页：``local minima of $V(x)$ correspond to stable fixed points''）
+\end{itemize}
+
+物理图像：$V(x)$ 在 $x = K_{\text{eff}}$ 处有一个``势阱''。
+系统像一个滚入势阱底部的球，无论初始位置（初值）在哪，最终都会停在 $x = K_{\text{eff}}$。
+
+\subsection{\S2.5 存在唯一性定理}
+
+Strogatz \S2.5（Existence and Uniqueness, 第27--30页）给出了解的存在唯一性充分条件：
+
+\begin{quote}
+\small
+\textbf{Existence and Uniqueness Theorem:} Consider the initial value problem $\dot{x} = f(x)$,
+$x(0) = x_0$. Suppose that $f(x)$ and $f'(x)$ are continuous on an open interval $R$ of the
+$x$-axis, and suppose that $x_0$ is a point in $R$. Then the initial value problem has a
+solution $x(t)$ on some time interval $(-\tau, \tau)$ about $t = 0$, and the solution is unique.
+\end{quote}
+
+对我们的模型：
+\begin{itemize}
+  \item $f(x) = r x(1 - x/K_{\text{eff}})$ ——二次函数，任意阶连续可导
+  \item $f'(x) = r(1 - 2x/K_{\text{eff}})$ ——线性函数，任意阶连续可导
+  \item 定义域 $[x_0, +\infty)$ 是 $\mathbb{R}$ 的开子集
+\end{itemize}
+
+因此\textbf{解存在且唯一}。不像 Strogatz 例 2.5.1 中的 $\dot{x} = x^{1/3}$
+（$f'(0)$ 为无穷大导致唯一性失效），也不像例 2.5.2 中的 $\dot{x} = 1 + x^2$
+（解的有限时间 blow-up）。我们的系统具有良好的适定性。
+
+\vspace{12pt}
+\hrule
+\vspace{12pt}
+
+% ============================================================
+\section{问题三：基于 Strogatz 第3章的分岔与结构稳定性分析}
+
+\subsection{\S3.0--\S3.1 分岔理论基础}
+
+Strogatz \S3.0（Introduction, 第51页）定义了分岔：
+
+\begin{quote}
+\small
+``The qualitative structure of the flow can change as parameters are varied. In particular,
+fixed points can be created or destroyed, or their stability can change. These qualitative
+changes in the dynamics are called \textbf{bifurcations}, and the parameter values at which
+they occur are called \textbf{bifurcation points}.''
+\end{quote}
+
+\textbf{分岔是参数变化导致系统定性行为发生改变的现象}。理解分岔对于判断``沪尚回收''
+体系的稳定性边界至关重要——我们需要回答：\textbf{参数变到什么程度，系统会从稳定变成不稳定？}
+
+\subsection{\S3.1 鞍-结分岔：为什么我们的系统不会出现？}
+
+鞍-结分岔（Saddle-Node Bifurcation）是``不动点被创造和毁灭的基本机制''（Strogatz 第52页）。
+其标准型为：
+\begin{equation}
+\dot{x} = r \pm x^2
+\end{equation}
+
+\textbf{关键特征}（Strogatz 第52--54页）：
+\begin{itemize}
+  \item 当 $r < 0$（对 $\dot{x} = r - x^2$），存在两个不动点——一个稳定、一个不稳定
+  \item 随着 $r \to 0^-$，两个不动点互相靠近并合并
+  \item 当 $r = 0$，不动点合并为一个半稳定不动点（half-stable）
+  \item 当 $r > 0$，\textbf{所有不动点消失}——系统没有任何平衡态
+\end{itemize}
+
+\textbf{与我们的模型对比}：
+\begin{equation}
+\dot{x} = r x \left(1 - \frac{x}{K_{\text{eff}}}\right)
+       = r x - \frac{r}{K_{\text{eff}}} x^2
+\end{equation}
+
+这个方程的形式为 $\dot{x} = a x - b x^2$（$a, b > 0$）。
+它的不动点是 $x^* = 0$ 和 $x^* = a/b = K_{\text{eff}}$。
+
+\textbf{关键区别}：
+\begin{itemize}
+  \item 在鞍-结分岔中，当我们改变参数 $r$，两个不动点会\textbf{互相碰撞并湮灭}——
+        $r > 0$ 时方程 $\dot{x} = r - x^2$ 没有任何实根
+  \item 在我们的模型中，$x^* = 0$ 是不动点（因式分解为 $x$ 因子），\textbf{不可能湮灭}；
+        $x^* = K_{\text{eff}} = a/b$ 也只在一侧消失——如果 $a \to 0$（$r \to 0$），
+        它也只会移动到原点，不会凭空消失
+\end{itemize}
+
+\textbf{结论}：\textbf{我们的系统不会发生鞍-结分岔}——不动点永远不会``成对地产生和湮灭''。
+只要 $r > 0$（即 $\gamma > 0$ 且 $\beta$ 为有限值），总存在非零正不动点 $K_{\text{eff}} > 0$。
+
+\subsection{\S3.2 跨临界分岔：稳定性交换}
+
+跨临界分岔（Transcritical Bifurcation）的标准型为（Strogatz 第57页）：
+\begin{equation}
+\dot{x} = r x - x^2
+\end{equation}
+
+\textbf{注意}：这与我们的模型形式完全一致！（令 $r$ 为有效增长率，令 $K_{\text{eff}}$ 通过
+尺度变换归一化。）
+
+跨临界分岔的关键特征：
+\begin{itemize}
+  \item $x^* = 0$ 是\textbf{对所有参数值都存在}的不动点——这是跨临界分岔的标志
+  \item 当 $r < 0$：$x^* = 0$ 稳定，$x^* = r$ 不稳定
+  \item 当 $r = 0$：两个不动点合并（$x^* = 0$ 和 $x^* = r$ 重叠）
+  \item 当 $r > 0$：$x^* = 0$ 不稳定，$x^* = r$ 稳定
+\end{itemize}
+
+这就是 Strogatz 所说的``稳定性交换''（exchange of stabilities，第58页）：
+
+\begin{quote}
+\small
+``Some people say that an exchange of stabilities has taken place between the two fixed points...
+In the transcritical case, the two fixed points don't disappear after the bifurcation—instead
+they just switch their stability.''
+\end{quote}
+
+\textbf{应用于我们的模型}：
+\begin{equation}
+\dot{x} = r x - \frac{r}{K_{\text{eff}}} x^2
+\end{equation}
+
+通过尺度变换 $\tilde{x} = x / K_{\text{eff}}$（无量纲化），可化为标准跨临界形式：
+\begin{equation}
+\dot{\tilde{x}} = r \tilde{x} - r \tilde{x}^2 = r \tilde{x}(1 - \tilde{x})
+\end{equation}
+
+这恰好是 Strogatz \S3.2 的标准型（$r\tilde{x} - \tilde{x}^2$ 在通过时间尺度 $r$ 归一化后）。
+
+\textbf{在我们的物理参数空间内}：
+\begin{itemize}
+  \item $\gamma > 0$ 恒成立（居民回收行为永远有正向驱动力）
+  \item $\beta \geq 0$（抑制效应定义为非负）
+  \item 因此 $r = \gamma/(1+\beta) > 0$ \textbf{恒成立}
+  \item \textbf{我们永远处于 $r > 0$ 的半平面}——系统不会跨越 $r = 0$ 的分岔点
+\end{itemize}
+
+\textbf{这意味着}：虽然从数学上讲系统允许跨临界分岔（当 $r$ 可自由变号时），
+但在竞赛场景的\textbf{物理约束}下，$r$ 始终为正。
+系统远离分岔点，处于跨临界分岔图上的``右半支''——$x^* = 0$ 不稳定，
+$x^* = K_{\text{eff}}$ 稳定，这一稳定性结构\textbf{不会改变}。
+
+\subsection{\S3.4 叉形分岔：为什么我们的系统不会出现？}
+
+叉形分岔（Pitchfork Bifurcation）的标准型为（Strogatz 第63页）：
+\begin{equation}
+\dot{x} = r x - x^3 \quad \text{（超临界）}
+\end{equation}
+
+关键特征：
+\begin{itemize}
+  \item 方程在 $x \to -x$ 变换下不变——\textbf{系统具有对称性}
+  \item 当 $r < 0$：只有一个不动点（原点），稳定
+  \item 当 $r > 0$：原点变为不稳定，同时出现两个对称的稳定不动点 $x^* = \pm\sqrt{r}$
+\end{itemize}
+
+\textbf{为什么我们的模型不会出现叉形分岔}：
+\begin{itemize}
+  \item 叉形分岔要求系统具有\textbf{奇对称性}（$f(-x) = -f(x)$）
+  \item 我们的 $f(x) = r x - (r/K_{\text{eff}}) x^2$ 含有 $x^2$ 项，打破了奇对称性
+  \item 物理定义域 $x \geq x_0 > 0$ 也不支持负值的不动点
+\end{itemize}
+
+\subsection{\S3.6 结构稳定性：Q3 的核心结论}
+
+虽然 Strogatz 第2章和第3章没有单独设置``结构稳定性''一节（这一概念在 \S3.6
+通过更深入的分岔讨论中逐步展开），但结构稳定性的核心思想贯穿全书：
+
+\begin{quote}
+\small
+\textit{一个动力系统是结构稳定的，如果向量场 $f(x)$ 的足够小的光滑扰动不改变相图的定性拓扑结构。}
+\end{quote}
+
+\textbf{说人话版本}：对参数做小改动，系统的``长相''不变——不动点的数量和稳定性类型不变。
+
+\subsubsection{严格验证}
+我们的系统 $f(x) = r x - (r/K_{\text{eff}}) x^2$。考虑带扰动的系统：
+\begin{equation}
+\tilde{f}(x) = f(x) + \varepsilon g(x)
+\end{equation}
+其中 $\varepsilon$ 很小，$g(x)$ 是一个光滑函数。
+
+在 $x^* = K_{\text{eff}}$ 附近：
+\begin{equation}
+\tilde{f}'(K_{\text{eff}}) = f'(K_{\text{eff}}) + \varepsilon g'(K_{\text{eff}})
+                           = -r + \varepsilon g'(K_{\text{eff}})
+\end{equation}
+
+只要 $|\varepsilon g'(K_{\text{eff}})| < r$，就有 $\tilde{f}'(K_{\text{eff}}) < 0$——
+\textbf{扰动后的系统在 $K_{\text{eff}}$ 附近仍然有一个稳定不动点}。
+
+同理，在 $\alpha, \beta \geq 0$ 的整个参数空间内：
+\begin{equation}
+r = \frac{\gamma}{1+\beta} > 0 \quad \text{恒成立}
+\end{equation}
+
+\textbf{结论}：在有效参数空间内，系统恒有且仅有一个正稳定不动点 $x^* = K_{\text{eff}}$。
+不存在任何参数值使系统从稳定变为不稳定——\textbf{系统在整个有效参数空间内具有结构稳定性}。
+
+\subsubsection{与鞍-结分岔的关键区别}
+鞍-结分岔在 $r < 0$ 时存在两个不动点，而 $r > 0$ 时一个也没有。
+我们的系统中，$x^* = 0$ 和 $x^* = K_{\text{eff}}$ 总是共存（只要 $r > 0$），
+虽然当 $r \to 0$ 时 $K_{\text{eff}}$ 的大小会变化，但它\textbf{不会消失}。
+这正是结构稳定性的体现——不动点的数量不会因为参数的微小连续变化而改变。
+
+\vspace{12pt}
+\hrule
+\vspace{12pt}
+
+% ============================================================
+\section{问题四：基于 Strogatz 理论框架的灵敏度分析}
+
+\subsection{从分岔理论到灵敏度分析}
+
+Strogatz 第3章的核心教训是：\textbf{当系统接近分岔点时，行为会发生剧烈变化}。
+由此引出 Q4 的自然问题：\textbf{我们的系统距最近的分岔点有多远？各参数的波动会将系统推向分岔吗？}
+
+\subsubsection{参数弹性：$\dot{x} = f(x, p)$ 对参数 $p$ 的敏感度}
+
+在 Strogatz 的框架下，参数灵敏度可以理解为：
+\begin{equation}
+\varepsilon_{Q, p} = \frac{\partial Q}{\partial p} \cdot \frac{p}{Q}
+\end{equation}
+其中 $Q$ 是感兴趣的输出量（$r$, $K_{\text{eff}}$, $R^2$, MAE 等）。
+
+这个弹性衡量：参数 $p$ 变化 $1\%$ 时，输出 $Q$ 变化百分之几。
+
+\subsubsection{四个参数的弹性计算}
+
+\textbf{有效增长率 $r$ 对 $\gamma$ 的弹性}：
+\begin{equation}
+\varepsilon_{r, \gamma} = \frac{\partial r}{\partial \gamma} \cdot \frac{\gamma}{r}
+= \frac{1}{1+\beta} \cdot \frac{\gamma}{\gamma/(1+\beta)} = 1.0000
+\end{equation}
+$\gamma$ 与 $r$ 成比例——$\gamma$ 变化 $1\%$，$r$ 同向变化 $1\%$。
+Strogatz 术语：这是\textbf{线性传递}，没有非线性放大。
+
+\textbf{有效增长率 $r$ 对 $\beta$ 的弹性}：
+\begin{equation}
+\varepsilon_{r, \beta} = \frac{\partial r}{\partial \beta} \cdot \frac{\beta}{r}
+= -\frac{\gamma}{(1+\beta)^2} \cdot \frac{\beta}{\gamma/(1+\beta)}
+= -\frac{\beta}{1+\beta} = -0.6143
+\end{equation}
+$\beta$ 的弹性小于 1（绝对值），意味着\textbf{抑制效应存在边际递减}——
+当 $\beta$ 已经较大时，再增加抑制的额外伤害有限。
+这与 Strogatz \S3.1 在分岔点附近 $f'(x^*) \to 0$ 的``临界慢化''（critical slowing down）
+现象形成对比——我们的系统远离分岔点，故非线性效应不强烈。
+
+\textbf{有效容量 $K_{\text{eff}}$ 对 $\alpha$ 的弹性}：
+\begin{equation}
+\varepsilon_{K_{\text{eff}}, \alpha} = \frac{\partial K_{\text{eff}}}{\partial \alpha}
+\cdot \frac{\alpha}{K_{\text{eff}}}
+= K \cdot \frac{\alpha}{K(1+\alpha)} = \frac{\alpha}{1+\alpha} = 0.0161
+\end{equation}
+\textbf{弹性极小}——$\alpha$ 变化 $10\%$，$K_{\text{eff}}$ 仅变化约 $0.16\%$。
+$\alpha \ll 1$ 导致促进效应对容量的贡献被``锁死''在近零水平。
+
+\textbf{有效容量 $K_{\text{eff}}$ 对 $K$ 的弹性}：
+\begin{equation}
+\varepsilon_{K_{\text{eff}}, K} = \frac{\partial K_{\text{eff}}}{\partial K}
+\cdot \frac{K}{K_{\text{eff}}}
+= (1+\alpha) \cdot \frac{K}{K(1+\alpha)} = 1.0000
+\end{equation}
+$K$ 与 $K_{\text{eff}}$ 成比例——$K$ 变化 $1\%$，$K_{\text{eff}}$ 同向变化 $1\%$。
+\textbf{这是模型中最危险的弹性}——任何对 $K$ 的估计偏差都会等比例传导到饱和预测值。
+
+\subsection{\S3.2 跨临界分岔视角下的 $K$ 敏感性问题}
+
+回到跨临界分岔的标准型 $\dot{x} = r x - x^2$。
+当 $r \to 0$（分岔点），系统的特征时间尺度 $\tau = 1/|r| \to \infty$——
+出现 Strogatz 所述的\textbf{临界慢化}（第63页）：
+
+\begin{quote}
+\small
+``When $r = 0$, the origin is still stable, but much more weakly so, since the linearization
+vanishes. Now solutions no longer decay exponentially fast—instead the decay is a much slower
+algebraic function of time... This lethargic decay is called \textbf{critical slowing down}.''
+\end{quote}
+
+虽然我们的系统远离 $r = 0$ 的分岔点，但\textbf{另一种参数的敏感性}同样值得关注：
+\textbf{系统对 $K_{\text{eff}}$（饱和值）的敏感度}。
+
+当数据处于近饱和区（$x(t)$ 接近 $K_{\text{eff}}$，即 $x/K_{\text{eff}} \to 1$），
+$f(x)$ 和 $f'(x)$ 都趋于零：
+\begin{equation}
+f(x) \approx r K_{\text{eff}} \cdot 0 = 0, \qquad
+f'(x) \approx -r \quad \text{（注意：$f'(K_{\text{eff}}) = -r$，非零——不真正慢化）}
+\end{equation}
+
+\textbf{关键洞察}：虽然 $f(x)$ 在饱和区趋于零，但\textbf{线性化 $f'(K_{\text{eff}}) = -r$ 不趋于零}。
+这与真正分岔点附近 $f'(x^*) \to 0$ 导致的临界慢化\textbf{不同}。
+我们的系统在近饱和区只是``走得慢''（因为 $f(x)$ 小），
+而非``恢复得慢''（$f'(K_{\text{eff}})$ 仍旧为 $-r$，特征时间尺度不变）。
+
+\subsection{合成灵敏度等级}
+
+\begin{center}
+\begin{tabular}{lcccl}
+\toprule
+\textbf{参数} & \textbf{弹性 $\varepsilon$} & \textbf{$\Delta R^2$} &
+\textbf{与 Strogatz 理论的关系} & \textbf{敏感等级} \\
+\midrule
+$K$（基准容量） & $1.0000$ & $0.0626$ &
+$K$ 决定吸引子的位置；偏差导致吸引子错位——系统忠实趋向错误目标 &
+\textbf{极高} \\[8pt]
+
+$\gamma$（固有增长率） & $1.0000$（对 $r$） & $0.0020$ &
+线性传递，logistic 饱和区自压缩效应抑制扰动放大；远离分岔 &
+低 \\[8pt]
+
+$\beta$（抑制系数） & $-0.6143$（对 $r$） & $0.0005$ &
+非线性衰减，$\beta$ 越大边际效应越弱；系统处于 $r>0$ 安全区远离 $r=0$ 分岔 &
+中低 \\[8pt]
+
+$\alpha$（促进系数） & $0.0161$（对 $K_{\text{eff}}$） & $\approx 0$ &
+$\alpha \ll 1$ 使弹性锁死在极小值；促进策略对容量的边际贡献已饱和 &
+\textbf{可忽略} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Strogatz 视角下的运营策略}
+
+\subsubsection{$\alpha$ 不敏感的结构性原因}
+为什么 $\alpha$ 如此不敏感？从 Strogatz 的框架来看：
+\begin{equation}
+K_{\text{eff}} = K(1+\alpha) = K + \alpha K
+\end{equation}
+
+$\alpha K = 0.0164 \times 8011 \approx 131$ 吨/天——促进效应仅为基准容量的 $1.64\%$。
+这在动力学上意味着：\textbf{促进策略几乎不改变相空间的结构}。
+吸引子 $K_{\text{eff}}$ 的位置几乎不因 $\alpha$ 的波动而移动。
+
+\textbf{但这不意味着促进策略毫无价值}。Strogatz \S2.6 的机械类比提示我们：
+促进策略的作用可能更多地体现在\textbf{非模型变量}上——如改善居民的初始参与意愿
+（影响 $\gamma$）、降低分类门槛（间接降低 $\beta$）——而非直接扩大容量上限。
+
+\subsubsection{$K$ 超敏感的动力学根源}
+$K$ 对 $R^2$ 的影响远超其他参数（$\times 30$--$170$）。
+从动力学视角解释：
+\begin{itemize}
+  \item 数据点密集分布在 $x \approx K_{\text{eff}}$（饱和平台附近）——
+        $x(365) / K_{\text{eff}} = 8002 / 8142 \approx 98.3\%$
+  \item $K$ 的偏差会\textbf{系统性地移动吸引子位置}
+  \item 由于所有晚期点都靠近吸引子，它们将对吸引子位置的任何变化``集体响应''——
+        产生系统性同向残差，导致 $R^2$ 崩溃
+\end{itemize}
+
+这在 Strogatz \S3.1 的语境中可以理解为：
+\textbf{吸引子位置的不确定性比吸引子稳定性的不确定性危险得多}。
+系统不会崩溃（Q3 已保证），但它会\textbf{稳定地趋向一个错误的目标}。
+
+\subsection{距分岔点的安全裕度}
+
+\textbf{最近的分岔类型}：跨临界分岔（\S3.2），分岔参数为 $r$，分岔点为 $r = 0$。
+
+当前状态：
+\begin{equation}
+r = \frac{\gamma}{1+\beta} = \frac{0.022}{1+1.5929} = 0.008485
+\end{equation}
+
+\textbf{距分岔点的距离}（以分岔参数 $r$ 的对数尺度衡量）：
+\begin{equation}
+\text{安全裕度} = \frac{r - 0}{r} = 100\% \quad \text{（$r$ 本身大于零，不可能穿越到负值）}
+\end{equation}
+
+更实际的评估——考虑使 $r$ 降低到临界值 $r_{\min} = 0.005$ 所需的 $\beta$ 增量：
+\begin{equation}
+\beta_{\text{critical}} = \frac{\gamma}{r_{\min}} - 1 = \frac{0.022}{0.005} - 1 = 3.40
+\end{equation}
+
+当前 $\beta = 1.59$，裕度 $\beta_{\text{critical}} - \beta = 1.81$。
+即使 $\beta$ 在当前值基础上再恶化 $114\%$，$r$ 仍高于临界值。
+\textbf{分岔方面的安全性非常高}。
+
+\vspace{12pt}
+\hrule
+\vspace{12pt}
+
+% ============================================================
+\section{综合结论：Strogatz 理论框架下的 Q3+Q4 联合分析}
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+
+\item \textbf{系统是一维自治的，动力学完全由不动点支配}（Strogatz \S2.2, \S2.6）
+
+在物理定义域 $[x_0, +\infty)$ 内，系统有且仅有一个不动点 $x^* = K_{\text{eff}}$。
+一维流的拓扑约束（Strogatz \S2.6）保证了解必定单调趋近这个不动点，
+不存在振荡、超调或周期行为。
+
+\item \textbf{不动点是渐近稳定的}（Strogatz \S2.4）
+
+线性化分析给出 $\lambda = f'(K_{\text{eff}}) = -r < 0$（恒为负），
+因此平衡点具有\textbf{指数收敛速率}，特征时间尺度 $\tau = 1/r \approx 118$ 天。
+
+\item \textbf{系统在有效参数空间内具有结构稳定性}（Strogatz \S3 综合）
+
+$\alpha, \beta \geq 0$ 是参数定义的组成部分（促进系数和抑制系数恒为非负），
+因此 $r = \gamma/(1+\beta) > 0$ 恒成立。系统\textbf{不能}跨越 $r = 0$ 的跨临界分岔点。
+在整个有效参数空间内：
+\begin{itemize}
+  \item 不动点的数量不变（始终 2 个，物理定义域内 1 个）
+  \item 不动点的稳定性类型不变（$K_{\text{eff}}$ 始终稳定）
+  \item 不存在鞍-结分岔（不动点不会成对湮灭）
+  \item 不存在叉形分岔（系统缺乏所需的奇对称性）
+\end{itemize}
+
+\item \textbf{参数灵敏度高度分化}（Strogatz \S3 弹性概念 + Q4 量化）
+
+$K$（基准容量）是压倒性的主导参数，其 $\pm 10\%$ 扰动使 $R^2$ 从 $0.9915$ 崩塌至 $0.3$ 量级——
+其他三个参数的影响仅为 $K$ 的 $1/30$--$1/170$。
+
+这一现象可以从 Strogatz 的\textbf{吸引子错位}视角理解：
+$K$ 决定了稳定不动点 $x^* = K_{\text{eff}}$ 的位置。数据已处于近饱和区，
+吸引子位置的任何偏差都会转化为对所有晚期数据点的系统性预测偏差。
+
+\item \textbf{最大的风险不在分岔，而在参数误判}（Q3+Q4 联合发现）
+
+Strogatz 第3章教导我们：系统在分岔点附近行为会急剧变化。
+Q3 证明了我们的系统远离任何分岔点——不会崩溃。
+但 Q4 揭示了另一种危险：\textbf{系统会忠诚地收敛到一个错误的目标值}。
+对 $K$ 的误判不会导致系统不稳定，但会使所有预测系统性偏离现实——
+这是一种``安静地失败''的模式，比突然崩溃更难察觉。
+
+\item \textbf{运营策略的优先级}（基于 Strogatz 理论 + 数值证据）
+
+\begin{center}
+\begin{tabular}{clp{8cm}}
+\toprule
+优先级 & 参数 & Strogatz 理论依据与行动方向 \\
+\midrule
+\textbf{1} & $K$（基准容量） &
+吸引子的位置决定一切（\S2.2--\S2.3）；必须精确测定以避免系统趋向错误目标 \\
+
+\textbf{2} & $\beta$（抑制系数） &
+控制 $r$（收敛速率），弹性 $-0.61$，存在边际递减（\S2.4 特征时间尺度 \S3.2 跨临界分岔）；
+降低抑制是所有参数调控中\textbf{效率最高}的手段（$\times 38$ 倍于 $\alpha$） \\
+
+\textbf{3} & $\alpha$（促进系数） &
+弹性仅 $0.016$，对 $K_{\text{eff}}$ 的贡献几乎为零（\S3.6 结构稳定性视角）；
+促进策略的着力点应转向对 $\gamma$ 和 $\beta$ 的间接效应 \\
+
+\textbf{4} & $\gamma$（固有增长率） &
+线性传递无放大（$\varepsilon = 1$），系统在饱和区自压缩（\S2.3 logistic 模型），
+保持常规监测即可 \\
+
+\bottomrule
+\end{tabular}
+\end{center}
+
+\end{enumerate}
+
+\vspace{12pt}
+
+\begin{center}
+\fbox{%
+\begin{minipage}{0.92\textwidth}
+\centering
+\textbf{最终总结}\\[6pt]
+\begin{itemize}
+  \item \textbf{数学上安全}（Q3）：系统具有结构稳定性，不会发生分岔——Strogatz \S2--\S3 的全部分析工具一致支持这一结论。
+  \item \textbf{参数上脆弱}（Q4）：$K$ 的估计精度是模型的生命线——Strogatz \S2.2 告诉我们，吸引子的位置决定所有轨迹的归宿。
+  \item \textbf{策略上清晰}：精测 $K$（确保吸引子位置正确）、削减 $\beta$（加速收敛，$\times 38$ 效率）、转变 $\alpha$ 定位（饱和扩张已是过去式）。
+\end{itemize}
+\end{minipage}}
+\end{center}
+
+\end{document}
