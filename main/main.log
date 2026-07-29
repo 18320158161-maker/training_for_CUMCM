@@ -1,10 +1,9 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.4) (preloaded format=xelatex 2026.5.4)  30 JUL 2026 01:17
+This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.4) (preloaded format=xelatex 2026.5.4)  30 JUL 2026 01:58
 entering extended mode
  restricted \write18 enabled.
- file:line:error style messages enabled.
  %&-line parsing enabled.
-**f:/Desktop/CUMCM/校内预选/training_for_CUMCM/main/main.tex
-(f:/Desktop/CUMCM/校内预选/training_for_CUMCM/main/main.tex
+**./main.tex
+(main.tex
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-11-06>
 (C:\Program Files\MikTex\tex/latex/ctex\ctexart.cls
@@ -962,12 +961,15 @@ Package fontspec Info:
 
 
 
-LaTeX Warning: Citation `problem' on page 1 undefined on input line 61.
+LaTeX Warning: Citation `problem' on page 1 undefined on input line 57.
 
 [1
 
 ]
+
+LaTeX Warning: Citation `problem' on page 2 undefined on input line 61.
+
 LaTeX Font Info:    Font shape `TU/SimSun(0)/m/sl' in size <12> not available
 (Font)              Font shape `TU/SimSun(0)/m/it' tried instead on input line 
 85.
- [2] [3
+[2] [3
