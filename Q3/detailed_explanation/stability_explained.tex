@@ -317,7 +317,7 @@ r \cdot x \cdot \left(1 - \frac{x}{K_{\text{eff}}}\right) &= 0
 x = 0 \quad \text{或} \quad 1 - \frac{x}{K_{\text{eff}}} = 0 \;\Rightarrow\; x = K_{\text{eff}}
 \]
 
-代数方程 $f(x) = 0$ 有两个数学解，但 $x$ 的实际定义域为 $[x_0, +\infty)$（回收量从 $x_0 = 6314$ 出发，$f(x) > 0$ 保证 $x$ 单调递增，不会回落），$x_1^* = 0$ 远在定义域之外。\\
+代数方程 $f(x) = 0$ 有两个数学解，但由 $x_0 = 6314 < K_{\text{eff}}$ 及 $f(x) > 0$（$\forall x \in [x_0, K_{\text{eff}})$），从 $x_0$ 出发的轨迹单调递增且以 $K_{\text{eff}}$ 为上界，物理可达状态集为 $\mathcal{D} = [x_0, K_{\text{eff}}]$，$x_1^* = 0$ 远在此集之外。\\
 \textbf{物理上只存在一个平衡点：}
 \begin{equation}\label{eq:equilibria}
 \boxed{x^* = K_{\text{eff}} = K(1+\alpha)}
@@ -389,7 +389,7 @@ $x^* = K(1+\alpha)$ & $8142.22$ & $\lambda = -r = -0.008485 < 0$ & \textbf{渐�
 \section{模型分析第三步：相线验证}
 % ===================================================================
 
-用相线方法交叉验证线性化的结论。$x$ 的物理定义域为 $[x_0, +\infty)$（回收量从 $x_0 = 6314$ 出发且单调递增），$x_0 < K_{\text{eff}}$，平衡点 $x^* = K_{\text{eff}}$ 将定义域切为两个区间：
+用相线方法交叉验证线性化的结论。物理可达状态集为 $\mathcal{D} = [x_0, K_{\text{eff}}]$（从 $x_0 < K_{\text{eff}}$ 出发，$f(x) > 0$ 保证 $x$ 单调递增且以 $K_{\text{eff}}$ 为上界），平衡点 $x^* = K_{\text{eff}}$ 将可达集切为区间 I 及以外区域：
 
 \[
 \underbrace{\qquad [x_0,\; K_{\text{eff}}) \qquad}_{\text{区间 I}}
@@ -573,8 +573,33 @@ r = \frac{\gamma}{1+\beta} \geq r_{\min}
 \beta &\leq \frac{\gamma}{r_{\min}} - 1
 \end{align*}
 
-取 $r_{\min} = 0.005$（基于运营管理的最低要求：\\
-大约需要 $-\ln(0.01)/0.005 \approx 921$ 天恢复到 $99\%$ 的饱和水平）：
+\textbf{$r_{\min}$ 如何确定？} 我们需要一条有物理依据的定量准则，而非主观取数。
+
+Logistic 系统从初值恢复至 $99\%$ 饱和水平所需时间满足保守上界：
+\[
+t_{99\%} \leq -\frac{\ln(0.01)}{r} = \frac{\ln(100)}{r}
+\]
+（此上界忽略初值因子 $K_{\text{eff}}/x_0-1 \approx 0.29$ 的加速效应——
+因子小于 1 时实际收敛更快，因此 $-\ln(0.01)/r$ 给出的是最不利估计。）
+
+现要求系统在\textbf{不超过 $2.5$ 个观测周期内基本完成收敛}：
+观测周期 $T = 365$ 天（表(b) 数据时间跨度），
+$2.5T = 2.5 \times 365 = 912.5$ 天 $\approx 2.5$ 年。
+这一时长在市政规划尺度上是合理的——任何回收体系的运营策略调整
+不应等待 $3$ 年以上才判断是否生效。
+
+由 $t_{99\%} \leq 2.5T$ 得：
+\[
+\frac{\ln(100)}{r} \leq 912.5
+\;\Rightarrow\;
+r \geq \frac{\ln(100)}{912.5} = \frac{4.60517}{912.5} \approx 0.00505
+\]
+
+取整至合理精度，定义：
+\[
+\boxed{r_{\min} = 0.005\ \text{天}^{-1}}
+\]
+代入 $\beta_{\max} = \gamma/r_{\min} - 1$：
 \[
 \boxed{\beta_{\max} = \frac{0.022}{0.005} - 1 = 3.40}
 \]
@@ -641,8 +666,8 @@ r = \frac{\gamma}{1+\beta}, \qquad K_{\text{eff}} = K(1+\alpha)
         \]
         其中 $\alpha \geq 0$（促进系数），$\beta \geq 0$（抑制系数），由定义保证。
 
-  \item \textbf{找平衡点}：令 $f(x) = r x (1 - x/K_{\text{eff}}) = 0$。$x$ 的定义域为 $[x_0, +\infty)$，
-        只有 $x^* = K_{\text{eff}}$ 在定义域内。（数学上另有一根 $x=0$，远在定义域外。）
+  \item \textbf{找平衡点}：令 $f(x) = r x (1 - x/K_{\text{eff}}) = 0$。物理可达状态集为 $\mathcal{D} = [x_0, K_{\text{eff}}]$，
+        只有 $x^* = K_{\text{eff}}$ 在可达集内。（数学上另有一根 $x=0$，远在可达集外。）
 
   \item \textbf{线性化}：计算 $f'(x) = r(1 - 2x/K_{\text{eff}})$，在 $x^* = K_{\text{eff}}$ 处：
         \[

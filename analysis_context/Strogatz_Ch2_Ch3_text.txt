@@ -1,0 +1,2116 @@
+
+============================================================
+=== Page 1 (printed page ~33) ===
+============================================================
+
+18 Nonlinear Dynamics and Chaos
+change in concavity corresponds to the initial acceleration for x<π/2,
+followed by the deceleration toward x=π.
+2. The same reasoning applies to any initial condition x0.Figure 2.1.1
+shows that if ˙x> 0initially, the particle heads to the right and asymp-
+totically approaches the nearest stable fixed point. Similarly, if ˙x< 0
+initially, the particle approaches the nearest stable fixed point to its left.
+If˙x=0, then xremains constant. The qualitative form of the solution
+for any initial condition is sketched in Figure 2.1.3.
+Figure 2.1.3
+In all honesty, we should admit that a picture can’t tell us certain quantitative
+things: for instance, we don’t know the time at which the speed |˙x|is greatest.
+But in many cases qualitative information is what we care about, and then
+pictures are fine.
+2.2 Fixed Points and Stability
+Theideasdevelopedinthelastsectioncanbeextendedtoanyone-dimensionalsystem ˙x=f(x). We just need to draw the graph of f(x)and then use it to
+sketch the vector field on the real line (the x-axis in Figure 2.2.1).
+
+============================================================
+=== Page 2 (printed page ~34) ===
+============================================================
+
+18 Nonlinear Dynamics and Chaos
+change in concavity corresponds to the initial acceleration for x<π/2,
+followed by the deceleration toward x=π.
+2. The same reasoning applies to any initial condition x0. Figure 2.1.1
+shows that if ˙x> 0initially, the particle heads to the right and asymp-
+totically approaches the nearest stable fixed point. Similarly, if ˙x< 0
+initially, the particle approaches the nearest stable fixed point to its left.
+If˙x=0, then xremains constant. The qualitative form of the solution
+for any initial condition is sketched in Figure 2.1.3.
+Figure 2.1.3
+In all honesty, we should admit that a picture can’t tell us certain quantitative
+things: for instance, we don’t know the time at which the speed |˙x|is greatest.
+But in many cases qualitative information is what we care about, and then
+pictures are fine.
+2.2 Fixed Points and Stability
+Theideasdevelopedinthelastsectioncanbeextendedtoanyone-dimensionalsystem ˙x=f(x). We just need to draw the graph of f(x)and then use it to
+sketch the vector field on the real line (the x-axis in Figure 2.2.1).Flows on the Line 19
+Figure 2.2.1
+As before, we imagine that a fluid is flowing along the real line with a local
+velocity f(x). This imaginary fluid is called the phase fluid, and the real line is
+the phase space. The flow is to the right where f(x)>0and to the left where
+f(x)<0. To find the solution to ˙x=f(x)starting from an arbitrary initial
+condition x0,we place an imaginary particle (known as a phase point ) atx0
+and watch how it is carried along by the flow. As time goes on, the phase pointmoves along the x-axis according to some function x(t). This function is called
+thetrajectory based at x
+0,and it represents the solution of the differential
+equation starting from the initial condition x0. A picture like Figure 2.2.1,
+which shows all the qualitatively different trajectories of the system, is calledaphase portrait .
+The appearance of the phase portrait is controlled by the fixed points
+x
+∗,defined by f(x∗)= 0; they correspond to stagnation points of the flow.
+In Figure 2.2.1, the solid black dot is a stable fixed point (the local flow istoward it) and the open dot is an unstable fixed point (the flow is away fromit).
+In terms of the original differential equation, fixed points represent equi-
+librium solutions (sometimes called steady, constant, or rest solutions, since
+ifx=x
+∗initially, then x(t)= x∗for all time). An equilibrium is defined to
+be stable if all sufficiently small disturbances away from it damp out in time.Thus stable equilibria are represented geometrically by stable fixed points.Conversely, unstable equilibria, in which disturbances grow in time, are rep-resented by unstable fixed points.
+Example 2.2.1:
+Find all the fixed points for ˙x=x2−1,and classify their stability.
+Solution: Here f(x)= x2−1. To find the fixed points, we set f(x∗)=0and
+solve for x∗. Thus x∗=±1. To determine stability, we plot x2−1and then
+sketch the vector field (Figure 2.2.2). The flow is to the right where x2−1>0
+
+============================================================
+=== Page 3 (printed page ~35) ===
+============================================================
+
+20 Nonlinear Dynamics and Chaos
+and to the left where x2−1<0. Thus x∗=−1is stable, and x∗=1is
+unstable. ■
+Figure 2.2.2
+Note that the definition of stable equilibrium is based on smalldistur-
+bances; certain large disturbances may fail to decay. In Example 2.2.1, all
+small disturbances to x∗=−1will decay, but a large disturbance that sends
+xto the right of x=1willnotdecay—in fact, the phase point will be re-
+pelled out to +∞. To emphasize this aspect of stability, we sometimes say
+thatx∗=−1islocally stable , but not globally stable.
+Example 2.2.2:
+Consider the electrical circuit shown in Figure 2.2.3.
+Figure 2.2.3
+A resistor Rand a capacitor Care in series with a battery of constant dc
+voltage V0. Suppose that the switch is closed at t=0, and that there is no
+charge on the capacitor initially. Let Q(t)denote the charge on the capacitor
+at time t≥0. Sketch the graph of Q(t).
+
+============================================================
+=== Page 4 (printed page ~36) ===
+============================================================
+
+20 Nonlinear Dynamics and Chaos
+and to the left where x2−1<0. Thus x∗=−1is stable, and x∗=1is
+unstable. ■
+Figure 2.2.2
+Note that the definition of stable equilibrium is based on smalldistur-
+bances; certain large disturbances may fail to decay. In Example 2.2.1, all
+small disturbances to x∗=−1will decay, but a large disturbance that sends
+xto the right of x=1willnotdecay—in fact, the phase point will be re-
+pelled out to +∞. To emphasize this aspect of stability, we sometimes say
+thatx∗=−1islocally stable , but not globally stable.
+Example 2.2.2:
+Consider the electrical circuit shown in Figure 2.2.3.
+Figure 2.2.3
+A resistor Rand a capacitor Care in series with a battery of constant dc
+voltage V0. Suppose that the switch is closed at t=0, and that there is no
+charge on the capacitor initially. Let Q(t)denote the charge on the capacitor
+at time t≥0. Sketch the graph of Q(t).Flows on the Line 21
+Solution: This type of circuit problem is probably familiar to you. It is
+governed by linear equations and can be solved analytically, but we prefer to
+illustrate the geometric approach.
+First we write the circuit equations. As we go around the circuit, the
+total voltage drop must equal zero; hence −V0+RI+Q/C=0, where Iis the
+current flowing through the resistor. This current causes charge to accumulateon the capacitor at a rate ˙Q=I. Hence
+−V
+0+R˙Q+Q/C=0
+which gives
+˙Q=f(Q)=V0
+R−Q
+RC.
+The graph of f(Q)is a straight line with a negative slope (Figure 2.2.4).
+Figure 2.2.4
+The corresponding vector field has a fixed point where f(Q)=0, which occurs
+atQ∗=CV0. The flow is to the right where f(Q)>0and to the left where
+f(Q)<0. Thus the flow is always toward Q∗; it is a stablefixed point. In
+fact, it is globally stable , in the sense that it is approached from allinitial
+conditions.
+To sketch Q(t), we start a phase point at the origin of Figure 2.2.4 and
+imagine how it would move. The flow carries the phase point monotonicallytoward Q
+∗. Its speed ˙Qdecreases linearly as it approaches the fixed point;
+therefore Q(t)is increasing and concave down, as shown in Figure 2.2.5. ■
+Example 2.2.3:
+Sketch the phase portrait corresponding to ˙x=x−cosx,and determine the
+stability of all the fixed points.
+Solution: One approach would be to plot the function f(x)= x−cosxand
+then sketch the associated vector field. This method is valid, but it requiresyou to figure out what the graph of x−cosxlooks like.
+There’s an easier solution, which exploits the fact that we know how to
+graph y=xandy=cosxseparately. We plot both graphs on the same axes
+and then observe that they intersect in exactly one point (Figure 2.2.6).
+
+============================================================
+=== Page 5 (printed page ~37) ===
+============================================================
+
+22 Nonlinear Dynamics and Chaos
+Figure 2.2.5
+Thisintersection corresponds to a fixed point, since x∗=cosx∗and there-
+fore f(x∗)= 0. Moreover, when the line lies above the cosine curve, we have
+x>cosxand so ˙x> 0: the flow is to the right. Similarly, the flow is to the
+left where the line is below the cosine curve.
+Figure 2.2.6
+Hence x∗isthe only fixed point, and it is unstable. Note that we can classify
+the stability of x∗, even though we don’t have a formula for x∗itself! ■
+2.3 Population Growth
+The simplest model for the growth of a population of organisms is ˙N=rN,
+where N(t)is the population at time t, and r> 0is the growth rate. This
+model predicts exponential growth: N(t)= N0ert,where N0is the population
+att=0.
+Of course such exponential growth cannot go on forever. To model
+the effects of overcrowding and limited resources, population biologists and
+
+============================================================
+=== Page 6 (printed page ~38) ===
+============================================================
+
+22 Nonlinear Dynamics and Chaos
+Figure 2.2.5
+This intersection corresponds to a fixed point, since x∗=cosx∗and there-
+fore f(x∗)= 0. Moreover, when the line lies above the cosine curve, we have
+x>cos xand so ˙x>0: the flow is to the right. Similarly, the flow is to the
+left where the line is below the cosine curve.
+Figure 2.2.6
+Hence x∗is the only fixed point, and it is unstable. Note that we can classify
+the stability of x∗, even though we don’t have a formula for x∗itself! ■
+2.3 Population Growth
+The simplest model for the growth of a population of organisms is ˙N=rN,
+where N(t)is the population at time t, and r> 0is the growth rate. This
+model predicts exponential growth: N(t)= N0ert,where N0is the population
+att=0.
+Of course such exponential growth cannot go on forever. To model
+the effects of overcrowding and limited resources, population biologists andFlows on the Line 23
+demographers often assume that the per capita growth rate ˙N/Ndecreases
+when Nbecomes sufficiently large, as shown in Figure 2.3.1. For small N,
+the growth rate equals r,just as before. However, for populations larger than
+a certain carrying capacity K, the growth rate actually becomes negative;
+the death rate is higher than the birth rate.
+Figure 2.3.1
+A mathematically convenient way to incorporate these ideas is to assume
+that the per capita growth rate ˙N/Ndecreases linearlywithN(Figure 2.3.2).
+Figure 2.3.2
+This leads to the logistic equation
+˙N=rN/parenleftbigg
+1−N
+K/parenrightbigg
+,
+first suggested to describe the growth of human populations by Verhulst in
+1838. This equation can be solved analytically (Exercise 2.3.1) but once againwe prefer a graphical approach. We plot ˙Nversus Nto see what the vector
+field looks like. Note that we plot only N≥0,since it makes no sense to think
+about a negative population (Figure 2.3.3).
+Fixed points occur at N
+∗=0andN∗=K,as found by setting ˙N=0and
+solving for N. By looking at the flow in Figure 2.3.3, we see that N∗= 0 is an
+unstable fixed point and N∗=Kis a stable fixed point. In biological terms,
+
+============================================================
+=== Page 7 (printed page ~39) ===
+============================================================
+
+24 Nonlinear Dynamics and Chaos
+Figure 2.3.3
+N= 0is an unstable equilibrium: a small population will grow exponentially
+fast and run away from N=0. On the other hand, if Nis disturbed slightly
+fromK,the disturbance will decay monotonically and N(t)→Kast→∞.
+In fact,Figure 2.3.3 shows that if we start a phase point at anyN0>0,it
+will always flow toward N=K. Hencethe population always approaches the
+carrying capacity.
+The only exception is if N0=0; then there’s nobody around to start repro-
+ducing, and so N=0for all time. (The model does not allow for spontaneous
+generation!)
+Figure 2.3.3 also allows us to deduce the qualitative shape of the solutions.
+For example, if N0<K /2,the phase point moves faster and faster until it
+crosses N=K/2,where the parabola in Figure 2.3.3 reaches its maximum.
+Then the phase point slows down and eventually creeps toward N=K. In
+biological terms, this means that the population initially grows in an acceler-
+ating fashion, and the graph of N(t)is concave up. But after N=K/2,the
+derivative ˙Nbegins to decrease, and so N(t)is concave down as it asymp-
+totes to the horizontal line N=K(Figure 2.3.4). Thus the graph of N(t)is
+S-shaped or sigmoidforN0<K /2.
+Something qualitatively different occurs if the initial condition N0lies
+between K/2 and K; now the solutions are decelerating from the start. Hence
+these solutions are concave down for all t. If the population initially exceeds
+the carrying capacity (N0>K ), then N(t)decreases toward N=Kand is
+concave up. Finally, if N0= 0 or N0=K,then the population stays constant.
+Critique of the Logistic Model
+Before leaving this example, we should make a few comments about the bio-
+logical validity of the logistic equation. The algebraic form of the model is notto be taken literally. The model should really be regarded as a metaphor forpopulations that have a tendency to grow from zero population up to somecarrying capacity K.
+
+============================================================
+=== Page 8 (printed page ~40) ===
+============================================================
+
+24 Nonlinear Dynamics and Chaos
+Figure 2.3.3
+N=0is an unstable equilibrium: a small population will grow exponentially
+fast and run away from N=0. On the other hand, if Nis disturbed slightly
+fromK,the disturbance will decay monotonically and N(t)→Kast→∞.
+In fact, Figure 2.3.3 shows that if we start a phase point at anyN0>0,it
+will always flow toward N=K. Hencethe population always approaches the
+carrying capacity.
+The only exception is if N0=0; then there’s nobody around to start repro-
+ducing, and so N=0for all time. (The model does not allow for spontaneous
+generation!)
+Figure 2.3.3 also allows us to deduce the qualitative shape of the solutions.
+For example, if N0<K /2,the phase point moves faster and faster until it
+crosses N=K/2,where the parabola in Figure 2.3.3 reaches its maximum.
+Then the phase point slows down and eventually creeps toward N=K. In
+biological terms, this means that the population initially grows in an acceler-
+ating fashion, and the graph of N(t)is concave up. But after N=K/2,the
+derivative ˙Nbegins to decrease, and so N(t)is concave down as it asymp-
+totes to the horizontal line N=K(Figure 2.3.4). Thus the graph of N(t)is
+S-shaped or sigmoidforN0<K /2.
+Something qualitatively different occurs if the initial condition N0lies
+between K/2 and K; now the solutions are decelerating from the start. Hence
+these solutions are concave down for all t. If the population initially exceeds
+the carrying capacity (N0>K ), then N(t)decreases toward N=Kand is
+concave up. Finally, if N0= 0 or N0=K,then the population stays constant.
+Critique of the Logistic Model
+Before leaving this example, we should make a few comments about the bio-
+logical validity of the logistic equation. The algebraic form of the model is not
+to be taken literally. The model should really be regarded as a metaphor for
+populations that have a tendency to grow from zero population up to some
+carrying capacity K.Flows on the Line 25
+Figure 2.3.4
+Originally a much stricter interpretation was proposed, and the model was
+argued to be a universal law of growth (Pearl 1927). The logistic equation was
+tested in laboratory experiments in which colonies of bacteria, yeast, or other
+simple organisms were grown in conditions of constant climate, food supply,
+and absence of predators. For a good review of this literature, see Krebs (1972,
+pp. 190–200). These experiments often yielded sigmoid growth curves, in some
+cases with an impressive match to the logistic predictions.
+On the other hand, the agreement was much worse for fruit flies, flour bee-
+tles, and other organisms that have complex life cycles involving eggs, larvae,
+pupae, and adults. In these organisms, the predicted asymptotic approach to
+a steady carrying capacity was never observed—instead the populations ex-
+hibited large, persistent fluctuations after an initial period of logistic growth.
+See Krebs (1972) for a discussion of the possible causes of these fluctuations,
+including age structure and time-delayed effects of overcrowding in the popu-
+lation.
+Forfurtherreadingonpopulationbiology,seePielou(1969)orMay(1981).
+Edelstein–Keshet (1988) and Murray (2002, 2003) are excellent textbooks on
+mathematical biology in general.
+2.4 Linea r Stability Analysis
+So far we have relied on graphical methods to determine the stability of fixed
+points. Frequently one would like to have a more quantitative measure of sta-
+bility, such as the rate of decay to a stable fixed point. This sort of information
+may be obtained by linearizing about a fixed point, as we now explain.
+
+============================================================
+=== Page 9 (printed page ~41) ===
+============================================================
+
+26 Nonlinear Dynamics and Chaos
+Letx∗be a fixed point, and let
+u(t)= x(t)−x∗
+be a small perturbation away from x∗. To see whether the perturbation grows
+or decays, we derive a differential equation for u. Differentiation yields
+˙u=d
+dt(x−x∗)=˙x,
+since x∗is constant. Thus ˙u=˙x=f(x)=f (x∗+u). Now using Taylor’s
+expansion we obtain
+f(x∗+u)= f(x∗)+f′(x∗)u+O(u2),
+where O(u2)denotes quadratically small terms in u. Finally, observe that
+f(x∗)=0since x∗is a fixed point. Hence
+˙u=f′(x∗)u+O(u2).
+Iff′(x∗)̸=0,theO(u2)terms are negligible in comparison to the linear term,
+so we may write the approximation
+˙u≈f′(x∗)u.
+This linear differential equation for uis called the linearization about x∗.
+When pondering it, keep in mind that f′(x∗)is just a glorified constant, since
+x∗is constant. The only thing that depends on time here is the perturbation
+u(t). The linearization shows that u(t)grows exponentially if f′(x∗)>0
+and decays exponentially if f′(x∗)<0. If f′(x∗)=0, the O(u2)terms are
+not negligible and a nonlinear analysis is needed to determine stability, as
+discussed in Example 2.4.3 below.
+The upshot is that the slope f′(x∗)at the fixed point determines its sta-
+bility. If you look back at the earlier examples, you’ll see that the slope wasalways negative at a stable fixed point. The importance of the signoff
+′(x∗)
+was clear from our graphical approach; the new feature is that now we havea measure of howstable a fixed point is—that’s determined by the magnitude
+off
+′(x∗). This magnitude plays the role of an exponential growth or decay
+rate. Its reciprocal 1/|f′(x∗)|is acharacteristic time scale ; it determines
+the time required for x(t)to vary significantly in the neighborhood of x∗.
+Example 2.4.1:
+Using linear stability analysis, determine the stability of the fixed points for
+˙x=sinx.
+Solution: The fixed points occur where f(x)=sinx=0. Thus x∗=kπ,
+where kis an integer. Then
+f′(x∗)=coskπ=/braceleftbigg1,keven
+−1,kodd.
+Hence x∗is unstable if kis even and stable if kis odd. This agrees with the
+results shown in Figure 2.1.1. ■
+
+============================================================
+=== Page 10 (printed page ~42) ===
+============================================================
+
+26 Nonlinear Dynamics and Chaos
+Letx∗be a fixed point, and let
+u(t)= x(t)−x∗
+be a small perturbation away from x∗. To see whether the perturbation grows
+or decays, we derive a differential equation for u. Differentiation yields
+˙u=d
+dt(x−x∗)=˙x,
+since x∗is constant. Thus ˙u=˙x=f(x)=f (x∗+u). Now using Taylor’s
+expansion we obtain
+f(x∗+u)= f(x∗)+f′(x∗)u+O(u2),
+where O(u2)denotes quadratically small terms in u. Finally, observe that
+f(x∗)=0since x∗is a fixed point. Hence
+˙u=f′(x∗)u+O(u2).
+Iff′(x∗)̸=0,theO(u2)terms are negligible in comparison to the linear term,
+so we may write the approximation
+˙u≈f′(x∗)u.
+This linear differential equation for uis called the linearization about x∗.
+When pondering it, keep in mind that f′(x∗)is just a glorified constant, since
+x∗is constant. The only thing that depends on time here is the perturbation
+u(t). The linearization shows that u(t)grows exponentially if f′(x∗)>0
+and decays exponentially if f′(x∗)<0. If f′(x∗)=0, the O(u2)terms are
+not negligible and a nonlinear analysis is needed to determine stability, as
+discussed in Example 2.4.3 below.
+The upshot is that the slope f′(x∗)at the fixed point determines its sta-
+bility. If you look back at the earlier examples, you’ll see that the slope wasalways negative at a stable fixed point. The importance of the signoff
+′(x∗)
+was clear from our graphical approach; the new feature is that now we havea measure of howstable a fixed point is—that’s determined by the magnitude
+off
+′(x∗). This magnitude plays the role of an exponential growth or decay
+rate. Its reciprocal 1/|f′(x∗)|is acharacteristic time scale ; it determines
+the time required for x(t)to vary significantly in the neighborhood of x∗.
+Example 2.4.1:
+Using linear stability analysis, determine the stability of the fixed points for
+˙x=sinx.
+Solution: The fixed points occur where f(x)=sinx=0. Thus x∗=kπ,
+where kis an integer. Then
+f′(x∗)=coskπ=/braceleftbigg1,keven
+−1,kodd.
+Hence x∗is unstable if kis even and stable if kis odd. This agrees with the
+results shown in Figure 2.1.1. ■Flows on the Line 27
+Example 2.4.2:
+Classify the fixed points of the logistic equation, using linear stability analysis,
+and find the characteristic time scale in each case.
+Solution: Here
+f(N)=rN/parenleftbigg
+1−N
+K/parenrightbigg
+with fixed points N∗=0andN∗=K. Then
+f′(N)=r−2rN
+K
+and so f′(0) = randf′(K)=− r. Hence N∗=0is unstable and N∗=Kis
+stable, as found earlier by graphical arguments. In either case, the character-istic time scale is 1/|f
+′(N∗)|= 1/r.■
+Example 2.4.3:
+What can be said about the stability of a fixed point when f′(x∗)=0?
+Solution: Nothing can be said in general. The stability is best determined
+on a case-by-case basis, using graphical methods. Consider the following ex-amples:
+(a)˙x=−x
+3(b)˙x=x3(c)˙x=x2(d)˙x=0
+Each of these systems has a fixed point x∗=0withf′(x∗)=0. However the
+stability is different in each case. Figure 2.4.1 shows that (a) is stable and (b)is unstable. Case (c) is a hybrid case we’ll call half-stable , since the fixed
+point is attracting from the left and repelling from the right. We thereforeindicate this type of fixed point by a half-filled circle. Case (d) is a whole lineof fixed points; perturbations neither grow nor decay.
+These examples may seem artificial, but we will see that they arise natu-
+rally in the context of bifurcations—more about that later.
+■
+2.5 Existence and Uniqueness
+Our treatment of vector fields has been very informal. In particular, we havetaken a cavalier attitude toward questions of existence and uniqueness of solu-tionstothesystem ˙x=f(x).That’sinkeepingwiththe“applied”spiritofthis
+book. Nevertheless, we should be aware of what can go wrong in pathologicalcases.
+Example 2.5.1:
+Show that the solution to ˙x=x1/3starting from x0=0isnotunique.
+
+============================================================
+=== Page 11 (printed page ~43) ===
+============================================================
+
+28 Nonlinear Dynamics and Chaos
+Figure 2.4.1
+Solution: The point x=0is a fixed point, so one obvious solution is
+x(t)=0for all t. The surprising fact is that there is anothersolution. To find
+it we separate variables and integrate:
+/integraldisplay
+x−1/3dx=/integraldisplay
+dt
+so3
+2x2/3=t+C. Imposing the initial condition x(0) = 0 yields C=0. Hence
+x(t)=/parenleftbig2
+3t/parenrightbig3/2is also a solution! ■
+Whenuniquenessfails,ourgeometricapproachcollapsesbecausethephase
+point doesn’t know how to move; if a phase point were started at the origin,
+would it stay there or would it move according to x(t)=/parenleftbig2
+3t/parenrightbig3/2? (Oras my
+friends in elementary school used to say when discussing the problem of the
+irresistible force and the immovable object, perhaps the phase point wouldexplode!)
+Actually, the situation in Example 2.5.1 is even worse than we’ve let on—
+there are infinitely many solutions starting from the same initial condition
+(Exercise 2.5.4).
+What’s the source of the non-uniqueness? A hint comes from looking at
+the vector field (Figure 2.5.1). We see that the fixed point x
+∗=0isvery
+unstable—the slope f′(0)is infinite.
+Chastened by this example, we state a theorem that provides sufficient
+conditions for existence and uniqueness of solutions to ˙x=f(x).
+
+============================================================
+=== Page 12 (printed page ~44) ===
+============================================================
+
+28 Nonlinear Dynamics and Chaos
+Figure 2.4.1
+Solution: Thepoint x=0is a fixed point, so one obvious solution is
+x(t)=0for all t. The surprising fact is that there is anothersolution. To find
+it we separate variables and integrate:
+/integraldisplay
+x−1/3dx=/integraldisplay
+dt
+so3
+2x2/3=t+C. Imposing the initial condition x(0) = 0 yields C=0. Hence
+x(t)=/parenleftbig2
+3t/parenrightbig3/2is alsoa solution! ■
+Whenuniqueness fails,ourgeometricapproachcollapsesbecausethephase
+point doesn’t know how to move; if a phase point were started at the origin,
+would it stay there or would it move according to x(t)=/parenleftbig2
+3t/parenrightbig3/2? (Oras my
+friends in elementary school used to say when discussing the problem of the
+irresistible force and the immovable object, perhaps the phase point would
+explode!)
+Actually, the situation in Example 2.5.1 is even worse than we’ve let on—
+there are infinitely many solutions starting from the same initial condition
+(Exercise 2.5.4).
+What’s the source of the non-uniqueness? A hint comes from looking at
+the vector field (Figure 2.5.1). We see that the fixed point x∗=0isvery
+unstable—the slope f′(0)is infinite.
+Chastened by this example, we state a theorem that provides sufficient
+conditions for existence and uniqueness of solutions to ˙x=f(x).Flows on the Line 29
+Figure 2.5.1
+Existence and Uniqueness Theorem: Consider the initial value problem
+˙x=f(x),x (0) = x0.
+Suppose that f(x)and f′(x)are continuous on an open interval Rof the x-
+axis, and suppose that x0is a point in R. Then the initial value problem has
+a solution x(t)on some time interval (−τ,τ)about t=0, and the solution is
+unique.
+For proofs of the existence and uniqueness theorem, see Borrelli and Cole-
+man (1987), Lin and Segel (1988), or virtually anytext on ordinary differential
+equations.
+This theorem says that iff(x)issmooth enough, then solutions exist and
+areunique. Evenso, there’s noguaranteethat solutionsexist forever,as shown
+by the next example.
+Example 2.5.2:
+Discuss the existence and uniqueness of solutions to the initial value problem
+˙x=1+x2,x(0) = x0. Do solutions exist for all time?
+Solution: Here f(x) = 1+x2. This function is continuous and has a contin-
+uous derivative for all x. Hence the theorem tells us that solutions exist and
+are unique for any initial condition x0. Butthe theorem does not say that the
+solutions exist for all time ; they are only guaranteed to exist in a (possibly
+very short) time interval around t=0.
+For example, consider the case where x(0) = 0. Then the problem can be
+solved analytically by separation of variables:
+/integraldisplaydx
+1+x2=/integraldisplay
+dt,
+which yields
+tan−1x=t+C.
+The initial condition x(0) = 0 implies C=0. Hence x(t)= tan tis the
+solution. But notice that this solution exists only for −π/2<t<π /2,because
+x(t)→ ±∞ast→± π/2. Outside of that time interval, there is no solution
+to the initial value problem for x0=0.■
+
+============================================================
+=== Page 13 (printed page ~45) ===
+============================================================
+
+30 Nonlinear Dynamics and Chaos
+The amazing thing about Example 2.5.2 is that the system has solutions
+that reach infinity in finitetime. This phenomenon is called blow-up . As the
+name suggests, it is of physical relevance in models of combustion and other
+runaway processes.
+There are various ways to extend the existence and uniqueness theorem.
+One can allow fto depend on time t,or on several variables x1,...,x n. One
+of the most useful generalizations will be discussed later in Section 6.2.
+From now on, we will not worry about issues of existence and uniqueness—
+ourvectorfieldswilltypicallybesmoothenoughtoavoidtrouble.Ifwehappento come across a more dangerous example, we’ll deal with it then.
+2.6 Impossibility of Oscillations
+Fixed points dominate the dynamics of first-order systems. In all our examplesso far, all trajectories either approached a fixed point, or diverged to ±∞. In
+fact,thosearethe onlythingsthatcanhappenforavectorfieldontherealline.
+Thereasonisthattrajectoriesareforcedtoincreaseordecreasemonotonically,or remain constant (Figure 2.6.1). To put it more geometrically, the phasepoint never reverses direction.
+Figure 2.6.1
+Thus, if a fixed point is regarded as an equilibrium solution, the approach
+to equilibrium is always monotonic ; overshoot and damped oscillations can
+neveroccurinafirst-ordersystem.Forthesamereason,undampedoscillationsare impossible. Hence there are no periodic solutions to ˙x=f(x).
+These general results are fundamentally topological in origin. They reflect
+the fact that ˙x=f(x)corresponds to flow on a line.If you flow monotonically
+on a line, you’ll never come back to your starting place—that’s why periodicsolutions are impossible. (Of course, if we were dealing with a circlerather
+than a line, we couldeventually return to our starting place. Thus vector fields
+on the circle can exhibit periodic solutions, as we discuss in Chapter 4.)
+
+============================================================
+=== Page 14 (printed page ~46) ===
+============================================================
+
+30 Nonlinear Dynamics and Chaos
+The amazing thing about Example 2.5.2 is that the system has solutions
+that reach infinity in finitetime. This phenomenon is called blow-up . As the
+name suggests, it is of physical relevance in models of combustion and other
+runaway processes.
+There are various ways to extend the existence and uniqueness theorem.
+One can allow fto depend on time t,or on several variables x1,...,x n. One
+of the most useful generalizations will be discussed later in Section 6.2.
+From now on, we will not worry about issues of existence and uniqueness—
+ourvectorfieldswilltypicallybesmoothenoughtoavoidtrouble.Ifwehappento come across a more dangerous example, we’ll deal with it then.
+2.6 Impossibility of Oscillations
+Fixed points dominate the dynamics of first-order systems. In all our examplesso far, all trajectories either approached a fixed point, or diverged to ±∞. In
+fact,thosearethe onlythingsthatcanhappenforavectorfieldontherealline.
+Thereasonisthattrajectoriesareforcedtoincreaseordecreasemonotonically,or remain constant (Figure 2.6.1). To put it more geometrically, the phasepoint never reverses direction.
+Figure 2.6.1
+Thus, if a fixed point is regarded as an equilibrium solution, the approach
+to equilibrium is always monotonic ; overshoot and damped oscillations can
+neveroccurinafirst-ordersystem.Forthesamereason,undampedoscillationsare impossible. Hence there are no periodic solutions to ˙x=f(x).
+These general results are fundamentally topological in origin. They reflect
+the fact that ˙x=f(x)corresponds to flow on a line.If you flow monotonically
+on a line, you’ll never come back to your starting place—that’s why periodicsolutions are impossible. (Of course, if we were dealing with a circlerather
+than a line, we couldeventually return to our starting place. Thus vector fields
+on the circle can exhibit periodic solutions, as we discuss in Chapter 4.)Flows on the Line 31
+Mechanical Analog: Overdamped Systems
+It may seem surprising that solutions to ˙x=f(x)can’t oscillate. But this
+result becomes obvious if we think in terms of a mechanical analog. We regard
+˙x=f(x)as a limiting case of Newton’s law, in the limit where the “inertia
+term” m¨xis negligible.
+For example, suppose a mass mis attached to a nonlinear spring whose
+restoring force is F(x),where xis the displacement from the origin. Further-
+more, suppose that the mass is immersed in a vat of very viscous fluid, like
+honey or motor oil (Figure 2.6.2), so that it is subject to a damping force b˙x.
+Then Newton’s law is m¨x+b˙x=F(x).
+Figure 2.6.2
+If the viscous damping is strong compared to the inertia term (b˙x≫m¨x),
+the system should behave like b˙x=F(x),or equivalently ˙x=f(x),where
+f(x)=b−1F(x). In this overdamped limit, the behavior of the mechani-
+cal system is clear. The mass prefers to sit at a stable equilibrium, wheref(x)=0andf
+′(x)<0. If displaced a bit, the mass is slowly dragged back to
+equilibrium by the restoring force. No overshoot can occur, because the damp-ing is enormous. And undamped oscillations are out of the question! Theseconclusions agree with those obtained earlier by geometric reasoning.
+Actually, we should confess that this argument contains a slight swindle.
+The neglect of the inertia term m¨xis valid, but only after a rapid initial
+transient during which the inertia and damping terms are of comparable size.An honest discussion of this point requires more machinery than we haveavailable. We’ll return to this matter in Section 3.5.
+2.7 Potentials
+There’s another way to visualize the dynamics of the first-order system ˙x=
+f(x), based on the physical idea of potential energy. We picture a particle
+sliding down the walls of a potential well, where the potential V(x)is defined
+by
+
+============================================================
+=== Page 15 (printed page ~47) ===
+============================================================
+
+32 Nonlinear Dynamics and Chaos
+f(x)=−dV
+dx.
+As before, you should imagine that the particle is heavily damped—its inertia
+is completely negligible compared to the damping force and the force due tothe potential. For example, suppose that the particle has to slog through athick layer of goo that covers the walls of the potential (Figure 2.7.1).
+Figure 2.7.1
+The negative sign in the definition of Vfollows the standard convention
+in physics; it implies that the particle always moves “downhill” as the motionproceeds. To see this, we think of xas a function of t, and then calculate the
+time-derivative of V(x(t)). Using the chain rule, we obtain
+dV
+dt=dV
+dxdx
+dt.
+Nowfor a first-order system,
+dx
+dt=−dV
+dx,
+since ˙x=f(x)=−dV/dx,by the definition of the potential. Hence,
+dV
+dt=−/parenleftbiggdV
+dx/parenrightbigg2
+≤0.
+Thus V(t)decreases along trajectories, and so the particle always moves
+toward lower potential. Of course, if the particle happens to be at an equi-
+librium point where dV/dx= 0, then Vremains constant. This is to be
+expected, since dV/dx =0implies ˙x= 0;equilibria occur at the fixed points
+
+============================================================
+=== Page 16 (printed page ~48) ===
+============================================================
+
+32 Nonlinear Dynamics and Chaos
+f(x)=−dV
+dx.
+As before, you should imagine that the particle is heavily damped—its inertia
+is completely negligible compared to the damping force and the force due tothe potential. For example, suppose that the particle has to slog through athick layer of goo that covers the walls of the potential (Figure 2.7.1).
+Figure 2.7.1
+The negative sign in the definition of Vfollows the standard convention
+in physics; it implies that the particle always moves “downhill” as the motionproceeds. To see this, we think of xas a function of t, and then calculate the
+time-derivative of V(x(t)). Using the chain rule, we obtain
+dV
+dt=dV
+dxdx
+dt.
+Nowfor a first-order system,
+dx
+dt=−dV
+dx,
+since ˙x=f(x)=−dV/dx,by the definition of the potential. Hence,
+dV
+dt=−/parenleftbiggdV
+dx/parenrightbigg
+2
+≤0.
+Thus V(t)decreases along trajectories, and so the particle always moves
+toward lower potential. Of course, if the particle happens to be at an equi-
+librium point where dV/dx= 0, then Vremains constant. This is to be
+expected, since dV/dx =0implies ˙x= 0;equilibria occur at the fixed pointsFlows on the Line 33
+of the vector field. Note that local minima of V(x)correspond to stablefixed
+points, as we’d expect intuitively, and local maxima correspond to unstable
+fixed points.
+Example 2.7.1:
+Graph the potential for the system ˙x=−x, and identify all the equilibrium
+points.
+Solution: We need to find V(x)such that −dV/dx =−x. The general
+solution is V(x)=1
+2x2+C, where Cis an arbitrary constant. (It always
+happens that the potential is only defined up to an additive constant. Forconvenience, we usually choose C= 0.) The graph of V(x)is shown in Figure
+2.7.2. The only equilibrium point occurs at x=0, and it’s stable.
+■
+Figure 2.7.2
+Example 2.7.2:
+Graph the potential for the system ˙x=x−x3, and identify all equilibrium
+points.
+Solution: Solving −dV/dx =x−x3yields V=−1
+2x2+1
+4x4+C. Once
+again we set C= 0. Figure 2.7.3 shows the graph of V. The local minima
+atx=±1correspond to stable equilibria, and the local maximum at x=0
+corresponds to an unstable equilibrium. The potential shown in Figure 2.7.3 isoften called a double-well potential , and the system is said to be bistable,
+since it has two stable equilibria.
+■
+Figure 2.7.3
+
+============================================================
+=== Page 17 (printed page ~49) ===
+============================================================
+
+34 Nonlinear Dynamics and Chaos
+2.8 Solving Equations on the Computer
+Throughout this chapter we have used graphical and analytical methods to
+analyze first-order systems. Every budding dynamicist should master a thirdtool: numerical methods. In the old days, numerical methods were imprac-tical because they required enormous amounts of tedious hand-calculation.But all that has changed, thanks to the computer. Computers enable us toapproximate the solutions to analytically intractable problems, and also tovisualize those solutions. In this section we take our first look at dynamics onthe computer, in the context of numerical integration of˙x=f(x).
+Numerical integration is a vast subject. We will barely scratch the surface.
+See Chapter 17 of Press et al. (2007) for an excellent treatment.
+Euler’s Method
+The problem can be posed this way: given the differential equation ˙x=f(x),
+subjecttothecondition x=x
+0att=t0,findasystematicwaytoapproximate
+the solution x(t).
+Suppose we use the vector field interpretation of ˙x=f(x). That is, we
+thinkofafluidflowingsteadilyonthe x-axis,withvelocity f(x)atthelocation
+x. Imagine we’re riding along with a phase point being carried downstream by
+the fluid. Initially we’re at x0,and the local velocity is f(x0). If we flow for a
+short time ∆t, we’ll have moved a distance f(x0)∆t, because distance =rate
+×time. Of course, that’s not quite right, because our velocity was changing a
+little bit throughout the step. But over a sufficiently smallstep, the velocity
+will be nearly constant and our approximation should be reasonably good.Hence our new position x(t
+0+∆ t)is approximately x0+f(x0)∆t. Let’s call
+this approximation x1. Thus
+x(t0+∆ t)≈x1=x0+f(x0)∆t.
+Now we iterate. Our approximation has taken us to a new location x1; our
+new velocity is f(x1); we step forward to x2=x1+f(x1)∆t; and so on. In
+general, the update rule is
+xn+1=xn+f(xn)∆t.
+This is the simplest possible numerical integration scheme. It is known asEuler’s method.
+Euler’s method can be visualized by plotting xversus t(Figure 2.8.1). The
+curve shows the exact solution x(t),and the open dots show its values x(t
+n)
+at the discrete times tn=t0+n∆t. The black dots show the approximate
+values given by the Euler method. As you can see, the approximation getsbad in a hurry unless ∆tis extremely small. Hence Euler’s method is not
+
+============================================================
+=== Page 18 (printed page ~50) ===
+============================================================
+
+34 Nonlinear Dynamics and Chaos
+2.8 Solving Equations on the Computer
+Throughout this chapter we have used graphical and analytical methods to
+analyze first-order systems. Every budding dynamicist should master a third
+tool: numerical methods. In the old days, numerical methods were imprac-
+tical because they required enormous amounts of tedious hand-calculation.
+But all that has changed, thanks to the computer. Computers enable us to
+approximate the solutions to analytically intractable problems, and also to
+visualize those solutions. In this section we take our first look at dynamics on
+the computer, in the context of numerical integration of˙x=f(x).
+Numerical integration is a vast subject. We will barely scratch the surface.
+See Chapter 17 of Press et al. (2007) for an excellent treatment.
+Euler’s Method
+The problem can be posed this way: given the differential equation ˙x=f(x),
+subjecttothecondition x=x0att=t0,findasystematicwaytoapproximate
+the solution x(t).
+Suppose we use the vector field interpretation of ˙x=f(x). That is, we
+thinkofafluidflowingsteadilyonthe x-axis,withvelocity f(x)atthelocation
+x. Imagine we’re riding along with a phase point being carried downstream by
+the fluid. Initially we’re at x0,and the local velocity is f(x0). If we flow for a
+short time ∆t, we’ll have moved a distance f(x0)∆t, because distance =rate
+×time. Of course, that’s not quite right, because our velocity was changing a
+little bit throughout the step. But over a sufficiently smallstep, the velocity
+will be nearly constant and our approximation should be reasonably good.
+Hence our new position x(t0+∆ t)is approximately x0+f(x0)∆t. Let’s call
+this approximation x1. Thus
+x(t0+∆ t)≈x1=x0+f(x0)∆t.
+Now we iterate. Our approximation has taken us to a new location x1; our
+new velocity is f(x1); we step forward to x2=x1+f(x1)∆t; and so on. In
+general, the update rule is
+xn+1=xn+f(xn)∆t.
+This is the simplest possible numerical integration scheme. It is known as
+Euler’s method.
+Euler’s method can be visualized by plotting xversus t(Figure 2.8.1). The
+curve shows the exact solution x(t),and the open dots show its values x(tn)
+at the discrete times tn=t0+n∆t. The black dots show the approximate
+values given by the Euler method. As you can see, the approximation gets
+bad in a hurry unless ∆tis extremely small. Hence Euler’s method is notFlows on the Line 35
+recommended in practice, but it contains the conceptual essence of the more
+accurate methods to be discussed next.
+Figure 2.8.1
+Refinements
+Oneproblem with the Euler method is that it estimates the derivative only at
+theleftendofthetimeintervalbetween tnand tn+1.Amoresensibleapproach
+would be to use the averagederivative across this interval. This is the idea
+behindthe improvedEulermethod. Wefirsttakeatrialstepacrosstheinterval,
+using the Euler method. This produces a trial value ˜xn+1 =xn+f(xn)∆t;
+the tilde above the xindicates that this is a tentative step, used only as a
+probe. Now that we’ve estimated the derivative on both ends of the interval,
+we average f(xn)and f(˜xn+1), and use that to take the realstep across the
+interval. Thus the improved Euler method is
+˜xn+1=xn+f(xn)∆t (the trial step)
+xn+1=xn+1
+2[f(xn)+f (˜xn+1)] ∆t. (the real step)
+This method is more accurate than the Euler method, in the sense that it
+tends to make a smaller error E=|x(tn)−xn|for a given stepsize ∆t. In
+both cases, the error E→0as∆t→0, but the error decreases fasterfor the
+improved Euler method. One can show that E∝∆tfor the Euler method,
+but E∝(∆t)2for the improved Euler method (Exercises 2.8.7 and 2.8.8). In
+the jargon of numerical analysis, the Euler method is first order, whereas the
+improved Euler method is second order.
+Methods of third, fourth, and even higher orders have been concocted,
+but you should realize that higher-order methods are not necessarily superior.
+Higher-order methods require more calculations and function evaluations, so
+there’s a computational cost associated with them. In practice, a good bal-
+ance is achieved by the fourth-order Runge–Kutta method . To find xn+1
+
+============================================================
+=== Page 19 (printed page ~51) ===
+============================================================
+
+36 Nonlinear Dynamics and Chaos
+in terms of xn,this method first requires us to calculate the following four
+numbers (cunningly chosen, as you’ll see in Exercise 2.8.9):
+k1=f(xn)∆t
+k2=f(xn+1
+2k1)∆t
+k3=f(xn+1
+2k2)∆t
+k4=f(xn+k3)∆t.
+Then xn+1is given by
+xn+1=xn+1
+6(k1+2k2+2k3+k4).
+This method generally gives accurate results without requiring an excessively
+small stepsize ∆t. Of course, some problems are nastier, and mayrequire small
+steps in certain time intervals, while permitting very large steps elsewhere. In
+such cases, you may want to use a Runge–Kutta routine with an automatic
+stepsize control; see Press et al. (2007) for details.
+Now that computers are so fast, you may wonder why we don’t just pick
+a tiny ∆tonce and for all. The trouble is that excessively many computations
+will occur, and each one carries a penalty in the form of round-off error .
+Computers don’t have infinite accuracy—they don’t distinguish between num-
+bers that differ by some small amount δ. For numbers of order 1, typically
+δ≈10−7for single precision and δ≈10−16for double precision. Round-off
+erroroccurs during everycalculation, and willbegin to accumulatein a serious
+way if ∆tis too small. See Hubbard and West (1991) for a good discussion.
+Practical Matters
+You have several options if you want to solve differential equations on the
+computer. If you like to do things yourself, you can write your own numerical
+integration routines in your favorite programming language, and plot the re-
+sults using whatever graphics programs are available. The information given
+above should be enough to get you started. For further guidance, consult Press
+et al. (2007).
+A second option is to use existing packages. MATLAB, Mathematica,
+Maple,PythonandSageall have programs for solving ordinary differential
+equations and graphing their solutions.
+The final option is for people who want to explore dynamics, not comput-
+ing. Dynamical systems software is available for laptops, tablets, and smart
+phones. All you have to do is type in the equations and the parameters; the
+program solves the equations numerically and plots the results. Some recom-
+mended apps are Slopes(available for the iPhone and iPad as well as Android;
+this is a pleasant choice for beginners) and XPPAUT (by Bard Ermentrout,
+available on many platforms including iPhone and iPad; this is a much more
+powerful tool for researchers and serious users). There are also quite a few
+
+============================================================
+=== Page 20 (printed page ~52) ===
+============================================================
+
+36 Nonlinear Dynamics and Chaos
+in terms of xn,this method first requires us to calculate the following four
+numbers (cunningly chosen, as you’ll see in Exercise 2.8.9):
+k1=f(xn)∆t
+k2=f(xn+1
+2k1)∆t
+k3=f(xn+12k2)∆t
+k4=f(xn+k3)∆t.
+Then xn+1is given by
+xn+1=xn+16(k1+2k2+2k3+k4).
+This method generally gives accurate results without requiring an excessively
+small stepsize ∆t. Of course, some problems are nastier, and mayrequire small
+steps in certain time intervals, while permitting very large steps elsewhere. Insuch cases, you may want to use a Runge–Kutta routine with an automaticstepsize control; see Press et al. (2007) for details.
+Now that computers are so fast, you may wonder why we don’t just pick
+a tiny ∆tonce and for all. The trouble is that excessively many computations
+will occur, and each one carries a penalty in the form of round-off error .
+Computers don’t have infinite accuracy—they don’t distinguish between num-bers that differ by some small amount δ. For numbers of order 1, typically
+δ≈10
+−7for single precision and δ≈10−16for double precision. Round-off
+erroroccurs during everycalculation, and willbegin to accumulatein a seriousway if ∆tis too small. See Hubbard and West (1991) for a good discussion.
+Practical Matters
+You have several options if you want to solve differential equations on the
+computer. If you like to do things yourself, you can write your own numericalintegration routines in your favorite programming language, and plot the re-sults using whatever graphics programs are available. The information givenabove should be enough to get you started. For further guidance, consult Presset al. (2007).
+A second option is to use existing packages. MATLAB, Mathematica,
+Maple,PythonandSageall have programs for solving ordinary differential
+equations and graphing their solutions.
+The final option is for people who want to explore dynamics, not comput-
+ing. Dynamical systems software is available for laptops, tablets, and smartphones. All you have to do is type in the equations and the parameters; theprogram solves the equations numerically and plots the results. Some recom-mended apps are Slopes(available for the iPhone and iPad as well as Android;
+this is a pleasant choice for beginners) and XPPAUT (by Bard Ermentrout,
+available on many platforms including iPhone and iPad; this is a much morepowerful tool for researchers and serious users). There are also quite a fewFlows on the Line 37
+solvers available online. They are of varying quality, but they are free, easy
+to use, and they run in the browser.
+Example 2.8.1:
+Solve the system ˙x=x(1−x)numerically.
+Solution: This is a logistic equation (Section 2.3) with parameters r=1,
+K=1. Previously we gave a rough sketch of the solutions, based on geometric
+arguments; now we can draw a more quantitative picture.
+As a first step, we plot the slope field for the system in the (t, x)plane
+(Figure 2.8.2). Here the equation ˙x=x(1−x)is being interpreted in a new
+way: for each point (t, x),the equation gives the slope dx/dtof the solution
+passing through that point. The slopes are indicated by little line segments inFigure 2.8.2.
+Figure 2.8.2
+Finding a solution now becomes a problem of drawing a curve that is alwaystangent to the local slope. Figure 2.8.3 shows four solutions starting fromvarious points in the (t, x)plane.
+Figure 2.8.3
+
+============================================================
+=== Page 21 (printed page ~53) ===
+============================================================
+
+38 Nonlinear Dynamics and Chaos
+These numerical solutions were computed using the Runge–Kutta method
+with a stepsize ∆t=0.1. The solutions have the shape expected from Section
+2.3. ■
+Computers are indispensable for studying dynamical systems. We will use
+them liberally throughout this book, and you should do likewise.
+EXERCISES FOR CHAPTER 2
+2.1 A Geometric Way of Thinking
+In the next three exercises, interpret ˙x=sinxas a flow on the x-axis.
+2.1.1Find all the fixed points of the flow.
+2.1.2At which points xdoes the flow have greatest velocity to the right?
+2.1.3(Acceleration)
+a) Find the flow’s acceleration ¨xas a function of x.
+b) Find the points where the flow has maximum positive acceleration.
+2.1.4(Exact solution of ˙x=sinx) As shown in the text, ˙x=sinxhas the
+solution t=ln|(cscx0+cotx0)/(cscx+cotx)|,where x0=x(0)is the
+initial value of x.
+a) Giventhespecificinitialcondition x0=π/4,showthatthesolution
+above can be inverted to obtain
+x(t)=2tan−1/parenleftbigget
+1+√
+2/parenrightbigg
+.
+Conclude that x(t)→πast→∞, claimed in Section 2.1. (You
+needtobegoodwithtrigonometricidentitiestosolvethisproblem.)
+b) Try to find the analytical solution for x(t),given an arbitrary initial
+condition x0.
+2.1.5(A mechanical analog)
+a) Find a mechanical system that is approximately governed by ˙x=
+sinx.
+b) Using your physical intuition, explain why it now becomes obvious
+that x∗=0is an unstable fixed point and x∗=πis stable.
+
+============================================================
+=== Page 22 (printed page ~54) ===
+============================================================
+
+38 Nonlinear Dynamics and Chaos
+These numerical solutions were computed using the Runge–Kutta method
+with a stepsize ∆t=0.1. The solutions have the shape expected from Section
+2.3. ■
+Computers are indispensable for studying dynamical systems. We will use
+them liberally throughout this book, and you should do likewise.
+EXERCISES FOR CHAPTER 2
+2.1 A Geometric Way of Thinking
+In the next three exercises, interpret ˙x=sinxas a flow on the x-axis.
+2.1.1Find all the fixed points of the flow.
+2.1.2At which points xdoes the flow have greatest velocity to the right?
+2.1.3(Acceleration)
+a) Find the flow’s acceleration ¨xas a function of x.
+b) Find the points where the flow has maximum positive acceleration.
+2.1.4(Exact solution of ˙x=sinx) As shown in the text, ˙x=sinxhas the
+solution t=ln|(cscx0+cotx0)/(cscx+cotx)|,where x0=x(0)is the
+initial value of x.
+a) Giventhespecificinitialcondition x0=π/4,showthatthesolution
+above can be inverted to obtain
+x(t)=2tan−1/parenleftbigget
+1+√
+2/parenrightbigg
+.
+Conclude that x(t)→πast→∞, claimed in Section 2.1. (You
+needtobegoodwithtrigonometricidentitiestosolvethisproblem.)
+b) Try to find the analytical solution for x(t),given an arbitrary initial
+condition x0.
+2.1.5(A mechanical analog)
+a) Find a mechanical system that is approximately governed by ˙x=
+sinx.
+b) Using your physical intuition, explain why it now becomes obvious
+that x∗=0is an unstable fixed point and x∗=πis stable.Flows on the Line 39
+2.2 Fixed Points and Stability
+Analyze the following equations graphically. In each case, sketch the vector
+field on the real line, find all the fixed points, classify their stability, and sketchthe graph of x(t)for different initial conditions. Then try for a few minutes to
+obtain the analytical solution for x(t); if you get stuck, don’t try for too long
+since in several cases it’s impossible to solve the equation in closed form!
+2.2.1 ˙x=4x
+2−16
+2.2.2 ˙x=1−x14
+2.2.3 ˙x=x−x3
+2.2.4 ˙x=e−xsinx
+2.2.5 ˙x=1+1
+2cosx
+2.2.6 ˙x=1−2cosx
+2.2.7 ˙x=ex−cosx(Hint: Sketch the graphs of exand cos xon the same
+axes, and look for intersections. You won’t be able to find the fixedpoints explicitly, but you can still find the qualitative behavior.)
+2.2.8(Working backwards, from flows to equations) Given an equation ˙x=
+f(x), we know how to sketch the corresponding flow on the real line.
+Hereyouareaskedtosolvetheoppositeproblem:Forthephaseportraitshown in Figure 1, find an equation that is consistent with it. (Thereare an infinite number of correct answers—and wrong ones too.)
+Figure 1
+2.2.9(Backwards again, now from solutions to equations) Find an equation
+˙x=f(x)whose solutions x(t)look like those shown in Figure 2.
+2.2.10(Fixed points) For each of (a)–(e), find an equation ˙x=f(x)with the
+stated properties, or if there are no examples, explain why not. (In allcases, assume that f(x)is a smooth function.)
+a) Every real number is a fixed point.
+b) Every integer is a fixed point, and there are no others.
+c) There are precisely three fixed points, and all of them are stable.
+
+============================================================
+=== Page 23 (printed page ~55) ===
+============================================================
+
+40 Nonlinear Dynamics and Chaos
+Figure 2
+d) There are no fixed points.
+e) There are precisely 100 fixed points.
+2.2.11(Analytical solution for charging capacitor) Obtain the analytical solu-
+tion of the initial value problem
+˙Q=V0
+R−Q
+RC
+with Q(0) = 0,which arose in Example 2.2.2.
+2.2.12(A nonlinear resistor) Suppose the resistor in Example 2.2.2 is replacedby a nonlinear resistor. In other words, this resistor does not have alinear relation between voltage and current. Such nonlinearity arisesin certain solid-state devices. Instead of I
+R=V/R, suppose we have
+IR=g(V), where g(V)has the shape shown in Figure 3.
+Figure 3
+RedoExample 2.2.2 in this case. Derive the circuit equations, find all
+the fixed points, and analyze their stability. What qualitative effectsdoes the nonlinearity introduce (if any)?
+2.2.13(Terminal velocity) The velocity v(t)of a skydiver falling to the ground
+is governed by
+m˙v=mg−kv
+2
+where mis the mass of the skydiver, gis the acceleration due to gravity,
+andk> 0is a constant related to the amount of air resistance.
+
+============================================================
+=== Page 24 (printed page ~56) ===
+============================================================
+
+40 Nonlinear Dynamics and Chaos
+Figure 2
+d)There are no fixed points.
+e) There are precisely 100 fixed points.
+2.2.11(Analytical solution for charging capacitor) Obtain the analytical solu-
+tion of the initial value problem
+˙Q=V0
+R−Q
+RC
+with Q(0) = 0,which arose in Example 2.2.2.
+2.2.12(A nonlinear resistor) Suppose the resistor in Example 2.2.2 is replaced
+by a nonlinear resistor. In other words, this resistor does not have a
+linear relation between voltage and current. Such nonlinearity arises
+in certain solid-state devices. Instead of IR=V/R, suppose we have
+IR=g(V), where g(V)has the shape shown in Figure 3.
+Figure 3
+RedoExample 2.2.2 in this case. Derive the circuit equations, find all
+the fixed points, and analyze their stability. What qualitative effects
+does the nonlinearity introduce (if any)?
+2.2.13(Terminal velocity) The velocity v(t)of a skydiver falling to the ground
+is governed by
+m˙v=mg−kv2
+where mis the mass of the skydiver, gis the acceleration due to gravity,
+andk> 0is a constant related to the amount of air resistance.Flows on the Line 41
+a) Obtain the analytical solution for v(t),assuming that v(0)= 0.
+b) Find the limit of v(t)ast→∞. This limiting velocity is called the
+terminal velocity. (Beware of bad jokes about the word terminal
+and parachutes that fail to open.)
+c) Give a graphical analysis of this problem, and thereby re-derive a
+formula for the terminal velocity.
+d) An experimental study (Carlson et al. 1942) confirmed that the
+equation m˙v=mg−kv2gives a good quantitative fit to data
+on human skydivers. Six men were dropped from altitudes varying
+from10,600feetto31,400feettoaterminalaltitudeof2,100feet,at
+which they opened their parachutes. The long free fall from 31,400
+to 2,100 feet took 116 seconds. The average weight of the men and
+their equipment was 261.2 pounds. In these units, g= 32 .2ft/sec2.
+Compute the average velocity Vavgfor the long free fall.
+e) Using the data given here, estimate the terminal velocity, and the
+value of the drag constant k. (Hints: First you need to find an exact
+formula for s(t),the distance fallen, where s( 0 )=0 ,˙s=v, and
+v(t)is known from part (a). You should get s(t)=v2
+gln/parenleftbig
+coshgt
+V/parenrightbig
+,
+where Vis theterminal velocity. Then solve for Vgraphically or
+numerically, using s= 29 ,300, t= 116, and g= 32 .2.)
+A slicker way to estimate Vis to suppose V≈Vavgfor the long free
+fall, as a rough first approximation. Then show that gt/V≈15.
+Since gt/V≫1,we may use the approximation ln( cosh x)≈x−
+ln 2 for x≫1. Derive this approximation and then use it to obtain
+an analytical estimate of V. Then kfollows from part (b).
+This analysis is from Davis (1962).
+2.2.14(Energy-balance model for Earth’s temperature) Climate scientists use
+a hierarchy of mathematical models, ranging from very detailed to very
+simplified. At one end of the spectrum are comprehensive models con-
+taining billions of variables about the state of the atmosphere and
+oceans, also taking account of sea ice, terrestrial vegetation, ecosys-
+tems,biogeochemicalcycles(suchasthecarboncycle),andatmospheric
+chemistry. At the other extreme are simple conceptual models. These
+are a lot easier to understand, yet they can still provide valuable in-
+sights.
+Onesimplemodelsummarizestheclimateinasinglevariable:themean
+surface temperature of the Earth, averaged over the entire globe. The
+model ignores differences in the atmosphere’s composition, as well as
+differences among continents and oceans, topography, and all other
+
+============================================================
+=== Page 25 (printed page ~57) ===
+============================================================
+
+42 Nonlinear Dynamics and Chaos
+local features. Its dynamics are governed by the following equation:
+CdT
+dt=Ein−Eout
+= (1−α)Q−ϵσT4.
+Here Cis the heat capacity of the Earth, and Tis the mean surface
+temperature (measured in degrees Kelvin) at time t. This is called an
+energy-balance model becauseitassumesthemeantemperaturechanges
+in response to the amount of energy reaching the Earth from the Sun
+(Ein, proportional to the solar irradiance parameter Q) minus the en-
+ergy emitted back out into the stratosphere (E out, assumed to follow
+the Stefan-Boltzmann law). The parameter 0<α<1 is called the
+albedo; it’s the fraction of incoming solar radiation that the Earth re-
+flects. Its numerical value is different for ice, water, and land, but those
+details are averaged out in this simplified model. Likewise, 0<ϵ< 1
+accounts in an averaged way for the fact that some of the outgoing
+radiative energy does not make it to outer space; instead, a fraction of
+it gets absorbed by greenhouse effects in the atmosphere.
+a) Find the model’s prediction for Earth’s mean surface temperature
+T∗in steady state, expressed in terms of the other parameters.
+b) Show graphically that T∗is astablefixed point.
+c) Sketch T∗versus Q.
+d) Estimate the numerical value of T∗in degrees Kelvin. (You may
+assume Q= 342Watts/(meter)2,α≈0.3,σ=5.67×10−8
+Watts/(meter)2K4,andϵ≈0.62.)
+This analysis is from Kaper and Engler (2013).
+2.3 Population Growth
+2.3.1(Exact solution of logistic equation) There are two ways to solve the
+logistic equation ˙N=rN(1−N/K)analytically for an arbitrary initial
+condition N0.
+a) Separate variables and integrate, using partial fractions.
+b) Make the change of variables x= 1/N. Then derive and solve the
+resulting differential equation for x.
+2.3.2(Autocatalysis) Consider the model chemical reaction
+A+Xk1− −−−−− →← −−−−− −
+k−12X
+
+============================================================
+=== Page 26 (printed page ~58) ===
+============================================================
+
+42 Nonlinear Dynamics and Chaos
+local features. Its dynamics are governed by the following equation:
+CdT
+dt=Ein−Eout
+= (1−α)Q−ϵσT4.
+Here Cis the heat capacity of the Earth, and Tis the mean surface
+temperature (measured in degrees Kelvin) at time t. This is called an
+energy-balance model becauseitassumesthemeantemperaturechanges
+in response to the amount of energy reaching the Earth from the Sun
+(Ein, proportional to the solar irradiance parameter Q) minus the en-
+ergy emitted back out into the stratosphere (E out, assumed to follow
+the Stefan-Boltzmann law). The parameter 0<α<1 is called the
+albedo; it’s the fraction of incoming solar radiation that the Earth re-
+flects. Its numerical value is different for ice, water, and land, but those
+details are averaged out in this simplified model. Likewise, 0<ϵ< 1
+accounts in an averaged way for the fact that some of the outgoing
+radiative energy does not make it to outer space; instead, a fraction of
+it gets absorbed by greenhouse effects in the atmosphere.
+a) Find the model’s prediction for Earth’s mean surface temperature
+T∗in steady state, expressed in terms of the other parameters.
+b) Show graphically that T∗is astablefixed point.
+c) Sketch T∗versus Q.
+d) Estimate the numerical value of T∗in degrees Kelvin. (You may
+assume Q= 342Watts/(meter)2,α≈0.3,σ=5.67×10−8
+Watts/(meter)2K4,andϵ≈0.62.)
+This analysis is from Kaper and Engler (2013).
+2.3 Population Growth
+2.3.1(Exact solution of logistic equation) There are two ways to solve the
+logistic equation ˙N=rN(1−N/K)analytically for an arbitrary initial
+condition N0.
+a) Separate variables and integrate, using partial fractions.
+b) Make the change of variables x= 1/N. Then derive and solve the
+resulting differential equation for x.
+2.3.2(Autocatalysis) Consider the model chemical reaction
+A+Xk1− −−−−− →← −−−−− −
+k−12XFlows on the Line 43
+in which one molecule of Xcombines with one molecule of Ato form
+two molecules of X. This means that the chemical Xstimulates its
+own production, a process called autocatalysis . This positive feedback
+process leads to a chain reaction, which eventually is limited by a “back
+reaction” in which 2Xreturns to A+X.
+According to the law of mass action of chemical kinetics, the rate of an
+elementaryreactionisproportionaltotheproductoftheconcentrations
+of the reactants. We denote the concentrations by lowercase letters
+x=[X]anda=[A]. Assume that there’s an enormous surplus of
+chemical A,so that its concentration acan be regarded as constant.
+Then the equation for the kinetics of xis
+˙x=k1ax−k−1x2
+where k1andk−1are positive parameters called rate constants.
+a) Find all the fixed points of this equation and classify their stability.
+b) Sketch the graph of x(t)for various initial values x0.
+2.3.3(Tumor growth) The growth of cancerous tumors can be modeled by
+the Gompertz law ˙N=−aNln(bN),where N(t)is proportional to the
+number of cells in the tumor, and a, b > 0are parameters.
+a) Interpret aandbbiologically.
+b) Sketch the vector field and graph N(t)for various initial values.
+The predictions of this simple model agree surprisingly well with data
+ontumorgrowth,as longas Nisnottoosmall; seeAroestyetal. (1973)
+and Newton (1980) for examples.
+2.3.4(The Allee effect) For certain species of organisms, the effective growth
+rate ˙N/Nis highest at intermediate N. This is called the Allee effect
+(Edelstein–Keshet 1988). For example, imagine that it is too hard to
+find mates when Nis very small, and there is too much competition
+for food and other resources when Nis large.
+a) Show that ˙N/N=r−a(N−b)2provides an example of the Allee
+effect, if r, a,andbsatisfy certain constraints, to be determined.
+b) Find all the fixed points of the system and classify their stability.
+c) Sketch the solutions N(t)for different initial conditions.
+d) Comparethesolutions N(t)tothosefoundforthelogisticequation.
+What are the qualitative differences, if any?
+
+============================================================
+=== Page 27 (printed page ~59) ===
+============================================================
+
+44 Nonlinear Dynamics and Chaos
+2.3.5(Dominance of the fittest) Suppose Xand Yare two species that re-
+produce exponentially fast: ˙X=aXand ˙Y=bY, respectively, with
+initial conditions X0,Y0>0and growth rates a>b> 0. Here Xis
+“fitter” than Yin the sense that it reproduces faster, as reflected by
+the inequality a>b. So we’d expect Xto keep increasing its share of
+the total population X+Yast→∞. The goal of this exercise is to
+demonstrate this intuitive result, first analytically and then geometri-
+cally.
+a) Let x(t)= X(t)/[X(t)+Y (t)]denote X’s share of the total pop-
+ulation. By solving for X(t)and Y(t),show that x(t)increases
+monotonically and approaches 1 as t→∞.
+b) Alternatively, we can arrive at the same conclusions by deriving
+a differential equation for x(t). To do so, take the time derivative
+ofx(t)=X (t)/[X(t)+Y (t)]using the quotient and chain rules.
+Then substitute for ˙Xand ˙Yand thereby show that x(t)obeys the
+logistic equation ˙x=(a−b)x(1−x). Explain why this implies that
+x(t)increases monotonically and approaches 1 as t→∞.
+2.3.6(Language death) Thousands of the world’s languages are vanishing at
+an alarming rate, with 90 percent of them being expected to disappear
+by the end of this century. Abrams and Strogatz (2003) proposed the
+following model of language competition, and compared it to histori-
+cal data on the decline of Welsh, Scottish Gaelic, Quechua (the most
+common surviving indigenous language in the Americas), and other
+endangered languages.
+LetXand Ydenote two languages competing for speakers in a given
+society. The proportion of the population speaking Xevolves according
+to
+˙x= (1−x)PYX−xPXY
+where 0≤x≤1is the current fraction of the population speaking
+X,1−xis the complementary fraction speaking Y, and PYXis the rate
+at which individuals switch from YtoX. This deliberately idealized
+model assumes that the population is well mixed (meaning that it lacks
+all spatial and social structure) and that all speakers are monolingual.
+Next, the model posits that the attractiveness of a language increases
+with both its number of speakers and its perceived status, as quantified
+by a parameter 0≤s≤1that reflects the social or economic oppor-
+tunities afforded to its speakers. Specifically, assume that PYX=sxa
+and, by symmetry, PXY= (1−s)(1−x)a, where the exponent a>1
+is an adjustable parameter. Then the model becomes
+˙x=s(1−x)xa−(1−s)x(1−x)a.
+a) Show that this equation for ˙xhas three fixed points.
+
+============================================================
+=== Page 28 (printed page ~60) ===
+============================================================
+
+44 Nonlinear Dynamics and Chaos
+2.3.5(Dominance of the fittest) Suppose Xand Yare two species that re-
+produce exponentially fast: ˙X=aXand ˙Y=bY, respectively, with
+initial conditions X0,Y0>0and growth rates a>b> 0. Here Xis
+“fitter” than Yin the sense that it reproduces faster, as reflected by
+the inequality a>b. So we’d expect Xto keep increasing its share of
+the total population X+Yast→∞. The goal of this exercise is to
+demonstrate this intuitive result, first analytically and then geometri-
+cally.
+a) Let x(t)= X(t)/[X(t)+Y (t)]denote X’s share of the total pop-
+ulation. By solving for X(t)and Y(t),show that x(t)increases
+monotonically and approaches 1 as t→∞.
+b) Alternatively, we can arrive at the same conclusions by deriving
+a differential equation for x(t). To do so, take the time derivative
+ofx(t)=X (t)/[X(t)+Y (t)]using the quotient and chain rules.
+Then substitute for ˙Xand ˙Yand thereby show that x(t)obeys the
+logistic equation ˙x=(a−b)x(1−x). Explain why this implies that
+x(t)increases monotonically and approaches 1 as t→∞.
+2.3.6(Language death) Thousands of the world’s languages are vanishing at
+an alarming rate, with 90 percent of them being expected to disappear
+by the end of this century. Abrams and Strogatz (2003) proposed the
+following model of language competition, and compared it to histori-
+cal data on the decline of Welsh, Scottish Gaelic, Quechua (the most
+common surviving indigenous language in the Americas), and other
+endangered languages.
+LetXand Ydenote two languages competing for speakers in a given
+society. The proportion of the population speaking Xevolves according
+to
+˙x= (1−x)PYX−xPXY
+where 0≤x≤1is the current fraction of the population speaking
+X,1−xis the complementary fraction speaking Y, and PYXis the rate
+at which individuals switch from YtoX. This deliberately idealized
+model assumes that the population is well mixed (meaning that it lacks
+all spatial and social structure) and that all speakers are monolingual.
+Next, the model posits that the attractiveness of a language increases
+with both its number of speakers and its perceived status, as quantified
+by a parameter 0≤s≤1that reflects the social or economic oppor-
+tunities afforded to its speakers. Specifically, assume that PYX=sxa
+and, by symmetry, PXY= (1−s)(1−x)a, where the exponent a>1
+is an adjustable parameter. Then the model becomes
+˙x=s(1−x)xa−(1−s)x(1−x)a.
+a) Show that this equation for ˙xhas three fixed points.Flows on the Line 45
+b) Show that for all a>1, the fixed points at x=0andx=1are
+both stable.
+c) Show that the third fixed point, 0<x∗<1,is unstable.
+This model therefore predicts that two languages cannot coexist
+stably—one will eventually drive the other to extinction. For a review
+of generalizations of the model that allow for bilingualism, social struc-
+ture, etc., see Castellano et al. (2009).
+2.4 Linea r Stability Analysis
+Uselinearstabilityanalysistoclassifythefixedpointsofthefollowingsystems.
+If linear stability analysis fails because f′(x∗)=0, use a graphical argument
+to decide the stability.
+2.4.1 ˙x=x(1−x)
+2.4.2 ˙x=x(1−x)(2−x)
+2.4.3 ˙x=tanx
+2.4.4 ˙x=x2(6−x)
+2.4.5 ˙x=1−e−x2
+2.4.6 ˙x=lnx
+2.4.7 ˙x=ax−x3, where acan be positive, negative, or zero. Discuss all three
+cases.
+2.4.8Using linear stability analysis, classify the fixed points of the Gompertz
+model of tumor growth ˙N=−aNln(bN). (As in Exercise 2.3.3, N(t)
+is proportional to the number of cells in the tumor and a, b > 0are
+parameters.)
+2.4.9(Critical slowing down) In statistical mechanics, the phenomenon of
+“criticalslowingdown”isasignatureofasecond-orderphasetransition.
+At the transition, the system relaxes to equilibrium much more slowly
+than usual. Here’s a mathematical version of the effect:
+a) Obtain the analytical solution to ˙x=−x3for an arbitrary initial
+condition. Show that x(t)→0ast→∞, but that the decay is
+not exponential. (You should find that the decay is a much slower
+algebraic function of t.)
+
+============================================================
+=== Page 29 (printed page ~61) ===
+============================================================
+
+46 Nonlinear Dynamics and Chaos
+b) To get some intuition about the slowness of the decay, make a
+numerically accurate plot of the solution for the initial condition
+x0= 10, for 0≤t≤10. Then, on the same graph, plot the solution
+to˙x=−xfor the same initial condition.
+2.5 Existence and Uniqueness
+2.5.1(Reaching a fixed point in a finite time) A particle travels on the half-
+line x≥0with a velocity given by ˙x=−xc, where cis real and
+constant.
+a) Find all values of csuch that the origin x= 0 is a stable fixed
+point.
+b) Now assume that cis chosen such that x=0is stable. Can the
+particle ever reach the origin in a finitetime? Specifically, how long
+does it take for the particle to travel from x=1tox=0, as a
+function of c?
+2.5.2(“Blow-up”: Reaching infinity in a finite time) Show that the solution
+to˙x=1+ x10escapes to +∞in a finite time, starting from any initial
+condition. (Hint: Don’t try to find an exact solution; instead, compare
+the solutions to those of ˙x=1+ x2.)
+2.5.3Consider the equation ˙x=rx+x3, where r> 0is fixed. Show that
+x(t)→ ±∞in finite time, starting from any initial condition x0̸=0.
+2.5.4(Infinitely many solutions with the same initial condition) Show that
+the initial value problem ˙x=x1/3,x(0) = 0,has an infinite number of
+solutions. (Hint: Construct a solution that stays at x=0until some
+arbitrary time t0, after which it takes off.)
+2.5.5(A general example of non-uniqueness) Consider the initial value prob-
+lem ˙x=|x|p/q,x(0) = 0, where pand qare positive integers with no
+common factors.
+a) Show that there are an infinite number of solutions for x(t)ifp<q.
+b) Show that there is a unique solution if p>q.
+2.5.6(The leaky bucket) The following example (Hubbard and West 1991,
+p. 159) shows that in some physical situations, non-uniqueness is nat-
+ural and obvious, not pathological.
+Consider a water bucket with a hole in the bottom. If you see an empty
+bucket with a puddle beneath it, can you figure out when the bucket
+
+============================================================
+=== Page 30 (printed page ~62) ===
+============================================================
+
+46 Nonlinear Dynamics and Chaos
+b) To get some intuition about the slowness of the decay, make a
+numerically accurate plot of the solution for the initial condition
+x0= 10, for 0≤t≤10. Then, on the same graph, plot the solution
+to˙x=−xfor the same initial condition.
+2.5 Existence and Uniqueness
+2.5.1(Reaching a fixed point in a finite time) A particle travels on the half-
+line x≥0with a velocity given by ˙x=−xc, where cis real and
+constant.
+a) Find all values of csuch that the origin x= 0 is a stable fixed
+point.
+b) Now assume that cis chosen such that x=0is stable. Can the
+particle ever reach the origin in a finitetime? Specifically, how long
+does it take for the particle to travel from x=1tox=0, as a
+function of c?
+2.5.2(“Blow-up”: Reaching infinity in a finite time) Show that the solution
+to˙x=1+ x10escapes to +∞in a finite time, starting from any initial
+condition. (Hint: Don’t try to find an exact solution; instead, compare
+the solutions to those of ˙x=1+ x2.)
+2.5.3Consider the equation ˙x=rx+x3, where r> 0is fixed. Show that
+x(t)→ ±∞in finite time, starting from any initial condition x0̸=0.
+2.5.4(Infinitely many solutions with the same initial condition) Show that
+the initial value problem ˙x=x1/3,x(0) = 0,has an infinite number of
+solutions. (Hint: Construct a solution that stays at x=0until some
+arbitrary time t0, after which it takes off.)
+2.5.5(A general example of non-uniqueness) Consider the initial value prob-
+lem ˙x=|x|p/q,x(0) = 0, where pand qare positive integers with no
+common factors.
+a) Show that there are an infinite number of solutions for x(t)ifp<q.
+b) Show that there is a unique solution if p>q.
+2.5.6(The leaky bucket) The following example (Hubbard and West 1991,
+p. 159) shows that in some physical situations, non-uniqueness is nat-
+ural and obvious, not pathological.
+Consider a water bucket with a hole in the bottom. If you see an empty
+bucket with a puddle beneath it, can you figure out when the bucketFlows on the Line 47
+was full? No, of course not! It could have finished emptying a minute
+ago, ten minutes ago, or whatever. The solution to the corresponding
+differential equation must be non-unique when integrated backwards in
+time.
+Here’s a crude model of the situation. Let h(t)= height of the water
+remaining in the bucket at time t;a= area of the hole; A= cross-
+sectional area of the bucket (assumed constant); v(t)= velocity of the
+water passing through the hole.
+a) Show that av(t)=A˙h(t). What physical law are you invoking?
+b) To derive an additional equation, use conservation of energy. First,
+findthechangeinpotentialenergyinthesystem,assumingthatthe
+height of the water in the bucket decreases by an amount ∆hand
+that the water has density ρ. Then find the kinetic energy trans-
+ported out of the bucket by the escaping water. Finally, assuming
+all the potential energy is converted into kinetic energy, derive the
+equation v2=2gh.
+c) Combining (a) and (b), show ˙h=−C√
+h,where C=√2g(a/A).
+d) Given h(0) = 0 (bucket empty at t= 0), show that the solution for
+h(t)is non-unique in backwards time , i.e., for t<0.
+2.6 Impossibility of Oscillations
+2.6.1Explain this paradox: a simple harmonic oscillator m¨x=−kxis a
+system that oscillates in one dimension (along the x-axis). But the text
+says one-dimensional systems can’t oscillate.
+2.6.2(No periodic solutions to ˙x=f(x))Here’s an analytic proof that peri-
+odic solutions are impossible for a vector field on a line. Suppose on the
+contrary that x(t)is a nontrivial periodic solution, i.e., x(t)=x(t+T)
+for some T> 0, and x(t)̸=x(t+s)for all 0<s<T . Derive a
+contradiction by considering/integraltextt+T
+tf(x)dx
+dtdt.
+2.7 Potentials
+For each of the following vector fields, plot the potential function V(x)and
+identify all the equilibrium points and their stability.
+
+============================================================
+=== Page 31 (printed page ~63) ===
+============================================================
+
+48 Nonlinear Dynamics and Chaos
+2.7.1 ˙x=x(1−x)
+2.7.2 ˙x=3
+2.7.3 ˙x=sinx
+2.7.4 ˙x=2+sinx
+2.7.5 ˙x=−sinh x
+2.7.6 ˙x=r+x−x3,for various values of r.
+2.7.7(Another proof that solutions to ˙x=f(x)can’t oscillate) Let ˙x=f(x)
+be a vector field on the line. Use the existence of a potential function
+V(x)to show that solutions x(t)cannot oscillate.
+2.8 Solving Equations on the Computer
+2.8.1(Slope field) The slope is constant along horizontal lines in Figure 2.8.2.Why should we have expected this?
+2.8.2Sketch the slope field for the following differential equations. Then “in-tegrate” the equation manually by drawing trajectories that are every-where parallel to the local slope.
+a)˙x=x
+b)˙x=1−x
+2
+c)˙x=1−4x(1 −x)
+d)˙x=sinx
+2.8.3(Calibrating the Euler method) The goal of this problem is to test theEuler method on the initial value problem ˙x=−x, x(0) = 1.
+a) Solve the problem analytically. What is the exact value of x(1)?
+b) Using the Euler method with stepsize ∆t=1, estimate x(1) nu-
+merically, and call the result ˆx(1). Then repeat, using ∆t= 10
+−n,
+forn=1,2,3,4.
+c) Plot the error E=|ˆx(1) −x(1)|as a function of ∆t. Then plot
+ln(E)vs. ln(∆ t). Explain the results.
+2.8.4Redo Exercise 2.8.3, using the improved Euler method.
+2.8.5Redo Exercise 2.8.3, using the Runge–Kutta method.
+
+============================================================
+=== Page 32 (printed page ~64) ===
+============================================================
+
+48 Nonlinear Dynamics and Chaos
+2.7.1 ˙x=x(1−x)
+2.7.2 ˙x=3
+2.7.3 ˙x=sinx
+2.7.4 ˙x=2+sinx
+2.7.5 ˙x=−sinh x
+2.7.6 ˙x=r+x−x3,for various values of r.
+2.7.7(Another proof that solutions to ˙x=f(x)can’t oscillate) Let ˙x=f(x)
+be a vector field on the line. Use the existence of a potential function
+V(x)to show that solutions x(t)cannot oscillate.
+2.8 Solving Equations on the Computer
+2.8.1(Slope field) The slope is constant along horizontal lines in Figure 2.8.2.
+Why should we have expected this?
+2.8.2Sketch the slope field for the following differential equations. Then “in-
+tegrate” the equation manually by drawing trajectories that are every-
+where parallel to the local slope.
+a)˙x=x
+b)˙x=1−x2
+c)˙x=1−4x(1 −x)
+d)˙x=sinx
+2.8.3(Calibrating the Euler method) The goal of this problem is to test the
+Euler method on the initial value problem ˙x=−x, x(0) = 1.
+a) Solve the problem analytically. What is the exact value of x(1)?
+b) Using the Euler method with stepsize ∆t=1, estimate x(1) nu-
+merically, and call the result ˆx(1). Then repeat, using ∆t= 10−n,
+forn=1,2,3,4.
+c) Plot the error E=|ˆx(1) −x(1)|as a function of ∆t. Then plot
+ln(E)vs. ln(∆ t). Explain the results.
+2.8.4Redo Exercise 2.8.3, using the improved Euler method.
+2.8.5Redo Exercise 2.8.3, using the Runge–Kutta method.Flows on the Line 49
+2.8.6(Analytically intractable problem) Consider the initial value problem
+˙x=x+e−x,x(0) = 0. In contrast to Exercise 2.8.3, this problem can’t
+be solved analytically.
+a) Sketch the solution x(t)fort≥0.
+b) Using some analytical arguments, obtain rigorous bounds on the
+value of xatt=1. In other words, prove that a<x (1)< b,
+fora, bto be determined. By being clever, try to make aandbas
+close together as possible. (Hint: Bound the given vector field by
+approximate vector fields that can be integrated analytically.)
+c) Now for the numerical part: Using the Euler method, compute x
+att= 1, correct to three decimal places. How small does the step-
+size need to be to obtain the desired accuracy? (Give the order of
+magnitude, not the exact number.)
+d) Repeat part (c), now using the Runge–Kutta method. Compare the
+results for stepsizes ∆t=1,∆t=0.1, and ∆t=0.01.
+2.8.7(Error estimate for Euler method) In this question you’ll use Taylor
+series expansions to estimate the error in taking one step by the Euler
+method. The exact solution and the Euler approximation both start
+atx=x0when t=t0. We want to compare the exact value x(t1)≡
+x(t0+∆t)with the Euler approximation x1=x0+f(x0)∆t.
+a) Expand x(t1)=x(t0+∆t)as a Taylor series in ∆t, through terms
+ofO(∆t2). Express your answer solely in terms of x0,∆t, and f
+and its derivatives at x0.
+b) Show that the local error |x(t1)−x1|∼C∆t2and give an explicit
+expression for the constant C. (Generally one is more interested in
+the global error incurred after integrating over a time interval of
+fixed length T=n∆t. Since each step produces an O(∆t2)error,
+and we take n=T/∆t=O(∆t−1)steps, the global error |x(tn)−
+xn|isO(∆t), as claimed in the text.)
+2.8.8(Error estimate for the improved Euler method) Use the Taylor series
+argumentsofExercise2.8.7toshowthatthelocalerrorfortheimproved
+Euler method is O(∆t3).
+2.8.9(Error estimate for Runge–Kutta) Show that the Runge–Kutta method
+produces a local error of size O(∆t5). (Warning: This calculation in-
+volves massive amounts of algebra, but if you do it correctly, you’ll
+be rewarded by seeing many wonderful cancellations. Teach yourself
+Mathematica, Maple, Sage, Maxima, or some other computer algebra
+system, and do the problem on the computer.)
+
+============================================================
+=== Page 33 (printed page ~65) ===
+============================================================
+
+[No extractable text on this page]
+
+
+============================================================
+=== Page 34 (printed page ~66) ===
+============================================================
+
+Chapter 3
+Bifurcations
+3.0 Introduction
+As we’ve seen in Chapter 2, the dynamics of vector fields on the line is very
+limited: all solutions either settle down to equilibrium or head out to ±∞.
+Given the triviality of the dynamics, what’s interesting about one-dimensional
+systems? Answer: Dependence on parameters. The qualitative structure of the
+flow can change as parameters are varied. In particular, fixed points can becreated or destroyed, or their stability can change. These qualitative changesin the dynamics are called bifurcations , and the parameter values at which
+they occur are called bifurcation points .
+Bifurcations are important scientifically—they provide models of transi-
+tions and instabilities as some control parameter is varied. For example, con-
+sider the buckling of a beam. If a small weight is placed on top of the beam inFigure 3.0.1, the beam can support the load and remain vertical. But if theload is too heavy, the vertical position becomes unstable, and the beam maybuckle.
+Figure 3.0.1
+Here the weight plays the role of the control parameter, and the deflection ofthe beam from vertical plays the role of the dynamical variable x.
+One of the main goals of this book is to help you develop a solid and
+practical understanding of bifurcations. This chapter introduces the simplestexamples: bifurcations of fixed points for flows on the line. We’ll use thesebifurcations to model such dramatic phenomena as the onset of coherent
+51
+
+============================================================
+=== Page 35 (printed page ~67) ===
+============================================================
+
+52 Nonlinear Dynamics and Chaos
+radiation in a laser and the outbreak of an insect population. (In later chap-
+ters,whenwestepuptotwo-andthree-dimensionalphasespaces,we’llexploreadditional types of bifurcations and their scientific applications.)
+We begin with the most fundamental bifurcation of all.
+3.1 Saddle-Node Bifurcation
+The saddle-node bifurcation is the basic mechanism by which fixed points arecreated and destroyed. As a parameter is varied, two fixed points move toward
+each other, collide, and mutually annihilate.
+The prototypical example of a saddle-node bifurcation is given by the first-
+order system
+˙x=r+x
+2(1)
+where ris a parameter, which may be positive, negative, or zero. When r
+is negative, there are two fixed points, one stable and one unstable (Figure3.1.1a).
+Figure 3.1.1
+Asrapproaches 0 from below, the parabola moves up and the two fixed
+points move toward each other. When r=0, the fixed points coalesce into a
+half-stable fixed point at x∗=0(Figure 3.1.1b). This type of fixed point is
+extremely delicate—it vanishes as soon as r>0, and now there are no fixed
+points at all (Figure 3.1.1c).
+In this example, we say that a bifurcation occurred at r=0, since the
+vector fields for r<0andr>0are qualitatively different.
+Graphical Conventions
+There are several other ways to depict a saddle-node bifurcation. We can show
+a stack of vector fields for discrete values of r(Figure 3.1.2).
+
+============================================================
+=== Page 36 (printed page ~68) ===
+============================================================
+
+52 Nonlinear Dynamics and Chaos
+radiation in a laser and the outbreak of an insect population. (In later chap-
+ters,whenwestepuptotwo-andthree-dimensionalphasespaces,we’llexploreadditional types of bifurcations and their scientific applications.)
+We begin with the most fundamental bifurcation of all.
+3.1 Saddle-Node Bifurcation
+The saddle-node bifurcation is the basic mechanism by which fixed points arecreated and destroyed. As a parameter is varied, two fixed points move toward
+each other, collide, and mutually annihilate.
+The prototypical example of a saddle-node bifurcation is given by the first-
+order system
+˙x=r+x
+2(1)
+where ris a parameter, which may be positive, negative, or zero. When r
+is negative, there are two fixed points, one stable and one unstable (Figure3.1.1a).
+Figure 3.1.1
+Asrapproaches 0 from below, the parabola moves up and the two fixed
+points move toward each other. When r=0, the fixed points coalesce into a
+half-stable fixed point at x∗=0(Figure 3.1.1b). This type of fixed point is
+extremely delicate—it vanishes as soon as r>0, and now there are no fixed
+points at all (Figure 3.1.1c).
+In this example, we say that a bifurcation occurred at r=0, since the
+vector fields for r<0andr>0are qualitatively different.
+Graphical Conventions
+There are several other ways to depict a saddle-node bifurcation. We can show
+a stack of vector fields for discrete values of r(Figure 3.1.2).Bifurcations 53
+Figure 3.1.2
+This representation emphasizes the dependence of the fixed points on r. In
+the limit of a continuous stack of vector fields, we have a picture like Figure
+3.1.3.
+Figure 3.1.3
+The curve shown is r=−x2, i.e., ˙x=0, which gives the fixed points for
+different r.To distinguish between stable and unstable fixed points, we use a
+solid line for stable points and a broken line for unstable ones.
+However, the most common way to depict the bifurcation is to invert the
+axes of Figure 3.1.3. The rationale is that rplays the role of an independent
+variable, and so should be plotted horizontally (Figure 3.1.4).
+Figure 3.1.4
+
+============================================================
+=== Page 37 (printed page ~69) ===
+============================================================
+
+54 Nonlinear Dynamics and Chaos
+The drawback is that now the x-axis has to be plotted vertically, which looks
+strange at first. Arrows are sometimes included in the picture, but not al-
+ways. This picture is called the bifurcation diagram for the saddle-node
+bifurcation.
+Terminology
+Bifurcation theory is rife with conflicting terminology. Some people refer to
+a saddle-node bifurcation as a fold bifurcation (because the curve in Figure
+3.1.4 has a fold in it) or a turning-point bifurcation (because the point (x, r)=
+(0,0)is a “turning point.”) Admittedly, the term saddle-node doesn’t make
+much sense for vector fields on the line. The name derives from a completelyanalogous bifurcation seen in a higher-dimensional context, such as vectorfields on the plane, where fixed points known as saddles and nodes can collideand annihilate (see Section 8.1).
+The prize for most inventive terminology must go to Abraham and Shaw
+(1988), who write of a blue sky bifurcation. This term comes from viewing
+a saddle-node bifurcation in the other direction: a pair of fixed points appears“out of the clear blue sky” as a parameter is varied. For example, the vectorfield
+˙x=r−x
+2(2)
+has no fixed points for r<0, but then one materializes when r=0and splits
+into two when r> 0(Figure 3.1.5). Incidentally, this example also explains
+why we use the word “bifurcation”: it means “splitting into two branches.”
+Figure 3.1.5
+Example 3.1.1:
+Give a linear stability analysis of the fixed points in Figure 3.1.5.
+Solution: The fixed points for ˙x=f(x)= r−x2are given by x∗=±√r.
+There are two fixed points for r> 0, and none for r< 0. To determine
+linear stability, we compute f′(x∗)=− 2x∗.Thus x∗=+√ris stable, since
+f′(x∗)<0. Similarly x∗=−√ris unstable. At the bifurcation point r=0,
+we find f′(x∗)=0; the linearization vanishes when the fixed points coalesce. ■
+Example 3.1.2:
+Show that the first-order system ˙x=r−x−e−xundergoes a saddle-node
+bifurcation as ris varied, and find the value of rat the bifurcation point.
+Solution: The fixed points satisfy f(x)= r−x−e−x= 0. But now we run
+into a difficulty: in contrast to Example 3.1.1, we can’t find the fixed points
+
+============================================================
+=== Page 38 (printed page ~70) ===
+============================================================
+
+54 Nonlinear Dynamics and Chaos
+The drawback is that now the x-axis has to be plotted vertically, which looks
+strange at first. Arrows are sometimes included in the picture, but not al-
+ways. This picture is called the bifurcation diagram for the saddle-node
+bifurcation.
+Terminology
+Bifurcation theory is rife with conflicting terminology. Some people refer to
+a saddle-node bifurcation as a fold bifurcation (because the curve in Figure
+3.1.4 has a fold in it) or a turning-point bifurcation (because the point (x, r)=
+(0,0)is a “turning point.”) Admittedly, the term saddle-node doesn’t make
+much sense for vector fields on the line. The name derives from a completelyanalogous bifurcation seen in a higher-dimensional context, such as vectorfields on the plane, where fixed points known as saddles and nodes can collideand annihilate (see Section 8.1).
+The prize for most inventive terminology must go to Abraham and Shaw
+(1988), who write of a blue sky bifurcation. This term comes from viewing
+a saddle-node bifurcation in the other direction: a pair of fixed points appears“out of the clear blue sky” as a parameter is varied. For example, the vectorfield
+˙x=r−x
+2(2)
+has no fixed points for r<0, but then one materializes when r=0and splits
+into two when r> 0(Figure 3.1.5). Incidentally, this example also explains
+why we use the word “bifurcation”: it means “splitting into two branches.”
+Figure 3.1.5
+Example 3.1.1:
+Give a linear stability analysis of the fixed points in Figure 3.1.5.
+Solution: The fixed points for ˙x=f(x)= r−x2are given by x∗=±√r.
+There are two fixed points for r> 0, and none for r< 0. To determine
+linear stability, we compute f′(x∗)=− 2x∗.Thus x∗=+√ris stable, since
+f′(x∗)<0. Similarly x∗=−√ris unstable. At the bifurcation point r=0,
+we find f′(x∗)=0; the linearization vanishes when the fixed points coalesce. ■
+Example 3.1.2:
+Show that the first-order system ˙x=r−x−e−xundergoes a saddle-node
+bifurcation as ris varied, and find the value of rat the bifurcation point.
+Solution: The fixed points satisfy f(x)= r−x−e−x= 0. But now we run
+into a difficulty: in contrast to Example 3.1.1, we can’t find the fixed pointsBifurcations 55
+explicitly as a function of r.Instead we adopt a geometric approach. One
+method would be to graph the function f(x)= r−x−e−xfor different values
+ofr, look for its roots x∗, and then sketch the vector field on the x-axis. This
+method is fine, but there’s an easier way. The point is that the two functions
+r−xand e−xhave much more familiar graphs than their difference r−x−e−x.
+So we plot r−xand e−xon the same picture (Figure 3.1.6a).
+Figure 3.1.6
+At points where the line r−xintersects the curve e−x,we have r−x=e−x
+and so f(x)=0. Thus,intersections of the line and the curve correspond to
+fixed points for the system. This picture also allows us to read off the directionof flow on the x-axis: the flow is to the right where the line lies above the
+curve, since r−x>e
+−xand therefore ˙x>0. Hence, the fixed point on the
+right is stable, and the one on the left is unstable.
+Now imagine we start decreasing the parameter r. The line r−xslides
+down and the fixed points approach each other. At some critical value r=rc
+the line becomes tangentto the curve and the fixed points coalesce in a saddle-
+node bifurcation (Figure 3.1.6b). For rbelow this critical value, the line lies
+below the curve and there are no fixed points (Figure 3.1.6c).
+Tofindthebifurcationpoint rc,weimposetheconditionthat thegraphsof
+r−xand e−xintersect tangentially. Thus we demand equality of the functions
+andtheir derivatives:
+e−x=r−x
+and
+d
+dx(e−x)=d
+dx(r−x).
+The second equation implies −e−x=−1, so x=0. Then the first equation
+yields r=1. Hence the bifurcation point is rc=1, and the bifurcation occurs
+atx=0.■
+Normal Forms
+In a certain sense, the examples ˙x=r−x2or˙x=r+x2are representative
+ofallsaddle-node bifurcations; that’s why we called them “prototypical.” The
+
+============================================================
+=== Page 39 (printed page ~71) ===
+============================================================
+
+56 Nonlinear Dynamics and Chaos
+idea is that, close to a saddle-node bifurcation, the dynamics typically look
+like ˙x=r−x2or˙x=r+x2.
+For instance, consider Example 3.1.2 near the bifurcation at x=0and
+r=1. Using the Taylor expansion for e−xabout x=0, we find
+˙x=r−x−e−x
+=r−x−/bracketleftbigg
+1−x+x2
+2!+···/bracketrightbigg
+=(r−1)−1
+2x2+···
+to leading order in x. This has the same algebraic form as ˙x=r−x2, and
+can be made to agree exactly by appropriate rescalings of xand r.
+It’s easy to understand why saddle-node bifurcations typically have this
+algebraic form. We just ask ourselves: how can two fixed points of ˙x=f(x)
+collide and disappear as a parameter ris varied? Graphically, fixed points
+occur where the graph of f(x)intersects the x-axis. For a saddle-node bifur-
+cation to be possible, we need two nearby roots of f(x);this means f(x)must
+look locally “bowl-shaped” or parabolic (Figure 3.1.7).
+Figure 3.1.7
+Now we use a microscope to zoom in on the behavior near the bifurcation. Asrvaries, we see a parabola intersecting the x-axis, then becoming tangent to
+it, and then failing to intersect. This is exactly the scenario in the prototypicalFigure 3.1.1.
+Here’s a more algebraic version of the same argument. We regard fas a
+function of both xand r, and examine the behavior of ˙x=f(x, r)near the
+
+============================================================
+=== Page 40 (printed page ~72) ===
+============================================================
+
+56 Nonlinear Dynamics and Chaos
+idea is that, close to a saddle-node bifurcation, the dynamics typically look
+like ˙x=r−x2or˙x=r+x2.
+For instance, consider Example 3.1.2 near the bifurcation at x=0and
+r=1. Using the Taylor expansion for e−xabout x=0, we find
+˙x=r−x−e−x
+=r−x−/bracketleftbigg
+1−x+x2
+2!+···/bracketrightbigg
+=(r−1)−1
+2x2+···
+to leading order in x. This has the same algebraic form as ˙x=r−x2, and
+can be made to agree exactly by appropriate rescalings of xand r.
+It’s easy to understand why saddle-node bifurcations typically have this
+algebraic form. We just ask ourselves: how can two fixed points of ˙x=f(x)
+collide and disappear as a parameter ris varied? Graphically, fixed points
+occur where the graph of f(x)intersects the x-axis. For a saddle-node bifur-
+cation to be possible, we need two nearby roots of f(x);this means f(x)must
+look locally “bowl-shaped” or parabolic (Figure 3.1.7).
+Figure 3.1.7
+Now we use a microscope to zoom in on the behavior near the bifurcation. As
+rvaries, we see a parabola intersecting the x-axis, then becoming tangent to
+it, and then failing to intersect. This is exactly the scenario in the prototypicalFigure 3.1.1.
+Here’s a more algebraic version of the same argument. We regard fas a
+function of both xand r, and examine the behavior of ˙x=f(x, r)near theBifurcations 57
+bifurcation at x=x∗and r=rc.Taylor’s expansion yields
+˙x=f(x, r)
+=f(x∗,rc)+( x−x∗)∂f
+∂x/vextendsingle/vextendsingle/vextendsingle/vextendsingle
+(x∗,rc)+(r−rc)∂f
+∂r/vextendsingle/vextendsingle/vextendsingle/vextendsingle
+(x∗,rc)
++1
+2(x−x∗)2∂2f
+∂x2/vextendsingle/vextendsingle/vextendsingle/vextendsingle
+(x∗,rc)+···
+where we have neglected quadratic terms in (r −rc) and cubic terms in
+(x−x∗). Two of the terms in this equation vanish: f(x∗,rc)=0since x∗
+is a fixed point, and ∂f/∂x|(x∗,rc)=0by the tangency condition of a saddle-
+node bifurcation. Thus
+˙x=a(r−rc)+b( x−x∗)2+··· (3)
+where a=∂f/∂r|(x∗,rc)and b=1
+2∂2f/∂x2/vextendsingle/vextendsingle
+(x∗, rc). Equation (3) agrees with
+the form of our prototypical examples. (We are assuming that a, b ̸=0, which
+is the typical case; for instance, it would be a very special situation if the
+second derivative ∂2f/∂x2also happened to vanish at the fixed point.)
+What we have been calling prototypical examples are more convention-
+ally known as normal forms for the saddle-node bifurcation. There is much,
+much more to normal forms than we have indicated here. We will be see-ing their importance throughout this book. For a more detailed and precisediscussion, see Guckenheimer and Holmes (1983) or Wiggins (1990).
+3.2 Transcritical Bifurcation
+There are certain scientific situations where a fixed point must exist for allvalues of a parameter and can never be destroyed. For example, in the logisticequation and other simple models for the growth of a single species, there isa fixed point at zero population, regardless of the value of the growth rate.However,sucha fixed pointmay change its stability as the parameter is varied.
+The transcritical bifurcation is the standard mechanism for such changes instability.
+The normal form for a transcritical bifurcation is
+˙x=rx−x
+2. (1)
+This looks like the logistic equation of Section 2.3, but now we allow xand r
+to be either positive or negative.
+Figure 3.2.1 shows the vector field as rvaries. Note that there is a fixed
+point at x∗= 0 forallvalues of r.
+
+============================================================
+=== Page 41 (printed page ~73) ===
+============================================================
+
+58 Nonlinear Dynamics and Chaos
+Figure 3.2.1
+Forr< 0, there is an unstable fixed point at x∗=rand a stable fixed point
+atx∗=0. As rincreases, the unstable fixed point approaches the origin, and
+coalesces with it when r=0. Finally, when r> 0, the origin has become
+unstable, and x∗=ris now stable. Some people say that an exchange of
+stabilities has taken place between the two fixed points.
+Please note the important difference between the saddle-node and trans-
+critical bifurcations: in the transcritical case, the two fixed points don’t dis-
+appear after the bifurcation—instead they just switch their stability.
+Figure3.2.2showsthebifurcationdiagramforthetranscriticalbifurcation.
+As in Figure 3.1.4, the parameter ris regarded as the independent variable,
+and the fixed points x∗= 0 and x∗=rare shown as dependent variables.
+Figure 3.2.2
+Example 3.2.1:
+Show that the first-order system ˙x=x(1−x2)−a(1−e−bx)undergoes a
+transcritical bifurcation at x=0when the parameters a, bsatisfy a certain
+equation, to be determined. (This equation defines a bifurcation curve in
+the ( a, b)parameter space.) Then find an approximate formula for the fixed
+point that bifurcates from x=0, assuming that the parameters are close to
+the bifurcation curve.
+
+============================================================
+=== Page 42 (printed page ~74) ===
+============================================================
+
+58 Nonlinear Dynamics and Chaos
+Figure 3.2.1
+Forr< 0, there is an unstable fixed point at x∗=rand a stable fixed point
+atx∗=0. As rincreases, the unstable fixed point approaches the origin, and
+coalesces with it when r=0. Finally, when r> 0, the origin has become
+unstable, and x∗=ris now stable. Some people say that an exchange of
+stabilities has taken place between the two fixed points.
+Please note the important difference between the saddle-node and trans-
+critical bifurcations: in the transcritical case, the two fixed points don’t dis-
+appear after the bifurcation—instead they just switch their stability.
+Figure3.2.2showsthebifurcationdiagramforthetranscriticalbifurcation.
+As in Figure 3.1.4, the parameter ris regarded as the independent variable,
+and the fixed points x∗= 0 and x∗=rare shown as dependent variables.
+Figure 3.2.2
+Example 3.2.1:
+Showthat the first-order system ˙x=x(1−x2)−a(1−e−bx)undergoes a
+transcritical bifurcation at x=0when the parameters a, bsatisfy a certain
+equation, to be determined. (This equation defines a bifurcation curve in
+the ( a, b)parameter space.) Then find an approximate formula for the fixed
+point that bifurcates from x=0, assuming that the parameters are close to
+the bifurcation curve.Bifurcations 59
+Solution: Note that x=0is a fixed point for all (a, b).This makes it
+plausible that the fixed point will bifurcate transcritically, if it bifurcates at
+all. For small x,we find
+1−e−bx=1−/bracketleftbig
+1−bx+1
+2b2x2+O(x3)/bracketrightbig
+=bx−1
+2b2x2+O(x3)
+and so
+˙x=x−a/parenleftbig
+bx−1
+2b2x2/parenrightbig
++O(x3)
+= (1−ab)x+/parenleftbig1
+2ab2/parenrightbig
+x2+O(x3).
+Hence a transcritical bifurcation occurs when ab=1; this is the equation
+for the bifurcation curve. The nonzero fixed point is given by the solution of
+1−ab+(1
+2ab2)x≈0, i.e.,
+x∗≈2(ab−1)
+ab2.
+This form ula is approximately correct only if x∗is small, since our series
+expansions are based on the assumption of small x.Thus the formula holds
+only when abis close to 1, which means that the parameters must be close to
+the bifurcation curve. ■
+Example 3.2.2:
+Analyze the dynamics of ˙x=rlnx+x−1near x=1, and show that
+the system undergoes a transcritical bifurcation at a certain value of r. Then
+find new variables XandRsuch that the system reduces to the approximate
+normal form ˙X≈RX−X2near the bifurcation.
+Solution: First note that x=1is a fixed point for all values of r. Since
+we are interested in the dynamics near this fixed point, we introduce a new
+variable u=x−1, where uis small. Then
+˙u=˙x
+=rln(1 + u)+u
+=r/bracketleftbig
+u−1
+2u2+O(u3)/bracketrightbig
++u
+≈(r+ 1)u−1
+2ru2+O(u3).
+Hence a transcritical bifurcation occurs at rc=−1.
+To put this equation into normal form, we first need to get rid of the
+coefficient of u2. Let u=av, where awill be chosen later. Then the equation
+forvis
+˙v=(r+ 1)v−1
+2rav2+O(v3).
+So if we choose a= 2/ r, the equation becomes
+˙v=(r+ 1)v−v2+O(v3).
+Now if we let R=r+1andX=v,we have achieved the approximate normal
+form ˙X≈RX−X2, where cubic terms of order O(X3)have been neglected.
+In terms of the original variables, X=v=u/a=1
+2r(x−1).■
+
+============================================================
+=== Page 43 (printed page ~75) ===
+============================================================
+
+60 Nonlinear Dynamics and Chaos
+To be a bit more accurate, the theory of normal forms assures us that we
+can find a change of variables such that the system becomes ˙X=RX−X2,
+withstrict, rather than approximate, equality. Our solution above gives an
+approximation to the necessary change of variables. For careful treatments
+of normal form theory, see the books of Guckenheimer and Holmes (1983),Wiggins (1990), or Manneville (1990).
+3.3 Laser Threshold
+Now it’s time to apply our mathematics to a scientific example. We analyzean extremely simplified model for a laser, following the treatment given byHaken (1983).
+Physical Background
+We are going to consider a particular type of laser known as a solid-state
+laser, which consists of a collection of special “laser-active” atoms embeddedin a solid-state matrix, bounded by partially reflecting mirrors at either end.An external energy source is used to excite or “pump” the atoms out of theirground states (Figure 3.3.1).
+Figure 3.3.1
+Each atom can be thought of as a little antenna radiating energy. When thepumping is relatively weak, the laser acts just like an ordinary lamp: the ex-cited atoms oscillate independently of one another and emit randomly phasedlight waves.
+Now suppose we increase the strength of the pumping. At first nothing
+different happens, but then suddenly, when the pump strength exceeds a cer-tain threshold, the atoms begin to oscillate in phase—the lamp has turnedinto alaser.Now the trillions of little antennas act like one giant antenna
+and produce a beam of radiation that is much more coherent and intense thanthat produced below the laser threshold.
+
+============================================================
+=== Page 44 (printed page ~76) ===
+============================================================
+
+60 Nonlinear Dynamics and Chaos
+To be a bit more accurate, the theory of normal forms assures us that we
+can find a change of variables such that the system becomes ˙X=RX−X2,
+withstrict, rather than approximate, equality. Our solution above gives an
+approximation to the necessary change of variables. For careful treatments
+of normal form theory, see the books of Guckenheimer and Holmes (1983),Wiggins (1990), or Manneville (1990).
+3.3 Laser Threshold
+Now it’s time to apply our mathematics to a scientific example. We analyzean extremely simplified model for a laser, following the treatment given byHaken (1983).
+Physical Background
+We are going to consider a particular type of laser known as a solid-state
+laser, which consists of a collection of special “laser-active” atoms embeddedin a solid-state matrix, bounded by partially reflecting mirrors at either end.An external energy source is used to excite or “pump” the atoms out of theirground states (Figure 3.3.1).
+Figure 3.3.1
+Each atom can be thought of as a little antenna radiating energy. When thepumping is relatively weak, the laser acts just like an ordinary lamp: the ex-cited atoms oscillate independently of one another and emit randomly phasedlight waves.
+Now suppose we increase the strength of the pumping. At first nothing
+different happens, but then suddenly, when the pump strength exceeds a cer-tain threshold, the atoms begin to oscillate in phase—the lamp has turnedinto alaser.Now the trillions of little antennas act like one giant antenna
+and produce a beam of radiation that is much more coherent and intense thanthat produced below the laser threshold.Bifurcations 61
+This sudden onset of coherence is amazing, considering that the atoms
+are being excited completely at random by the pump! Hence the process is
+self-organizing : the coherence develops because of a cooperative interaction
+among the atoms themselves.
+Model
+A proper explanation of the laser phenomenon would require us to delve into
+quantummechanics.SeeMilonniandEberly(1988)foranintuitivediscussion.
+Instead we consider a simplified model of the essential physics (Haken
+1983, p. 127). The dynamical variable is the number of photons n(t)in the
+laser field. Its rate of change is given by
+˙n=gain−loss
+=GnN−kn.
+The gain term comes from the process of stimulated emission, in which pho-
+tons stimulate excited atoms to emit additional photons. Because this processoccurs via random encounters between photons and excited atoms, it occursat a rate proportional to nand to the number of excited atoms, denoted by
+N(t).The parameter G> 0is known as the gain coefficient. The loss term
+models the escape of photons through the endfaces of the laser. The parameterk> 0is a rate constant; its reciprocal τ= 1/krepresents the typical lifetime
+of a photon in the laser.
+Now comes the key physical idea: after an excited atom emits a photon, it
+drops down to a lower energy level and is no longer excited. Thus Ndecreases
+bytheemissionofphotons.Tocapturethiseffect,weneedtowriteanequationrelating Nton.Suppose that in the absence of laser action, the pump keeps
+the number of excited atoms fixed at N
+0. Then the actualnumber of excited
+atoms will be reduced by the laser process. Specifically, we assume
+N(t)=N0−αn,
+where α> 0is the rate at which atoms drop back to their ground states. Then
+˙n=Gn(N0−αn)−kn
+=(GN 0−k)n−(αG)n2.
+We’re finally on familiar ground—this is a first-order system for n(t).Figure
+3.3.2 shows the corresponding vector field for different values of the pumpstrength N
+0. Note that only positive values of nare physically meaningful.
+When N0<k/G,the fixed point at n∗=0is stable. This means that
+there is no stimulated emission and the laser acts like a lamp. As the pumpstrength N
+0isincreased,thesystemundergoesatranscriticalbifurcationwhen
+N0=k/G.ForN0>k/G,the origin loses stability and a stable fixed point
+appears at n∗=(GN 0−k)/αG > 0, corresponding to spontaneous laser
+
+============================================================
+=== Page 45 (printed page ~77) ===
+============================================================
+
+62 Nonlinear Dynamics and Chaos
+Figure 3.3.2
+Figure 3.3.3
+action. Thus N0=k/Gcan be interpreted as the laser threshold in this
+model. Figure 3.3.3 summarizes our results.
+Although this model correctly predicts the existence of a threshold, it
+ignores the dynamics of the excited atoms, the existence of spontaneous emis-
+sion, and several other complications. See Exercises 3.3.1 and 3.3.2 for im-proved models.
+3.4 Pitchfork Bifurcation
+We turn now to a third kind of bifurcation, the so-called pitchfork bifurcation.This bifurcation is common in physical problems that have a symmetry . For
+example, many problems have a spatial symmetry between left and right. Insuch cases, fixed points tend to appear and disappear in symmetrical pairs. InthebucklingexampleofFigure3.0.1,thebeamisstableintheverticalpositionif the load is small. In this case there is a stable fixed point corresponding tozero deflection. But if the load exceeds the buckling threshold, the beam maybuckle to eitherthe left or the right. The vertical position has gone unstable,
+
+============================================================
+=== Page 46 (printed page ~78) ===
+============================================================
+
+62 Nonlinear Dynamics and Chaos
+Figure 3.3.2
+Figure 3.3.3
+action. Thus N0=k/Gcan be interpreted as the laser threshold in this
+model. Figure 3.3.3 summarizes our results.
+Although this model correctly predicts the existence of a threshold, it
+ignores the dynamics of the excited atoms, the existence of spontaneous emis-
+sion, and several other complications. See Exercises 3.3.1 and 3.3.2 for im-proved models.
+3.4 Pitchfork Bifurcation
+We turn now to a third kind of bifurcation, the so-called pitchfork bifurcation.This bifurcation is common in physical problems that have a symmetry . For
+example, many problems have a spatial symmetry between left and right. Insuch cases, fixed points tend to appear and disappear in symmetrical pairs. InthebucklingexampleofFigure3.0.1,thebeamisstableintheverticalpositionif the load is small. In this case there is a stable fixed point corresponding tozero deflection. But if the load exceeds the buckling threshold, the beam maybuckle to eitherthe left or the right. The vertical position has gone unstable,Bifurcations 63
+andtwonewsymmetricalfixedpoints,correspondingtoleft-andright-buckled
+configurations, have been born.
+There are two very different types of pitchfork bifurcation. The simpler
+type is called supercritical, and will be discussed first.
+Supercritical Pitchfork Bifurcation
+The normal form of the supercritical pitchfork bifurcation is
+˙x=rx−x3. (1)
+Note that this equation is invariant under the change of variables
+x→− x.That is, if we replace xby−xand then cancel the resulting mi-
+nus signs on both sides of the equation, we get (1) back again. This invariance
+is the mathematical expression of the left-right symmetry mentioned earlier.(More technically, one says that the vector field is equivariant, but we’ll use
+the more familiar language.)
+Figure 3.4.1 shows the vector field for different values of r.
+Figure 3.4.1
+When r <0,theoriginistheonlyfixedpoint,anditisstable.When r=0,the
+origin is still stable, but much more weakly so, since the linearization vanishes.Now solutions no longer decay exponentially fast—instead the decay is a muchslower algebraic function of time (recall Exercise 2.4.9). This lethargic decayis called critical slowing down . Finally, when r>0, the origin has become
+unstable. Two new stable fixed points appear on either side of the origin,symmetrically located at x
+∗=±√r.
+The reason for the term “pitchfork” becomes clear when we plot the bi-
+furcation diagram (Figure 3.4.2). Actually, pitchfork trifurcation might be abetter word!
+Example 3.4.1:
+Equationssimilarto ˙x=−x+βtanh xariseinstatisticalmechanicalmodelsof
+magnets and neural networks (see Exercise 3.6.7 and Palmer 1989). Show thatthis equation undergoes a supercritical pitchfork bifurcation as βis varied.
+Then give a numerically accurate plot of the fixed points for each β.
+
+============================================================
+=== Page 47 (printed page ~79) ===
+============================================================
+
+64 Nonlinear Dynamics and Chaos
+Figure 3.4.2
+Solution: WeusethestrategyofExample3.1.2tofindthefixedpoints.The
+graphs of y=xandy=βtanh xare shown in Figure 3.4.3; their intersections
+correspond to fixed points.
+Figure 3.4.3
+The key thing to realize is that as βincreases, the tanh curve becomes steeper
+at the origin (its slope there is β). Hence for β< 1the origin is the only fixed
+point. A pitchfork bifurcation occurs at β=1,x∗=0, when the tanh curve
+develops a slope of 1 at the origin. Finally, when β> 1, two new stable fixed
+points appear, and the origin becomes unstable.
+Now we want to compute the fixed points x∗for each β. Of course, one
+fixed point always occurs at x∗=0; we are looking for the other, nontrivial
+fixed points. One approach is to solve the equation x∗=βtanh x∗numeri-
+cally, using the Newton–Raphson method or some other root-finding scheme.
+(See Press et al. (2007) for a friendly and informative discussion of numericalmethods.)
+But there’s an easier way, which comes from changing our point of view.
+Instead of studying the dependence of x
+∗onβ, we think of x∗as theinde-
+pendent variable, and then compute β=x∗/tanh x∗. This gives us a table
+of pairs (x∗,β). For each pair, we plot βhorizontally and x∗vertically. This
+yields the bifurcation diagram (Figure 3.4.4).
