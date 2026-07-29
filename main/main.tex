@@ -3,6 +3,7 @@
 
 \usepackage{amsmath,amssymb}
 \usepackage{graphicx}
+\graphicspath{{../}{../Q1/}{../Q2/}{../Q3/}{../Q4/}{./}}
 \usepackage{booktabs}
 \usepackage{geometry}
 \usepackage{float}
@@ -50,8 +51,8 @@
 \end{abstract}
 
 \newpage
-\tableofcontents
 
+\tableofcontents
 
 \newpage
 
@@ -106,7 +107,7 @@ $\beta$ & 抑制系数 & 无量纲 \\
  够达到的最大稳定回收水平。由于本节主要用于建立基础预测模型，暂不考
  虑外部促进因素和内部抑制机制，仅保留两个核心约束因素：
 
-\begin{equation}\label{eq:ode}
+\begin{equation}\label{eq:ode_q1}
 \frac{dx}{dt} = \gamma \cdot x \cdot \left(1 - \frac{x}{K}\right), \qquad x(0) = x_0
 \end{equation}
 
@@ -116,6 +117,13 @@ $\beta$ & 抑制系数 & 无量纲 \\
 x(t) = \frac{K}{1 + \left(\dfrac{K}{x_0} - 1\right) e^{-\gamma t}}
      = \frac{K}{1 + A \cdot e^{-\gamma t}}, \qquad A = \frac{K}{x_0} - 1
 \end{equation}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.75\linewidth]{logistic_fit.png}
+    \caption{\texttt{logistic\_fit.png}}
+    \label{fig:logistic_fit}
+\end{figure}
 
 \textbf{注意}：由于本模型中的参数 $\gamma$、$K$ 和初始状态 
 $x_0$ 均来源于已知条件，因此该模型属于无参数调整的确定性模型。
@@ -206,7 +214,7 @@ $\beta$ 表征内部限制因素对恢复过程的约束作用，
 二者作用方向相反，但共同决定系统动态演化过程，
 因此形成具有促进—抑制拮抗机制的扩展 Logistic 模型：
 
-\begin{equation}\label{eq:ode}
+\begin{equation}\label{eq:ode_q2}
 \frac{dx}{dt} = \frac{\gamma}{1+\beta} \cdot x \cdot \left(1 - \frac{x}{K(1+\alpha)}\right)
 \end{equation}
 
@@ -232,7 +240,7 @@ $\alpha$ 推高饱和平台，$\beta$ 拖慢趋近速度。当 $\alpha = \beta =
 因此，该模型既继承了 Logistic 模型的稳定收敛特性，
 又能够描述外部促进因素和内部限制因素共同作用下的恢复过程。
 
-\begin{equation}\label{eq:logistic}
+\begin{equation}\label{eq:logistic_q2}
 \frac{dx}{dt} = r \cdot x \cdot \left(1 - \frac{x}{K_{\text{eff}}}\right)
 \end{equation}
 \begin{equation}
@@ -240,9 +248,16 @@ r = \frac{\gamma}{1+\beta}, \qquad K_{\text{eff}} = K(1+\alpha)
 \end{equation}
 
 解析解：
-\begin{equation}\label{eq:solution}
+\begin{equation}\label{eq:solution_q2}
 x(t) = \frac{K_{\text{eff}}}{1 + \left(\dfrac{K_{\text{eff}}}{x_0} - 1\right) e^{-r t}}
 \end{equation}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.75\linewidth]{model_q2.png}
+    \caption{\texttt{model\_q2.png}}
+    \label{fig:model_q2}
+\end{figure}
 
 \subsection{参数}
 
@@ -351,7 +366,7 @@ $t$ (days) & Actual & Predicted & Residual & Rel.\ Error \\
 \subsection{模型建立}
 
 对称拮抗模型。$\alpha$（促进）、$\beta$（抑制）\textbf{恒为正数}：
-\begin{equation}\label{eq:ode}
+\begin{equation}\label{eq:ode_q3}
 \frac{dx}{dt} = \frac{\gamma}{1+\beta} \cdot x \cdot \left(1 - \frac{x}{K(1+\alpha)}\right), \qquad \alpha \geq 0,\; \beta \geq 0
 \end{equation}
 
@@ -392,6 +407,13 @@ $x_2^*$ & $K_{\text{eff}} = K(1+\alpha)$ & $\lambda_2 = -r$ & \textbf{渐近稳�
 \begin{equation}
 \beta \geq 0 \;\Rightarrow\; 1+\beta \geq 1 \;\Rightarrow\; r = \frac{\gamma}{1+\beta} \in (0,\, \gamma]
 \end{equation}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.75\linewidth]{stability_analysis.png}
+    \caption{\texttt{stability\_analysis.png}}
+    \label{fig:stability_analysis}
+\end{figure}
 
 \textbf{关键结论}：$\alpha, \beta \geq 0$ 是定义本身（促进系数和抑制系数），
 因此在整个有效参数空间中 $r > 0$ \textbf{恒成立}。
@@ -504,14 +526,14 @@ Q3 进一步证明了该系统在数学上具有\textbf{结构稳定性}——
 
 \subsubsection{模型回顾}
 
-\begin{equation}\label{eq:ode}
+\begin{equation}\label{eq:ode_q4}
 \frac{dx}{dt} = \frac{\gamma}{1+\beta} \cdot x \cdot \left(1 - \frac{x}{K(1+\alpha)}\right)
 \quad\Rightarrow\quad
 \frac{dx}{dt} = r \cdot x \cdot \left(1 - \frac{x}{K_{\text{eff}}}\right)
 \end{equation}
 
 解析解：
-\begin{equation}\label{eq:solution}
+\begin{equation}\label{eq:solution_q4}
 x(t) = \frac{K_{\text{eff}}}{1 + \left(\dfrac{K_{\text{eff}}}{x_0} - 1\right) e^{-r t}},\qquad
 r = \frac{\gamma}{1+\beta},\quad K_{\text{eff}} = K(1+\alpha)
 \end{equation}
@@ -796,18 +818,18 @@ $K_{\text{eff}}$ & $K$      & $+1.0000$ & 线性——$K$ 变化 $1\% \to K_{\te
 这意味着\textbf{模型在局部线性化意义下是良态的}——不存在微扰导致巨变的分岔或奇点。
 
 \subsection{预测包络线分析}
-\begin{figure}
+\begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.5\linewidth]{sensitivity_tornado.png}
-    \caption{Enter Caption}
-    \label{fig:placeholder}
+    \includegraphics[width=0.75\linewidth]{sensitivity_tornado.png}
+    \caption{\texttt{sensitivity\_tornado.png}}
+    \label{fig:sensitivity_tornado}
 \end{figure}
 上图从可视化角度验证了上述数值结论。
-\begin{figure}
+\begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.5\linewidth]{sensitivity_envelope.png}
-    \caption{Enter Caption}
-    \label{fig:placeholder}
+    \includegraphics[width=0.75\linewidth]{sensitivity_envelope.png}
+    \caption{\texttt{sensitivity\_envelope.png}}
+    \label{fig:sensitivity_envelope}
 \end{figure}
 
 
