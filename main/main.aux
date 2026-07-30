@@ -7,3 +7,118 @@
 \citation{problem}
 \@writefile{toc}{\contentsline {section}{\numberline {2}问题分析}{2}{section.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.1}技术路线}{2}{subsection.2.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces 本文总体建模架构：由先验与观测数据出发，依次完成基础模型检验、促进--抑制拮抗模型校准、稳定性与安全边界证明，以及灵敏度驱动的风险识别与运维决策。}}{3}{figure.1}\protected@file@percent }
+\newlabel{fig:model_architecture}{{1}{3}{本文总体建模架构：由先验与观测数据出发，依次完成基础模型检验、促进--抑制拮抗模型校准、稳定性与安全边界证明，以及灵敏度驱动的风险识别与运维决策。}{figure.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}为什么需要动力系统理论？}{4}{subsection.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}模型假设}{4}{section.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}关于模型结构的基本假设}{4}{subsection.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}关于参数结构与取值的假设}{5}{subsection.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}关于数据与空间的假设}{5}{subsection.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}符号说明}{5}{section.4}\protected@file@percent }
+\citation{verhulst}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces 模型变量与参数一览}}{6}{table.1}\protected@file@percent }
+\newlabel{tab:symbols}{{1}{6}{模型变量与参数一览}{table.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}模型建立与求解}{6}{section.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}问题一：基础动态模型}{6}{subsection.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.1}模型建立}{6}{subsubsection.5.1.1}\protected@file@percent }
+\newlabel{eq:ode_q1}{{1}{6}{模型建立}{equation.1}{}}
+\newlabel{eq:solution}{{2}{6}{模型建立}{equation.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces 基础 Logistic 模型拟合曲线}}{7}{figure.2}\protected@file@percent }
+\newlabel{fig:logistic_fit}{{2}{7}{基础 Logistic 模型拟合曲线}{figure.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.2}参数}{7}{subsubsection.5.1.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces 问题一 基础 Logistic 模型参数}}{7}{table.2}\protected@file@percent }
+\newlabel{tab:q1_params}{{2}{7}{问题一 基础 Logistic 模型参数}{table.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.3}模型评估}{7}{subsubsection.5.1.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces 问题一 基础 Logistic 模型评估指标}}{7}{table.3}\protected@file@percent }
+\newlabel{tab:q1_metrics}{{3}{7}{问题一 基础 Logistic 模型评估指标}{table.3}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.4}模型结果分析}{7}{subsubsection.5.1.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces 问题一 预测值与残差分析}}{8}{table.4}\protected@file@percent }
+\newlabel{tab:q1_predictions}{{4}{8}{问题一 预测值与残差分析}{table.4}{}}
+\@writefile{toc}{\contentsline {paragraph}{预测与残差}{8}{table.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}问题二：引入促进与抑制作用的改进模型}{8}{subsection.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.1}模型建立}{8}{subsubsection.5.2.1}\protected@file@percent }
+\newlabel{eq:ode_q2}{{3}{8}{模型建立}{equation.3}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.2}标准 Logistic 表达式}{9}{subsubsection.5.2.2}\protected@file@percent }
+\newlabel{eq:logistic_q2}{{4}{9}{标准 Logistic 表达式}{equation.4}{}}
+\newlabel{eq:solution_q2}{{6}{9}{标准 Logistic 表达式}{equation.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces 引入促进-抑制作用的改进模型拟合曲线}}{9}{figure.3}\protected@file@percent }
+\newlabel{fig:model_q2}{{3}{9}{引入促进-抑制作用的改进模型拟合曲线}{figure.3}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.3}参数}{9}{subsubsection.5.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{拟合方法与算法}{9}{paragraph*.2}\protected@file@percent }
+\newlabel{eq:bounds_r}{{8}{10}{拟合方法与算法}{equation.8}{}}
+\newlabel{eq:bounds_K}{{9}{10}{拟合方法与算法}{equation.9}{}}
+\@writefile{toc}{\contentsline {paragraph}{关于过拟合风险}{10}{paragraph*.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces 问题二 扩展模型参数一览}}{11}{table.5}\protected@file@percent }
+\newlabel{tab:q2_params}{{5}{11}{问题二 扩展模型参数一览}{table.5}{}}
+\citation{efron}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.4}计算}{13}{subsubsection.5.2.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces 问题一 与 问题二 模型拟合指标对比}}{13}{table.6}\protected@file@percent }
+\newlabel{tab:q1_q2_comparison}{{6}{13}{问题一 与 问题二 模型拟合指标对比}{table.6}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.5}预测}{13}{subsubsection.5.2.5}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces 问题二 预测值与残差分析}}{13}{table.7}\protected@file@percent }
+\newlabel{tab:q2_predictions}{{7}{13}{问题二 预测值与残差分析}{table.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}问题三：平衡点与稳定性分析}{14}{subsection.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.1}模型与物理定义域}{14}{subsubsection.5.3.1}\protected@file@percent }
+\newlabel{eq:ode_q3}{{14}{14}{模型与物理定义域}{equation.14}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.2}平衡点求解与物理解释}{14}{subsubsection.5.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.3}相线分析与定性稳定性}{15}{subsubsection.5.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.4}线性稳定性分析：定量收敛刻画}{15}{subsubsection.5.3.4}\protected@file@percent }
+\citation{strogatz}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces 相线分析、势函数与线性稳定性验证}}{16}{figure.4}\protected@file@percent }
+\newlabel{fig:stability_analysis}{{4}{16}{相线分析、势函数与线性稳定性验证}{figure.4}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.5}结构稳定性：参数空间内的分岔分析}{17}{subsubsection.5.3.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{结构稳定性结论}{17}{paragraph*.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.6}实用安全边界}{17}{subsubsection.5.3.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{增长率约束}{17}{paragraph*.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{容量约束}{18}{paragraph*.6}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces 安全运行范围与裕度指标}}{18}{table.8}\protected@file@percent }
+\newlabel{tab:safety_margins}{{8}{18}{安全运行范围与裕度指标}{table.8}{}}
+\@writefile{toc}{\contentsline {paragraph}{安全运行范围与裕度}{18}{table.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.7}参数解耦与独立调控}{18}{subsubsection.5.3.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}问题四：参数灵敏度分析}{18}{subsection.5.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.4.1}问题背景与分析目标}{18}{subsubsection.5.4.1}\protected@file@percent }
+\citation{saltelli}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.4.2}方法}{19}{subsubsection.5.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{模型回顾}{19}{paragraph*.8}\protected@file@percent }
+\newlabel{eq:ode_q4}{{24}{19}{模型回顾}{equation.24}{}}
+\newlabel{eq:solution_q4}{{25}{19}{模型回顾}{equation.25}{}}
+\@writefile{toc}{\contentsline {paragraph}{参数物理意义（结合``沪尚回收''实际场景）}{19}{paragraph*.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{OAT 扰动方案}{20}{paragraph*.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.4.3}扰动结果与数据解读}{20}{subsubsection.5.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{$\gamma $（固有增长率）$\pm 10\%$}{20}{paragraph*.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{$\beta $（抑制系数）$\pm 10\%$}{21}{paragraph*.12}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{$\alpha $（促进系数）$\pm 10\%$}{22}{paragraph*.13}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{$K$（基准容量）$\pm 10\%$}{22}{paragraph*.14}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.4.4}灵敏度排序与参数等级}{23}{subsubsection.5.4.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces 各参数扰动对 $R^2$ 的影响排序（按偏离基线的最大降幅）}}{23}{table.9}\protected@file@percent }
+\newlabel{tab:sensitivity_r2}{{9}{23}{各参数扰动对 $R^2$ 的影响排序（按偏离基线的最大降幅）}{table.9}{}}
+\@writefile{toc}{\contentsline {paragraph}{对 $R^2$ 的影响}{23}{table.9}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {10}{\ignorespaces 各参数扰动对 MAE 的影响排序（按偏离基线的最大增幅）}}{24}{table.10}\protected@file@percent }
+\newlabel{tab:sensitivity_mae}{{10}{24}{各参数扰动对 MAE 的影响排序（按偏离基线的最大增幅）}{table.10}{}}
+\@writefile{toc}{\contentsline {paragraph}{对 MAE 的影响}{24}{table.10}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {11}{\ignorespaces 参数敏感度等级划分表}}{24}{table.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{综合敏感等级}{24}{table.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.4.5}解析弹性汇总}{24}{subsubsection.5.4.5}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {12}{\ignorespaces 有效参数对基础参数的解析弹性汇总}}{24}{table.12}\protected@file@percent }
+\newlabel{tab:elasticity_summary}{{12}{24}{有效参数对基础参数的解析弹性汇总}{table.12}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.4.6}预测包络线分析}{25}{subsubsection.5.4.6}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces 龙卷风图：各参数 $\pm 10\%$ 对 $R^2$、MAE、$r$、$K_{\text  {eff}}$ 的影响。 (a)(b) 子图中 $K$ 的影响远超坐标轴范围（以橙色文本框标注离轴数值），意在让读者关注非 $K$ 参数之间的差异； (c) $r$ 仅受 $\gamma $ 和 $\beta $ 影响，(d) $K_{\text  {eff}}$ 仅受 $\alpha $ 和 $K$ 影响—— 验证了模型的结构解耦特性。}}{25}{figure.5}\protected@file@percent }
+\newlabel{fig:sensitivity_tornado}{{5}{25}{龙卷风图：各参数 $\pm 10\%$ 对 $R^2$、MAE、$r$、$K_{\text {eff}}$ 的影响。 (a)(b) 子图中 $K$ 的影响远超坐标轴范围（以橙色文本框标注离轴数值），意在让读者关注非 $K$ 参数之间的差异； (c) $r$ 仅受 $\gamma $ 和 $\beta $ 影响，(d) $K_{\text {eff}}$ 仅受 $\alpha $ 和 $K$ 影响—— 验证了模型的结构解耦特性。}{figure.5}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.4.7}OAT 方法的局限性与补充讨论}{25}{subsubsection.5.4.7}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces (a) 所有参数 $\pm 10\%$ 的总预测包络线——包络宽度完全由 $K$ 主导； (b) 各参数独立扰动带——$K$（橙色）的带宽远超其余参数，$\alpha $（绿色）几乎不可见； (c) 拟合指标的数值弹性——$K$ 对 $R^2$ 的弹性（$\sim 96$）比其余参数高出约两个数量级。}}{26}{figure.6}\protected@file@percent }
+\newlabel{fig:sensitivity_envelope}{{6}{26}{(a) 所有参数 $\pm 10\%$ 的总预测包络线——包络宽度完全由 $K$ 主导； (b) 各参数独立扰动带——$K$（橙色）的带宽远超其余参数，$\alpha $（绿色）几乎不可见； (c) 拟合指标的数值弹性——$K$ 对 $R^2$ 的弹性（$\sim 96$）比其余参数高出约两个数量级。}{figure.6}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.4.8}与 问题三 稳定性结论的联合分析}{26}{subsubsection.5.4.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.4.9}关键结论与长效调控策略}{27}{subsubsection.5.4.9}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {13}{\ignorespaces 分层资源分配与长效运维策略}}{29}{table.13}\protected@file@percent }
+\newlabel{tab:resource_allocation}{{13}{29}{分层资源分配与长效运维策略}{table.13}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}模型评价与改进}{29}{section.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}模型优点}{29}{subsection.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}模型不足与改进方向}{30}{subsection.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}模型适用性说明}{30}{subsection.6.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7}结论}{31}{section.7}\protected@file@percent }
+\bibcite{strogatz}{1}
+\bibcite{verhulst}{2}
+\bibcite{saltelli}{3}
+\bibcite{efron}{4}
+\bibcite{problem}{5}
+\gdef \@abspage@last{33}
