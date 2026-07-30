@@ -361,8 +361,6 @@ n = 9
 \end{equation}
 其中 $y(t_i)$ 为实测回收量，$x(t_i; r, K_{\text{eff}})$ 为解析解 \eqref{eq:solution_q2} 在 $t_i$ 处的预测值。
 
-\textbf{算法实现}：使用 Python SciPy 库中的 \texttt{curve\_fit} 函数（基于 Levenberg-Marquardt 算法，
-即信赖域方法对 Gauss-Newton 法的阻尼推广），通过迭代求解上述非线性最小二乘问题。
 具体设定如下：
 \begin{itemize}
   \item \textbf{初值选取}：$r_0 = 0.01$，$K_{\text{eff},0} = 8100$。前者取 $\gamma/2$ 量级（预期抑制效应使增长率减半），
