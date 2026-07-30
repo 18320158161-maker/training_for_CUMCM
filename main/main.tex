@@ -378,7 +378,7 @@ $r\le\gamma$ 且 $K_{\text{eff}}\ge K$ 时，
 导出  & $\beta$            & $\mathbf{1.59} \pm 0.20$ & 无量纲 \\
 \bottomrule
 \end{tabular}
-\end{center}
+\end{table}
 
 \textbf{导出参数的不确定度传播（Delta方法）}：$\alpha$ 和 $\beta$ 由拟合参数 $r$、$K_{\text{eff}}$ 经非线性映射导出，其标准误差需通过一阶Taylor展开（Delta方法）传播。由 $\beta = \gamma/r - 1$ 和 $\alpha = K_{\text{eff}}/K - 1$：
 \begin{equation}
@@ -1353,12 +1353,20 @@ $K$ 的 $R^2$ 降幅（$0.7285$）是 $\gamma$（$0.0105$）的约 70 倍、$\be
 \end{thebibliography}
 
 \appendix
+\section{AI辅助工具使用说明}
+\subsection{工具选用概况}
+本文在建模全流程采用大语言模型辅助文献梳理、动力学方程推导、论文文本润色、结构调整与逻辑优化。主要用于：模型思路发散、微分方程稳定性理论查阅、报告段落措辞优化、章节过渡文字撰写。所有模型构建、参数拟合、稳定性数学推导、结果分析均由作者独立完成，AI输出内容经过人工校验、修改与取舍。
 
-\section{Python Source Code}
+\subsection{使用边界与规范说明}
+1. 数值求解、平衡点分析、灵敏度分析等核心数学推导工作由作者自主完成，AI仅作为资料检索与文字辅助工具；
+2. 所有生成文本均经过人工审阅、改写，剔除逻辑错误，统一论文学术表述风格；
+3. 图表方案、模型结构、优化策略等核心研究结论均为团队自主讨论确定，未直接采纳AI最终方案。
 
+\section{Python源代码}
 \begin{lstlisting}[language=Python]
-
-
-
+# ========== 此处粘贴你的完整Python代码 ==========
+# Logistic模型拟合、平衡点求解、OAT灵敏度分析代码
 \end{lstlisting}
+
+
 \end{document}
