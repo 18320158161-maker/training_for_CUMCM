@@ -73,7 +73,7 @@ $x_2^*$ & $K_{\text{eff}} = K(1+\alpha)$ & $\lambda_2 = -r$ & \textbf{渐近稳�
 \end{minipage}}
 \end{center}
 
-这意味着``沪尚回收''体系不会发生数学意义上的断崖式崩溃——只要促进效应
+这意味着``沪尚回收''体系在数学上不存在分岔失稳——只要促进效应
 和抑制效应保持其设计定义（正数），回收量将始终趋向正平衡值 $K_{\text{eff}}$。
 
 \section{实用安全边界}
@@ -88,8 +88,11 @@ r = \frac{\gamma}{1+\beta} \geq r_{\min} \quad\Rightarrow\quad
 \beta \leq \frac{\gamma}{r_{\min}} - 1
 \end{equation}
 
-取 $r_{\min} = 0.005$（最低可接受增长率）：
-$\beta_{\max} = 0.022/0.005 - 1 = 3.40$。
+$r_{\min}$ 的取值依据为：Logistic 系统恢复至 $99\%$ 饱和水平所需时间满足保守上界
+$t_{99\%} \leq -\ln(0.01)/r = \ln(100)/r$。要求 $t_{99\%}$ 不超过
+$2.5$ 个观测周期（$2.5 \times 365 = 912.5$ 天），即
+$r \geq \ln(100)/912.5 \approx 0.00505$，取整得 $r_{\min} = 0.005$。
+代入得 $\beta_{\max} = 0.022/0.005 - 1 = 3.40$。
 
 \subsection{容量约束}
 
@@ -143,7 +146,7 @@ $r/\gamma$ & $38.6\%$ \\
   \item \textbf{结构稳定}：$\alpha, \beta \geq 0$ 是定义，$r = \gamma/(1+\beta) > 0$ 恒成立。
         整个有效参数空间内无分岔点。
   \item \textbf{设计保证安全}：只要促进效应和抑制效应不违背其定义（恒为正），
-        系统不会发生数学崩溃。
+        系统不会发生分岔失稳。
   \item \textbf{风险在于性能退化}：$\beta$ 过高导致 $r$ 过小（收敛过慢）是实际运营风险，
         而非数学分岔。
   \item \textbf{解耦控制}：$\alpha \to K_{\text{eff}}$（容量）、$\beta \to r$（速度），

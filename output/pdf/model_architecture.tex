@@ -1,0 +1,240 @@
+% !TEX program = xelatex
+\documentclass[tikz,border=8pt]{standalone}
+
+\usepackage[UTF8]{ctex}
+\usepackage{amsmath}
+\usetikzlibrary{
+  arrows.meta,
+  backgrounds,
+  calc,
+  fit,
+  positioning,
+  shapes.geometric
+}
+
+\definecolor{ink}{HTML}{263238}
+\definecolor{muted}{HTML}{607D8B}
+\definecolor{lineblue}{HTML}{3979B8}
+\definecolor{inputfill}{HTML}{EEF2F5}
+\definecolor{inputstroke}{HTML}{90A4AE}
+\definecolor{qonefill}{HTML}{F4F6F8}
+\definecolor{qonestroke}{HTML}{AAB7C2}
+\definecolor{qtwofill}{HTML}{EAF4FF}
+\definecolor{qtwostroke}{HTML}{64A7E8}
+\definecolor{qthreefill}{HTML}{F1ECFF}
+\definecolor{qthreestroke}{HTML}{8F75D6}
+\definecolor{qfourfill}{HTML}{FFF7DB}
+\definecolor{qfourstroke}{HTML}{E0B943}
+\definecolor{riskfill}{HTML}{FFF0E0}
+\definecolor{riskstroke}{HTML}{E58C36}
+\definecolor{actionfill}{HTML}{E7F6EA}
+\definecolor{actionstroke}{HTML}{56A969}
+
+\begin{document}
+\begin{tikzpicture}[
+  font=\small\color{ink},
+  node distance=8mm and 10mm,
+  >=Latex,
+  flow/.style={
+    -{Latex[length=2.2mm,width=1.5mm]},
+    draw=lineblue,
+    line width=0.85pt,
+    rounded corners=2pt
+  },
+  branch/.style={
+    flow,
+    draw=muted
+  },
+  box/.style={
+    rectangle,
+    rounded corners=3pt,
+    draw=inputstroke,
+    fill=white,
+    line width=0.85pt,
+    minimum height=12mm,
+    text width=37mm,
+    align=center,
+    inner xsep=3.5mm,
+    inner ysep=2.5mm
+  },
+  compact/.style={
+    box,
+    text width=31mm
+  },
+  smallbox/.style={
+    box,
+    text width=26mm,
+    inner xsep=2.5mm
+  },
+  input/.style={
+    box,
+    fill=inputfill,
+    draw=inputstroke,
+    text width=51mm
+  },
+  channel/.style={
+    box,
+    fill=white,
+    draw=qtwostroke,
+    text width=54mm,
+    minimum height=14mm
+  },
+  conclusion/.style={
+    box,
+    fill=riskfill,
+    draw=riskstroke,
+    line width=1.1pt,
+    text width=116mm,
+    minimum height=17mm
+  },
+  action/.style={
+    box,
+    fill=actionfill,
+    draw=actionstroke,
+    text width=42mm,
+    minimum height=18mm
+  },
+  phase/.style={
+    rectangle,
+    rounded corners=5pt,
+    line width=1pt,
+    inner sep=5.5mm
+  },
+  phaseTitle/.style={
+    font=\bfseries\small,
+    text=ink,
+    anchor=west,
+    inner sep=0pt
+  },
+  tag/.style={
+    font=\scriptsize\bfseries,
+    text=white,
+    rounded corners=2pt,
+    inner xsep=2.5mm,
+    inner ysep=1.2mm
+  }
+]
+
+% Inputs
+\node[input] (prior) at (-3.15,0)
+  {\textbf{先验参数}\\$\gamma=0.022,\ K=8011,\ x_0=6314$};
+\node[input] (observed) at (3.15,0)
+  {\textbf{观测数据}\\9 个时间点的回收量序列};
+
+% Q1
+\node[compact] (base) at (-4.65,-2.45)
+  {\textbf{基础 Logistic}\\$\dot{x}=\gamma x(1-x/K)$};
+\node[compact] (baseEval) at (0,-2.45)
+  {\textbf{零自由度检验}\\$R^2=0.5319$，MAPE $=4.42\%$};
+\node[compact] (bias) at (4.65,-2.45)
+  {\textbf{结构诊断}\\早期增长速度被系统性高估};
+
+\draw[flow] (base) -- (baseEval);
+\draw[flow] (baseEval) -- (bias);
+\draw[flow] (prior.south) -- ++(0,-4mm) -| (base.north);
+\draw[flow] (observed.south) -- ++(0,-4mm) -| (baseEval.north);
+
+% Q2
+\node[compact] (extended) at (-4.65,-5.25)
+  {\textbf{拮抗扩展模型}\\引入促进 $\alpha$ 与抑制 $\beta$};
+\node[compact] (fit) at (0,-5.25)
+  {\textbf{非线性最小二乘}\\$r=0.00849,\ K_{\mathrm{eff}}=8142$};
+\node[compact] (validate) at (4.65,-5.25)
+  {\textbf{参数反解与验证}\\Bootstrap $(B=10^4)$ + Delta};
+
+\node[channel] (rate) at (-3.15,-7.25)
+  {\textbf{速率通道}\\$r=\gamma/(1+\beta)$\\决定收敛速度与恢复时标};
+\node[channel] (capacity) at (3.15,-7.25)
+  {\textbf{容量通道}\\$K_{\mathrm{eff}}=K(1+\alpha)$\\决定平衡点与长期目标};
+
+\draw[flow] (bias.south) -- ++(0,-4mm) -| (extended.north);
+\draw[flow] (extended) -- (fit);
+\draw[flow] (fit) -- (validate);
+\coordinate (parameterSplit) at (0,-6.40);
+\draw[branch] (validate.south) |- (parameterSplit);
+\draw[branch] (parameterSplit) -| (rate.north);
+\draw[branch] (parameterSplit) -| (capacity.north);
+
+% Q3
+\node[smallbox] (equilibrium) at (-5.25,-10.15)
+  {\textbf{平衡点}\\$x^*=K_{\mathrm{eff}}$};
+\node[smallbox] (linear) at (-1.75,-10.15)
+  {\textbf{渐近稳定}\\$\lambda=-r<0$\\$\tau\approx118$ 天};
+\node[smallbox] (bifurcation) at (-5.25,-12.05)
+  {\textbf{结构安全}\\有效参数域内无分岔失稳};
+\node[smallbox] (boundary) at (-1.75,-12.05)
+  {\textbf{性能边界}\\$\beta_{\max}=3.40$};
+
+\draw[flow] (capacity.south) -- ++(0,-4mm) -| (equilibrium.north);
+\draw[flow] (rate.south) -- ++(0,-4mm) -| (linear.north);
+\draw[flow] (equilibrium) -- (linear);
+\draw[flow] (equilibrium) -- (bifurcation);
+\draw[flow] (linear) -- (boundary);
+
+% Q4
+\node[smallbox] (oat) at (1.75,-10.15)
+  {\textbf{数值灵敏度}\\OAT 单参数\\$\pm10\%$ 扰动};
+\node[smallbox] (elasticity) at (5.25,-10.15)
+  {\textbf{解析灵敏度}\\局部弹性与预测包络};
+\node[box, text width=62mm] (ranking) at (3.50,-12.05)
+  {\textbf{极化排序}\\$K\gg\gamma>\beta\gg\alpha$，$K$ 决定吸引子位置};
+
+\draw[flow] (rate.south) -- ++(0,-4mm) -| (oat.north);
+\draw[flow] (capacity.south) -- ++(0,-4mm) -| (elasticity.north);
+\draw[flow] (oat) -- (elasticity);
+\draw[flow] (oat) -- (ranking);
+\draw[flow] (elasticity) -- (ranking);
+
+% Joint conclusion
+\node[conclusion] (diagnosis) at (0,-14.65)
+  {\textbf{联合诊断：结构稳定 $\boldsymbol{\neq}$ 运营精确}\\
+   系统不会失稳，但 $K$ 的估计偏差会使系统稳定地收敛到错误吸引子};
+
+\draw[flow] (bifurcation.south) -- ++(0,-4mm) -| ([xshift=-37mm]diagnosis.north);
+\draw[flow] (boundary.south) -- ++(0,-4mm) -| ([xshift=-12mm]diagnosis.north);
+\draw[flow] (ranking.south) -- ++(0,-4mm) -| ([xshift=32mm]diagnosis.north);
+
+% Actions
+\node[action] (measureK) at (-4.75,-17.25)
+  {\textbf{优先级 1：精测 $K$}\\全市潜力普查，年度校准\\误差控制在 $\pm5\%$};
+\node[action] (reduceBeta) at (0,-17.25)
+  {\textbf{优先级 2：降低 $\beta$}\\优化清运调度、适老化改造\\削减运维阻力};
+\node[action] (quality) at (4.75,-17.25)
+  {\textbf{优先级 3：促进提质}\\从扩张站点转向使用频次\\与居民满意度};
+
+\draw[flow] (diagnosis.south) -- ++(0,-4mm) -| (measureK.north);
+\draw[flow] (diagnosis.south) -- (reduceBeta.north);
+\draw[flow] (diagnosis.south) -- ++(0,-4mm) -| (quality.north);
+
+% Phase containers
+\begin{scope}[on background layer]
+  \node[phase, draw=qonestroke, fill=qonefill,
+    fit=(base)(baseEval)(bias)] (qone) {};
+  \node[phase, draw=qtwostroke, fill=qtwofill,
+    fit=(extended)(fit)(validate)(rate)(capacity)] (qtwo) {};
+  \node[phase, draw=qthreestroke, fill=qthreefill,
+    fit=(equilibrium)(linear)(bifurcation)(boundary)] (qthree) {};
+  \node[phase, draw=qfourstroke, fill=qfourfill,
+    fit=(oat)(elasticity)(ranking)] (qfour) {};
+\end{scope}
+
+\node[phaseTitle] at ([xshift=2mm,yshift=-3mm]qone.north west)
+  {问题一\quad 基础模型检验};
+\node[phaseTitle] at ([xshift=2mm,yshift=-3mm]qtwo.north west)
+  {问题二\quad 拮抗模型校准};
+\node[phaseTitle] at ([xshift=2mm,yshift=-3mm]qthree.north west)
+  {问题三\quad 稳定性与安全边界};
+\node[phaseTitle] at ([xshift=2mm,yshift=-3mm]qfour.north west)
+  {问题四\quad 灵敏度与风险识别};
+
+\node[tag, fill=qonestroke] at ([xshift=-4mm,yshift=4mm]qone.north east)
+  {基线};
+\node[tag, fill=qtwostroke] at ([xshift=-4mm,yshift=4mm]qtwo.north east)
+  {校准};
+\node[tag, fill=qthreestroke] at ([xshift=-4mm,yshift=4mm]qthree.north east)
+  {证明};
+\node[tag, fill=qfourstroke] at ([xshift=-4mm,yshift=4mm]qfour.north east)
+  {控制};
+
+\end{tikzpicture}
+\end{document}
