@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.12) (preloaded format=xelatex 2026.7.28)  30 JUL 2026 16:51
+This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.12) (preloaded format=xelatex 2026.7.28)  30 JUL 2026 16:57
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -895,7 +895,8 @@ File: lstlang1.sty 2025/11/14 1.11b listings language file
 )
 (C:\Users\Admin\AppData\Local\Programs\MiKTeX25\tex/latex/setspace\setspace.sty
 Package: setspace 2022/12/04 v6.7b set line spacing
-) (main.aux)
+)
+No file main.aux.
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 52.
@@ -975,7 +976,6 @@ LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
 (Font)                  OT1/cmss/bx/n --> TU/lmss/b/n on input line 52.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 (Font)                  OT1/cmtt/m/n --> TU/lmtt/b/n on input line 52.
-
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
 *geometry* verbose mode - [ preamble ] result:
@@ -1011,9 +1011,11 @@ LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 Package hyperref Info: Link coloring ON on input line 52.
-(main.out) (main.out)
 \@outlinefile=\write3
 \openout3 = `main.out'.
+
+
+Package hyperref Warning: Rerun to get /PageLabels entry.
 
 \c@lstlisting=\count360
 
@@ -1042,13 +1044,12 @@ Package fontspec Info:
 (fontspec)             - 'normal' (m/n) with NFSS spec.:
 (fontspec)             <->"SimHei/OT:script=hani;language=dflt;"
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 55.
-
+LaTeX Font Info:    Trying to load font information for U+msa on input line 56.
 
 (C:\Users\Admin\AppData\Local\Programs\MiKTeX25\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 55.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 56.
 
 
 (C:\Users\Admin\AppData\Local\Programs\MiKTeX25\tex/latex/amsfonts\umsb.fd
@@ -1080,102 +1081,252 @@ Package fontspec Info:
 (fontspec)             - 'normal' (m/n) with NFSS spec.:
 (fontspec)             <->"KaiTi/OT:script=hani;language=dflt;"
 
-File: 架构图.png Graphic file (type bmp)
-<架构图.png>
 
 [1
 
-] [2] (main.toc
-LaTeX Font Info:    Font shape `TU/SimSun(0)/m/sl' in size <12> not available
-(Font)              Font shape `TU/SimSun(0)/m/it' tried instead on input line 
-53.
- [3])
+]
+No file main.toc.
 \tf@toc=\write4
 \openout4 = `main.toc'.
 
- [4] [5] [6]
+[2] [3]
+
+LaTeX Warning: Citation `verhulst' on page 4 undefined on input line 159.
+
+[4]
 File: ../logistic_fit.png Graphic file (type bmp)
 <../logistic_fit.png>
- [7] [8]
+
+
+LaTeX Warning: Reference `fig:logistic_fit' on page 5 undefined on input line 1
+84.
+
+[5] [6]
 File: ../model_q2.png Graphic file (type bmp)
 <../model_q2.png>
- [9]
-Overfull \hbox (157.33241pt too wide) detected at line 405
+
+
+LaTeX Warning: Reference `fig:model_q2' on page 7 undefined on input line 335.
+
+[7]
+
+c:/Users/Admin/Documents/GitHub/training_for_CUMCM/main/main.tex:381: LaTeX Err
+or: \begin{table} on input line 362 ended by \end{center}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.381 \end{center}
+                  
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+c:/Users/Admin/Documents/GitHub/training_for_CUMCM/main/main.tex:381: Missing }
+ inserted.
+<inserted text> 
+                }
+l.381 \end{center}
+                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+
+Overfull \hbox (157.33241pt too wide) detected at line 402
 [][][][]  []\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 ^^K; ^^L\OT1/cmr/m/n/12 ) \OMS/cm
 sy/m/n/12 ^^Y \OT1/cmr/m/n/12 0 []
  []
 
-[10] [11] [12] [13] [14]
-Overfull \hbox (7.96875pt too wide) detected at line 611
+
+LaTeX Warning: Citation `efron' on page 8 undefined on input line 416.
+
+
+c:/Users/Admin/Documents/GitHub/training_for_CUMCM/main/main.tex:452: LaTeX Err
+or: Not in outer par mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.452 \begin{table}[htbp]
+                         
+You've lost some text.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+c:/Users/Admin/Documents/GitHub/training_for_CUMCM/main/main.tex:478: LaTeX Err
+or: Not in outer par mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.478 \begin{table}[htbp]
+                         
+You've lost some text.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Overfull \hbox (7.96875pt too wide) detected at line 608
 [][][]\OML/cmm/m/it/12 f[]\OT1/cmr/m/n/12 (0) = \OML/cmm/m/it/12 r > \OT1/cmr/m
 /n/12 0  ([]);  \OML/cmm/m/it/12 f[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 K[]\OT1/c
 mr/m/n/12 ) = \OML/cmm/m/it/12 r\OT1/cmr/m/n/12 (1 \OMS/cmsy/m/n/12 ^^@ \OT1/cm
 r/m/n/12 2) = \OMS/cmsy/m/n/12 ^^@\OML/cmm/m/it/12 r < \OT1/cmr/m/n/12 0  ([])
  []
 
+
+c:/Users/Admin/Documents/GitHub/training_for_CUMCM/main/main.tex:622: LaTeX Err
+or: Not in outer par mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.622 \begin{figure}[htbp]
+                          
+You've lost some text.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
 File: ../stability_analysis.png Graphic file (type bmp)
 <../stability_analysis.png>
-[15] [16] [17] [18] [19] [20] [21] [22]
-Overfull \hbox (16.73808pt too wide) in paragraph at lines 1041--1051
- [][] 
- []
 
-[23]
-File: sensitivity_tornado.png Graphic file (type bmp)
-<sensitivity_tornado.png>
-File: sensitivity_envelope.png Graphic file (type bmp)
-<sensitivity_envelope.png>
+LaTeX Warning: Reference `fig:stability_analysis' on page 8 undefined on input 
+line 629.
 
 
-LaTeX Warning: Citation `saltelli2008' on page 24 undefined on input line 1117.
+LaTeX Warning: Citation `strogatz' on page 8 undefined on input line 635.
 
 
-[24] [25] [26] [27] [28] [29] [30]
+c:/Users/Admin/Documents/GitHub/training_for_CUMCM/main/main.tex:687: LaTeX Err
+or: Not in outer par mode.
 
-Package fontspec Info: 
-(fontspec)             Could not resolve font "FangSong/BI" (it probably
-(fontspec)             doesn't exist).
-
-
-Package fontspec Info: 
-(fontspec)             Could not resolve font "FangSong/B" (it probably
-(fontspec)             doesn't exist).
-
-
-Package fontspec Info: 
-(fontspec)             Could not resolve font "FangSong/I" (it probably
-(fontspec)             doesn't exist).
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.687 \begin{table}[htbp]
+                         
+You've lost some text.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
 
 
-Package fontspec Info: 
-(fontspec)             Font family 'FangSong(0)' created for font 'FangSong'
-(fontspec)             with options [Script={CJK}].
-(fontspec)              
-(fontspec)              This font family consists of the following NFSS
-(fontspec)             series/shapes:
-(fontspec)              
-(fontspec)             - 'normal' (m/n) with NFSS spec.:
-(fontspec)             <->"FangSong/OT:script=hani;language=dflt;"
-
- [31] (main.aux)
- ***********
-LaTeX2e <2025-11-01>
-L3 programming layer <2026/07/22>
- ***********
+LaTeX Warning: Citation `saltelli' on page 8 undefined on input line 752.
 
 
-LaTeX Warning: There were undefined references.
+c:/Users/Admin/Documents/GitHub/training_for_CUMCM/main/main.tex:776: LaTeX Err
+or: Not in outer par mode.
 
-Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 8520AA70CEDCE645E3AAF24DEFE900C7;5299.
- ) 
-Here is how much of TeX's memory you used:
- 19457 strings out of 402987
- 432964 string characters out of 5448110
- 1034207 words of memory out of 5000000
- 47887 multiletter control sequences out of 15000+600000
- 641156 words of font info for 143 fonts, out of 8000000 for 9000
- 1348 hyphenation exceptions out of 8191
- 93i,13n,111p,807b,1226s stack positions out of 10000i,1000n,20000p,200000b,200000s
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.776 \begin{table}[htbp]
+                         
+You've lost some text.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
 
-Output written on main.pdf (31 pages).
+
+c:/Users/Admin/Documents/GitHub/training_for_CUMCM/main/main.tex:811: LaTeX Err
+or: Not in outer par mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.811 \begin{table}[htbp]
+                         
+You've lost some text.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+c:/Users/Admin/Documents/GitHub/training_for_CUMCM/main/main.tex:841: LaTeX Err
+or: Not in outer par mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.841 \begin{table}[htbp]
+                         
+You've lost some text.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+c:/Users/Admin/Documents/GitHub/training_for_CUMCM/main/main.tex:875: LaTeX Err
+or: Not in outer par mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.875 \begin{table}[htbp]
+                         
+You've lost some text.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+c:/Users/Admin/Documents/GitHub/training_for_CUMCM/main/main.tex:910: LaTeX Err
+or: Not in outer par mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.910 \begin{table}[htbp]
+                         
+You've lost some text.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+c:/Users/Admin/Documents/GitHub/training_for_CUMCM/main/main.tex:962: LaTeX Err
+or: Not in outer par mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.962 \begin{table}[htbp]
+                         
+You've lost some text.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+c:/Users/Admin/Documents/GitHub/training_for_CUMCM/main/main.tex:1011: LaTeX Er
+ror: Not in outer par mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1011 \begin{table}[htbp]
+                          
+You've lost some text.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+c:/Users/Admin/Documents/GitHub/training_for_CUMCM/main/main.tex:1029: LaTeX Er
+ror: Not in outer par mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1029 \begin{table}[htbp]
+                          
+You've lost some text.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: Reference `tab:sensitivity_r2' on page 8 undefined on input line
+ 1045.
+
+
+LaTeX Warning: Reference `tab:sensitivity_mae' on page 8 undefined on input lin
+e 1045.
+
+
+c:/Users/Admin/Docume
