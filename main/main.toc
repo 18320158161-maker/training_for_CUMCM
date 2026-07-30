@@ -3,7 +3,7 @@
 \contentsline {subsection}{\numberline {2.1}技术路线}{5}{subsection.2.1}%
 \contentsline {subsection}{\numberline {2.2}为什么需要动力系统理论？}{6}{subsection.2.2}%
 \contentsline {section}{\numberline {3}模型假设}{6}{section.3}%
-\contentsline {subsection}{\numberline {3.1}关于模型结构的基本假设}{7}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.1}关于模型结构的基本假设}{6}{subsection.3.1}%
 \contentsline {subsection}{\numberline {3.2}关于参数结构与取值的假设}{7}{subsection.3.2}%
 \contentsline {subsection}{\numberline {3.3}关于数据与空间的假设}{7}{subsection.3.3}%
 \contentsline {section}{\numberline {4}符号说明}{8}{section.4}%
@@ -12,25 +12,25 @@
 \contentsline {subsubsection}{\numberline {5.1.1}模型建立}{8}{subsubsection.5.1.1}%
 \contentsline {subsubsection}{\numberline {5.1.2}参数}{9}{subsubsection.5.1.2}%
 \contentsline {subsubsection}{\numberline {5.1.3}模型评估}{9}{subsubsection.5.1.3}%
-\contentsline {subsubsection}{\numberline {5.1.4}模型结果分析}{10}{subsubsection.5.1.4}%
-\contentsline {paragraph}{预测与残差}{10}{table.4}%
+\contentsline {subsubsection}{\numberline {5.1.4}模型结果分析}{9}{subsubsection.5.1.4}%
+\contentsline {paragraph}{预测与残差}{9}{table.4}%
 \contentsline {subsection}{\numberline {5.2}问题二：引入促进与抑制作用的改进模型}{10}{subsection.5.2}%
 \contentsline {subsubsection}{\numberline {5.2.1}模型建立}{10}{subsubsection.5.2.1}%
 \contentsline {subsubsection}{\numberline {5.2.2}标准 Logistic 表达式}{11}{subsubsection.5.2.2}%
-\contentsline {subsubsection}{\numberline {5.2.3}参数}{12}{subsubsection.5.2.3}%
+\contentsline {subsubsection}{\numberline {5.2.3}参数}{11}{subsubsection.5.2.3}%
 \contentsline {paragraph}{拟合方法与算法}{12}{paragraph*.3}%
 \contentsline {paragraph}{关于过拟合风险}{13}{paragraph*.4}%
 \contentsline {subsubsection}{\numberline {5.2.4}计算}{15}{subsubsection.5.2.4}%
-\contentsline {subsubsection}{\numberline {5.2.5}预测}{16}{subsubsection.5.2.5}%
-\contentsline {subsection}{\numberline {5.3}问题三：平衡点与稳定性分析}{16}{subsection.5.3}%
+\contentsline {subsubsection}{\numberline {5.2.5}预测}{15}{subsubsection.5.2.5}%
+\contentsline {subsection}{\numberline {5.3}问题三：平衡点与稳定性分析}{15}{subsection.5.3}%
 \contentsline {subsubsection}{\numberline {5.3.1}模型与物理定义域}{16}{subsubsection.5.3.1}%
 \contentsline {subsubsection}{\numberline {5.3.2}平衡点求解与物理解释}{17}{subsubsection.5.3.2}%
 \contentsline {subsubsection}{\numberline {5.3.3}相线分析与定性稳定性}{17}{subsubsection.5.3.3}%
 \contentsline {subsubsection}{\numberline {5.3.4}线性稳定性分析：定量收敛刻画}{18}{subsubsection.5.3.4}%
 \contentsline {subsubsection}{\numberline {5.3.5}结构稳定性：参数空间内的分岔分析}{18}{subsubsection.5.3.5}%
 \contentsline {paragraph}{结构稳定性结论}{19}{paragraph*.5}%
-\contentsline {subsubsection}{\numberline {5.3.6}实用安全边界}{20}{subsubsection.5.3.6}%
-\contentsline {paragraph}{增长率约束}{20}{paragraph*.6}%
+\contentsline {subsubsection}{\numberline {5.3.6}实用安全边界}{19}{subsubsection.5.3.6}%
+\contentsline {paragraph}{增长率约束}{19}{paragraph*.6}%
 \contentsline {paragraph}{容量约束}{20}{paragraph*.7}%
 \contentsline {paragraph}{安全运行范围与裕度}{20}{table.8}%
 \contentsline {subsubsection}{\numberline {5.3.7}参数解耦与独立调控}{20}{subsubsection.5.3.7}%
@@ -38,20 +38,20 @@
 \contentsline {subsubsection}{\numberline {5.4.1}问题背景与分析目标}{21}{subsubsection.5.4.1}%
 \contentsline {subsubsection}{\numberline {5.4.2}方法}{21}{subsubsection.5.4.2}%
 \contentsline {paragraph}{模型回顾}{21}{paragraph*.9}%
-\contentsline {paragraph}{参数物理意义（结合``沪尚回收''实际场景）}{22}{paragraph*.10}%
+\contentsline {paragraph}{参数物理意义（结合``沪尚回收''实际场景）}{21}{paragraph*.10}%
 \contentsline {paragraph}{OAT 扰动方案}{22}{paragraph*.11}%
 \contentsline {subsubsection}{\numberline {5.4.3}扰动结果与数据解读}{22}{subsubsection.5.4.3}%
-\contentsline {paragraph}{$\gamma $（固有增长率）$\pm 10\%$}{23}{paragraph*.12}%
+\contentsline {paragraph}{$\gamma $（固有增长率）$\pm 10\%$}{22}{paragraph*.12}%
 \contentsline {paragraph}{$\beta $（抑制系数）$\pm 10\%$}{23}{paragraph*.13}%
 \contentsline {paragraph}{$\alpha $（促进系数）$\pm 10\%$}{24}{paragraph*.14}%
-\contentsline {paragraph}{$K$（基准容量）$\pm 10\%$}{25}{paragraph*.15}%
+\contentsline {paragraph}{$K$（基准容量）$\pm 10\%$}{24}{paragraph*.15}%
 \contentsline {subsubsection}{\numberline {5.4.4}灵敏度排序与参数等级}{25}{subsubsection.5.4.4}%
 \contentsline {paragraph}{对 $R^2$ 的影响}{25}{table.9}%
-\contentsline {paragraph}{对 MAE 的影响}{25}{table.10}%
+\contentsline {paragraph}{对 MAE 的影响}{26}{table.10}%
 \contentsline {paragraph}{综合敏感等级}{26}{table.11}%
 \contentsline {subsubsection}{\numberline {5.4.5}解析弹性汇总}{26}{subsubsection.5.4.5}%
-\contentsline {subsubsection}{\numberline {5.4.6}预测包络线分析}{26}{subsubsection.5.4.6}%
-\contentsline {subsubsection}{\numberline {5.4.7}OAT 方法的局限性与补充讨论}{28}{subsubsection.5.4.7}%
+\contentsline {subsubsection}{\numberline {5.4.6}预测包络线分析}{27}{subsubsection.5.4.6}%
+\contentsline {subsubsection}{\numberline {5.4.7}OAT 方法的局限性与补充讨论}{27}{subsubsection.5.4.7}%
 \contentsline {subsubsection}{\numberline {5.4.8}与 问题三 稳定性结论的联合分析}{28}{subsubsection.5.4.8}%
 \contentsline {subsubsection}{\numberline {5.4.9}关键结论与长效调控策略}{29}{subsubsection.5.4.9}%
 \contentsline {section}{\numberline {6}模型评价与改进}{31}{section.6}%
