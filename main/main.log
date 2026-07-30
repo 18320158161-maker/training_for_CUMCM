@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.12) (preloaded format=xelatex 2026.7.28)  30 JUL 2026 16:39
+This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.12) (preloaded format=xelatex 2026.7.28)  30 JUL 2026 16:51
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1166,14 +1166,8 @@ L3 programming layer <2026/07/22>
 
 LaTeX Warning: There were undefined references.
 
-
-Package rerunfilecheck Warning: File `main.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `main.out':
-(rerunfilecheck)             Before: 1912105E4170F9D8BDAB0E31F1D22D2A;5158
-(rerunfilecheck)             After:  8520AA70CEDCE645E3AAF24DEFE900C7;5299.
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: 8520AA70CEDCE645E3AAF24DEFE900C7;5299.
  ) 
 Here is how much of TeX's memory you used:
  19457 strings out of 402987
