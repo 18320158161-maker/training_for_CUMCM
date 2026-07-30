@@ -7,6 +7,7 @@
 \usepackage{booktabs}
 \usepackage{geometry}
 \usepackage{float}
+\usepackage{enumitem}
 \usepackage[colorlinks=true,linkcolor=black,citecolor=black,urlcolor=black]{hyperref}
 
 \usepackage{setspace}
@@ -17,7 +18,6 @@
     subsubsection/format+={\raggedright}% 三级小标题 \subsubsection 左对齐
 }
 
-
 \geometry{
     left=2.5cm,
     right=2.5cm,
@@ -25,7 +25,7 @@
     bottom=2.5cm
 }
 
-\setstretch{1.3}
+\setstretch{1.25}
 
 \title{
     \heiti 绿色可回收物回收量动态预测与回收体系稳定性分析
@@ -38,69 +38,142 @@
 
 \date{}
 
-
 \begin{document}
 
 \maketitle
 
-
 \begin{abstract}
-针对上海“沪尚回收”城市可回收物回收体系动态波动、长效稳定运营难以定量管控的现实问题，本文构建递进式Logistic动力学模型开展量化分析。首先建立仅含饱和约束的基础Logistic模型刻画回收量自然增长规律，实测拟合结果显示该模型存在系统性高估缺陷，决定系数仅0.5319。为此引入表征宣传、站点建设的促进系数$\alpha$与表征清运滞后、运维不足的抑制系数$\beta$构建拮抗改进模型，数据拟合后$R^2$提升至0.9915，MAPE降至0.53\%，拟合精度大幅优化。通过微分平衡点与雅克比矩阵完成稳定性分析，证明系统全局渐近稳定、无崩溃分岔风险，并划定抑制系数安全运行上限3.40。采用OAT单参数扰动法完成四核心参数灵敏度排序，发现基准饱和容量$K$为极度敏感参数，抑制系数$\beta$是高效调控抓手，站点扩张类促进策略边际收益近乎饱和。结合稳定性与灵敏度结论，从容量普查、运维降抑、促进策略转型、常规监测四个维度提出分层资源分配运维方案，为城市绿色回收体系长效稳定运营提供定量决策依据。
+{\zihao{5}\kaishu
+针对上海``沪尚回收''体系回收量动态波动与长效运维管控难题，本文基于9个时间点实测数据，构建Logistic动力学模型，依``正向建模—稳定性判定—灵敏度控制''三层递进求解。基础模型（零自由度）暴露了给定增长率$\gamma=0.022$的系统性高估（$R^2=0.5319$）。引入促进系数$\alpha$与抑制系数$\beta$构建对称拮抗扩展模型，经非线性最小二乘拟合得$r=0.00849\pm0.00066$、$K_{\text{eff}}=8142\pm73$，反解$\alpha=0.016\pm0.009$、$\beta=1.59\pm0.20$（Delta方法），$R^2$提升至0.9915，MAPE降至0.53\%；残差Bootstrap（$B=10^4$）与Delta方法交叉验证了参数估计的稳健性——两种框架的证据方向一致，$\alpha$的显著性处于边界区域（Bootstrap 95\% CI $[0.0006,0.0319]$）。稳定性分析证明物理平衡点$x^*=K_{\text{eff}}$恒为渐近稳定（$\tau\approx118$天），系统在全部有效参数空间内具结构稳定性（$\beta_{\max}=3.40$）。灵敏度分析揭示$K$为量级主导参数（$\pm10\%$偏差使$R^2$骤降至$\sim0.3$），并暴露了``吸引子错位''这一传统稳定性检验无法发现的隐蔽风险。据此提出分层运维方案：精确普查$K$（第一优先）、定向削减$\beta$、促进策略从规模扩张转向质量提升。
 
-\textbf{关键词}：可回收物回收；Logistic动力学；系统稳定性；参数灵敏度；沪尚回收
+{\heiti 关键词}：可回收物回收；Logistic动力学；系统稳定性；分岔分析；参数灵敏度；Bootstrap验证
+}
 \end{abstract}
 
-\newpage
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{思路图.png}
+    \caption{Enter Caption}
+    \label{fig:placeholder}
+\end{figure}
 
+
+
+\newpage
 \tableofcontents
-
 \newpage
 
-\section{引言}
-在我国“双碳”战略全面推进背景下，生活垃圾分类与可回收物资源化循环利用成为城市生态文明建设的关键抓手。上海打造的“沪尚回收”构建“点—站—场”三级全域回收网络，依托智能回收箱、社区便民点位实现居民就近回收覆盖，但实际运营中回收量受居民参与意愿、宣传推广力度、站点运维水平、清运调度效率等多重因素共同干扰，整体呈现非线性动态波动特征。传统静态规划方法仅能完成存量数据统计，无法刻画回收量长期演化趋势，也难以量化识别系统运行失衡隐患，缺乏支撑长效运营的定量分析工具。
-针对上述现实痛点，本文以“沪尚回收”实测时序数据为基础，采用递进式动力学建模思路，依次搭建基础增长模型、引入促进与抑制因子的改进Logistic模型，结合平衡点稳定性理论、单参数扰动灵敏度分析完整解析回收系统演化规律。通过量化各参数作用强度与安全运行边界，区分不同管控措施的收益差异，最终形成分层、可落地的运维优化策略，为国内同类城市绿色回收体系的稳定运营与精细化管理提供定量参考。
+\section{问题重述}
 
+上海``沪尚回收''体系依托``点—站—场''三级网络实现居民就近回收覆盖，但实际运营中回收量受居民参与意愿、站点运维水平、清运调度效率等多重因素共同干扰，呈现非线性动态波动特征。题目\cite{problem}给出体系优化后 365 天内的 9 个实测时序数据点以及一组先验参数（$\gamma=0.022$、$K=8011$、$x_0=6314$），要求从建模、稳定性判定到灵敏度控制三个层面逐层推进定量分析。
+
+四个问题的本质可凝练为一条递进逻辑链：（1）\textbf{先验参数能否描述观测数据？}——暴露基础模型的结构性缺陷；（2）\textbf{引入拮抗机制后能否修正？}——通过数据驱动估计促进与抑制效应的相对强弱；（3）\textbf{修正后的系统是否安全？}——从动力系统视角严格证明稳定性并划定运行边界；（4）\textbf{安全但精确吗？}——量化参数波动对系统行为的敏感性，识别核心风险来源。这一逻辑链的核心方法论主张是：拟合优度（$R^2$）仅衡量模型与已观测数据的一致性，不包含关于系统结构安全性的任何信息——一个$R^2$很高的模型可能描述的是逼近分岔点的临界系统。因此，本文从问题三起将分析范式从统计回归切换为动力系统理论，使所有安全性结论均建立在严格的数学证明之上。
+
+竞赛题目\cite{problem}围绕上述背景提出四个递进问题：
+\begin{enumerate}
+  \item \textbf{问题一}：基于给定的固有增长率 $\gamma = 0.022$、饱和容量 $K = 8011$ 和初始回收量 $x_0 = 6314$，建立基础 Logistic 模型，计算拟合指标并分析模型预测效果。
+  \item \textbf{问题二}：引入促进系数 $\alpha$ 和抑制系数 $\beta$ 构建改进模型，利用实测数据拟合参数并反解 $\alpha$、$\beta$，评价改进效果。
+  \item \textbf{问题三}：分析改进模型的平衡点稳定性，判定系统是否存在分岔风险，划定安全运行边界。
+  \item \textbf{问题四}：对四个基础参数进行 $\pm 10\%$ 单参数扰动灵敏度分析，排序参数敏感等级，结合稳定性结论提出长效运维策略。
+\end{enumerate}
+
+本文采用\textbf{正向建模—稳定性判定—灵敏度控制}三层递进结构：问题一与问题二 建立方程并估计参数（正向建模），问题三 运用相线分析、Lyapunov 线性化和分岔理论证明系统安全性（稳定性判定），问题四 通过 OAT 灵敏度量化识别关键参数并提出分层运维方案（灵敏度控制）。三层之间以动力系统理论为桥梁，使所有安全性结论均有严格的数学证明支撑。
 
 \section{问题分析}
 
-本文采用递进建模思路完成四项分析：构建基础 Logistic 模型刻画回收自然增长；引入促进、抑制系数建立改进拮抗模型并完成参数拟合；求解平衡点完成系统稳定性边界判定；采用 OAT 单参数扰动开展灵敏度量化，最终输出分层运维优化策略。
+\subsection{技术路线}
+
+本文围绕回收量的动态演化规律，按四项问题的内在逻辑组织分析流程：
+
+\begin{enumerate}
+  \item \textbf{问题一（基础建模）}：基于经典 Logistic 方程构建仅含饱和约束的基础增长模型，使用给定的 $\gamma$、$K$、$x_0$ 在不做数据拟合的前提下检验理论增长机制与实际观测的一致性，暴露基础模型的结构性缺陷。
+  \item \textbf{问题二（模型改进）}：引入促进系数 $\alpha$ 与抑制系数 $\beta$ 构建对称拮抗扩展模型，通过数据拟合估计有效增长率 $r$ 与有效容量 $K_{\text{eff}}$，再反解出 $\alpha$、$\beta$，量化促进与抑制效应的相对强弱。
+  \item \textbf{问题三（稳定性分析）}：从动力系统视角出发，运用相线分析、Lyapunov 线性化与分岔理论，判定系统平衡点的稳定性、估计特征时间尺度，并逐一排除所有可能的分岔类型，划定基于性能约束的安全运行边界。
+  \item \textbf{问题四（灵敏度分析）}：采用 OAT 单参数扰动法对 $\gamma$、$\beta$、$\alpha$、$K$ 四项基础参数进行局部灵敏度量化排序，结合 问题三 的稳定性结论识别系统的核心风险来源，提出分层资源分配与长效运维策略。
+\end{enumerate}
+
+四项工作逐层递进：问题一与问题二 解决``模型形式与参数取值''的正向建模问题，问题三与问题四 回答``系统稳定性、风险来源与调控策略''的稳定性判定与灵敏度控制问题。
+
+\subsection{为什么需要动力系统理论？}
+
+上述技术路线选择动力系统理论作为核心分析框架，由问题本身的性质决定：
+
+\textbf{第一，问题的本质是动力学的。}回收量 $x(t)$ 并非孤立数据点，而是随时间连续演化的状态变量——每个时刻的值在数学上决定了下一时刻的变化方向与速率，这正是动力系统 $\dot{x} = f(x)$ 的核心设定。系统会趋向何处、以什么速率趋近、受冲击后能否恢复——这些问题天然属于动力系统范畴，统计回归无法回答。
+
+\textbf{第二，拟合优度不等于运营安全。}$R^2 = 0.9915$ 仅说明曲线穿过了数据点，不包含关于系统\textbf{结构安全性}的任何信息。一个拟合优度高的模型可能描述的是正在逼近分岔点的临界系统——参数的微小漂移即可触发定性的动力学突变。城市管理者需要的不仅是预测曲线，更是对``系统是否可能失稳、在何种参数条件下失稳、安全裕度有多大''等问题的\textbf{严格可证的结论}——只有动力系统理论能提供这种有理论保证的答案，而非仅仅基于数值实验的经验推断。
+
+\textbf{第三，参数分析具有因果层次。}动力系统框架为每个参数赋予明确的动力学角色：控制吸引子位置（$K_{\text{eff}}$）、控制收敛速率（$r$）、控制分岔距离（$r$ 距 $0$ 的远近）——使灵敏度分析从一张弹性排序表升格为具有因果解释力的系统诊断。
 
 \section{模型假设}
 
 为便于建立和分析模型，作如下假设：
 
+\subsection{关于模型结构的基本假设}
+
 \begin{enumerate}
-    \item 在研究周期内，上海回收体系的总体容量保持不变；
-    \item 回收量随时间连续变化，可用连续动力学模型描述；
-    \item 居民参与行为的综合影响可通过模型参数体现；
-    \item 促进作用与抑制作用在同一阶段内保持稳定；
-    \item 题目给出的实测数据能够代表“沪尚回收”体系的总体运行水平；
-    \item 参数波动对系统的影响相互独立，灵敏度分析采用单因素变化方式进行。
+    \item \textbf{Logistic 增长形式假设}：回收量 $x(t)$ 随时间呈现先加速增长、后趋于饱和的 S 型演化规律，其动力学可用一维自治 Logistic 微分方程 $\dot{x} = f(x)$ 描述。该假设的依据是回收体系存在资源容量上限（人口、消费等外生约束），增长速率随剩余增长空间缩小而递减。若不满足此形式（如存在 Allee 效应或多稳态），以下所有稳定性与灵敏度结论均不成立。
+    \item \textbf{连续时间近似假设}：题目给出的数据为离散时间点观测（9 个时间点，间隔 30–95 天不等），本文使用连续常微分方程建模。假设在两次观测之间系统状态连续演化，且采样频率足以捕捉系统的动力学特征。该近似在系统特征时间尺度（$\tau \approx 118$ 天）大于采样间隔的情况下是合理的。
+    \item \textbf{自治系统假设}：模型右端函数 $f(x)$ 不显含时间 $t$，即系统的动力学规律在研究周期（365 天）内不随时间改变。若在此周期内发生重大政策变化或外部冲击，该假设可能被打破。
+\end{enumerate}
+
+\subsection{关于参数结构与取值的假设}
+
+\begin{enumerate}[resume]
+    \item \textbf{促进-抑制作用解耦假设}：促进系数 $\alpha$ 仅通过 $K_{\text{eff}} = K(1+\alpha)$ 影响有效饱和容量，抑制系数 $\beta$ 仅通过 $r = \gamma/(1+\beta)$ 影响有效增长率，二者在动力学上完全解耦。该假设的数学含义是：宣传推广等促进手段不直接加速收敛速率，运维改善等抑制削减手段不改变长期饱和水平。这一假设是本模型对称拮抗结构的核心前提，其合理性需要通过实际数据的拟合效果来间接验证——若解耦假设不成立，则需引入交叉项（如 $\alpha$ 同时调制 $r$）。
+    \item \textbf{参数恒定假设}：在研究周期（365 天）内，固有增长率 $\gamma$、饱和容量 $K$、促进系数 $\alpha$ 和抑制系数 $\beta$ 均保持恒定。该假设使我们可以用常系数 ODE 描述系统演化。若需要刻画参数的时变特性（如政策干预的阶段性效果），可将 $\alpha(t)$、$\beta(t)$ 推广为时变函数。
+    \item \textbf{促进与抑制效应的非负性假设}：$\alpha \geq 0$，$\beta \geq 0$。这一约束来自参数的物理定义——促进效应不会降低系统容量，抑制效应不会提高增长速度。
+\end{enumerate}
+
+\subsection{关于数据与空间的假设}
+
+\begin{enumerate}[resume]
+    \item \textbf{空间均质化假设}：模型以全市总回收量 $x(t)$ 为单一状态变量，不区分中心城区与郊区、不同街道之间的空间差异。全市 1.5 万个服务点、4300 台智能回收箱和 800 个惠民服务点被视为一个均匀覆盖的整体。
+    \item \textbf{品类同质化假设}：模型不区分纸类、塑料、金属、玻璃等不同可回收物品类，将所有品类归总为单一回收量变量。
+    \item \textbf{观测数据代表性假设}：题目给出的 9 个时间点的实测数据能够无偏地代表``沪尚回收''体系在对应时刻的真实总体回收水平，且观测误差相对模型的结构误差可忽略。
+    \item \textbf{参数独立性假设（限于灵敏度分析）}：问题四 的 OAT 灵敏度分析假设各参数的波动相互独立，不考虑参数间的交互效应。该假设简化了分析过程，但如正文所述，$K$ 和 $\alpha$ 通过乘积关系 $K_{\text{eff}} = K(1+\alpha)$ 耦合，其联合扰动的效应需单独讨论。
 \end{enumerate}
 
 \section{符号说明}
 
+以下符号按其在文中出现的先后顺序排列。注：所有回收量单位统一使用"吨/天"，时间单位统一使用"天"。
+
 \begin{table}[H]
 \centering
-\begin{tabular}{ccc}
+\caption{模型变量与参数一览}
+\label{tab:symbols}
+\begin{tabular}{cclc}
 \toprule
-符号 & 含义 & 单位 \\
+符号 & 类型 & 含义 & 单位 \\
 \midrule
-$x(t)$ & 第 $t$ 天的回收量 & 吨/天 \\
-$x_0$ & 初始回收总量 & 吨/天 \\
-$K$ & 潜在饱和总量 & 吨/天 \\
-$\gamma$ & 固有增长率 & 天$^{-1}$ \\
-$\alpha$ & 促进系数 & 无量纲 \\
-$\beta$ & 抑制系数 & 无量纲 \\
+$t$      & 自变量 & 时间（以竞赛数据起始日为 $t=0$） & 天 \\
+$x(t)$   & 状态变量 & 第 $t$ 天的全市可回收物回收量 & 吨/天 \\
+$x_0$    & 初始条件 & 初始回收量（$t=0$ 时观测值） & 吨/天 \\
+$K$      & 固定参数 & 基准潜在饱和容量（由题目表 (c) 给出） & 吨/天 \\
+$\gamma$ & 固定参数 & 固有增长率（由题目表 (c) 给出） & 天$^{-1}$ \\
+$\alpha$  & 导出参数 & 促进系数（反映站点扩张、宣传引导的正向效应） & 无量纲 \\
+$\beta$   & 导出参数 & 抑制系数（反映清运滞后、运维不足的负向效应） & 无量纲 \\
+$r$      & 有效参数 & 有效增长率，$r = \gamma/(1+\beta)$ & 天$^{-1}$ \\
+$K_{\text{eff}}$ & 有效参数 & 有效饱和容量，$K_{\text{eff}} = K(1+\alpha)$ & 吨/天 \\
+$A$      & 导出常数 & Logistic 解析解简化系数，$A = K/x_0 - 1$ & 无量纲 \\
+$f(x)$   & 向量场 & 一维自治系统右端函数，$\dot{x}=f(x)$ & 吨/天$^2$ \\
+$\mathcal{D}$ & 定义域 & 系统物理可达状态集，$\mathcal{D}=[x_0, K_{\text{eff}}]$ & 吨/天 \\
+$x^*$    & 平衡点 & 满足 $f(x^*)=0$ 的不动点 & 吨/天 \\
+$\lambda$ & 特征值 & Lyapunov 线性化特征指数，$\lambda=f'(x^*)$ & 天$^{-1}$ \\
+$\tau$    & 特征时间 & 小扰动衰减至 $1/e$ 的松弛时间，$\tau=1/|f'(x^*)|$ & 天 \\
+$\eta(t)$ & 扰动量 & 相对平衡点的偏移量，$\eta(t)=x(t)-x^*$ & 吨/天 \\
+$r_{\min}$ & 性能阈值 & 运营可接受的最低有效增长率 & 天$^{-1}$ \\
+$\varepsilon_{a,b}$ & 弹性 & $b$ 对 $a$ 的弹性系数，$\varepsilon_{a,b} = (\partial a/\partial b) \cdot (b/a)$ & 无量纲 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\section{问题一：基础动态模型}
+\section{模型建立与求解}
 
-\subsection{模型建立}
+\subsection{问题一：基础动态模型}
 
-基于经典 Logistic 增长理论，考虑到回收系统在实际运行过程中存在资源
+\subsubsection{模型建立}
+
+基于经典 Logistic 增长理论\cite{verhulst}，考虑到回收系统在实际运行过程中存在资源
 容量约束与增长速率限制，假设回收量 $x(t)$ 随时间呈现先快速增长、
 后逐渐趋缓并最终趋于稳定的动态演化规律。其中，固有增长率 $\gamma$
  描述系统在初始阶段的增长潜力，环境容量 $K$ 表示在现有条件下系统能
@@ -121,30 +194,37 @@ x(t) = \frac{K}{1 + \left(\dfrac{K}{x_0} - 1\right) e^{-\gamma t}}
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.75\linewidth]{logistic_fit.png}
-    \caption{\texttt{logistic\_fit.png}}
+    \caption{基础 Logistic 模型拟合曲线}
     \label{fig:logistic_fit}
 \end{figure}
+
+如图\ref{fig:logistic_fit}所示，基础模型呈现典型的S型增长曲线，但由于
+$\gamma$ 由题目给定而非数据拟合，预测值在早期阶段明显偏高。
 
 \textbf{注意}：由于本模型中的参数 $\gamma$、$K$ 和初始状态 
 $x_0$ 均来源于已知条件，因此该模型属于无参数调整的确定性模型。
 模型预测结果完全由先验参数决定，不通过数据拟合进一步优化参数，
 从而能够用于检验给定理论增长机制与实际恢复过程之间的一致性。
-\subsection{参数}
 
-\begin{center}
+\subsubsection{参数}
+
+\begin{table}[htbp]
+\centering
+\caption{问题一 基础 Logistic 模型参数}
+\label{tab:q1_params}
 \begin{tabular}{lrll}
 \toprule
 参数 & 符号 & 数值 & 单位 \\
 \midrule
-饱和容量      & $K$      & 8011   & tons/day \\
-固有增长率    & $\gamma$ & 0.022  & 1/day \\
-初始回收量    & $x_0$    & 6314   & tons/day \\
-导出常数      & $A$      & 0.2688 & --- \\
+饱和容量      & $K$      & 8011   & 吨/天 \\
+固有增长率    & $\gamma$ & 0.022  & 天$^{-1}$ \\
+初始回收量    & $x_0$    & 6314   & 吨/天 \\
+导出常数      & $A$      & 0.2688 & 无量纲 \\
 \bottomrule
 \end{tabular}
-\end{center}
+\end{table}
 
-\subsection{模型评估}
+\subsubsection{模型评估}
 
 为定量分析基础 Logistic 模型对实际恢复过程的描述能力，
 本文选取决定系数 $R^2$、平均绝对误差（MAE）以及平均绝对百分比误差（MAPE）
@@ -153,25 +233,35 @@ $x_0$ 均来源于已知条件，因此该模型属于无参数调整的确定�
 其中，$R^2$ 用于衡量模型对数据整体变化趋势的解释能力，
 MAE 和 MAPE 分别从绝对误差和相对误差角度评价模型预测结果的偏差程度。
 
-\begin{center}
+\begin{table}[htbp]
+\centering
+\caption{问题一 基础 Logistic 模型评估指标}
+\label{tab:q1_metrics}
 \begin{tabular}{lc}
 \toprule
 指标 & 数值 \\
 \midrule
-$R^2$  & 0.5319 \\
-MAE    & 315.6 \\
-MAPE   & 4.42\% \\
+$R^2$          & 0.5319 \\
+$R_{\text{adj}}^2$ & 0.5319 \\
+MAE（吨/天）   & 315.6 \\
+RMSE（吨/天）  & 385.4 \\
+MAPE          & 4.42\% \\
 \bottomrule
 \end{tabular}
-\end{center}
 
-\subsection{模型结果分析}
-\subsubsection{预测与残差}
+{\small 注：$R_{\text{adj}}^2 = R^2$ 系因模型无拟合参数（$p=0$），由$R_{\text{adj}}^2 = 1 - \frac{n-1}{n-p-1}(1-R^2)$知二者公式等价，非退化。}
+\end{table}
 
-\begin{center}
+\subsubsection{模型结果分析}
+\paragraph{预测与残差}
+
+\begin{table}[htbp]
+\centering
+\caption{问题一 预测值与残差分析}
+\label{tab:q1_predictions}
 \begin{tabular}{crrrr}
 \toprule
-$t$ (days) & Actual & Predicted & Residual & Rel.\ Error \\
+$t$（天） & 实测值（吨/天） & 预测值（吨/天） & 残差（吨/天） & 相对误差 \\
 \midrule
 0   & 6314 & 6314.0 & $-0.0$   & $-0.00\%$ \\
 30  & 6542 & 7033.9 & $-491.9$ & $-7.52\%$ \\
@@ -184,26 +274,24 @@ $t$ (days) & Actual & Predicted & Residual & Rel.\ Error \\
 365 & 8002 & 8010.3 & $-8.3$   & $-0.10\%$ \\
 \bottomrule
 \end{tabular}
-\end{center}
+\end{table}
 
 \textbf{系统性偏差}：从残差分布可以发现，预测值在整个时间区间内均高于实际观测值，
 说明基础 Logistic 模型存在一定程度的系统性高估现象。
 
 其中，最大负残差出现在 $t=60$ 天，对应偏差为
-$-599.4$ tons/day。
+$-599.4$ 吨/天。
 
 该结果表明，在恢复初期阶段，实际系统增长速度低于理论模型预设水平。
 产生该偏差的原因可能包括资源配置限制、运行效率波动以及外部环境因素影响，
 因此固定增长率 $\gamma=0.022$ 难以完全反映真实恢复过程中的动态变化。
 
+\subsection{问题二：引入促进与抑制作用的改进模型}
 
-
-\section{问题二：引入促进与抑制作用的改进模型}
-
-\subsection{模型建立}
+\subsubsection{模型建立}
 
 为进一步提高基础 Logistic 模型对实际恢复过程的描述能力，
-本文在 Q1 模型基础上引入两个具有拮抗作用的调节参数：
+本文在 问题一 模型基础上引入两个具有拮抗作用的调节参数：
 促进系数 $\alpha$ 与抑制系数 $\beta$。
 
 其中，$\alpha$ 表征外部促进因素对系统潜在恢复能力的增强作用，
@@ -229,10 +317,10 @@ $\beta$ 表征内部限制因素对恢复过程的约束作用，
 其中，$\alpha$ 主要影响系统长期稳定水平，
 而 $\beta$ 主要影响系统达到稳定状态的速度。
 
-当 $\alpha=\beta=0$ 时，扩展模型退化为 Q1 中的基础 Logistic 模型。拮抗方向相反：
-$\alpha$ 推高饱和平台，$\beta$ 拖慢趋近速度。当 $\alpha = \beta = 0$ 时退化为 Q1。
+当 $\alpha = \beta = 0$ 时，扩展模型退化为 问题一 中的基础 Logistic 模型。拮抗方向相反：
+$\alpha$ 增大饱和水平，$\beta$ 降低趋近速度。
 
-\subsection{标准 Logistic 表达式}
+\subsubsection{标准 Logistic 表达式}
 
 经过参数变换后，扩展模型仍保持 Logistic 模型的标准形式，
 但其有效环境容量和有效增长率均由调节参数动态决定。
@@ -255,96 +343,207 @@ x(t) = \frac{K_{\text{eff}}}{1 + \left(\dfrac{K_{\text{eff}}}{x_0} - 1\right) e^
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.75\linewidth]{model_q2.png}
-    \caption{\texttt{model\_q2.png}}
+    \caption{引入促进-抑制作用的改进模型拟合曲线}
     \label{fig:model_q2}
 \end{figure}
 
-\subsection{参数}
+如图\ref{fig:model_q2}所示，引入$\alpha$和$\beta$后拟合曲线与实测数据高度吻合，
+残差显著缩小且符号正负交替，无明显系统偏差。
+
+\subsubsection{参数}
 
 由于扩展模型最终可以转化为标准 Logistic 形式，
-因此本文首先对有效增长率 $r$ 和有效环境容量 $K_{eff}$ 进行参数识别。
+因此首先对有效增长率 $r$ 和有效环境容量 $K_{\text{eff}}$ 进行参数识别，
+再根据参数映射关系反推出 $\alpha$ 和 $\beta$。
 
-完成参数拟合后，再根据参数映射关系反推出促进系数 $\alpha$
-和抑制系数 $\beta$：
+\paragraph{拟合方法与算法}
+
+采用\textbf{非线性最小二乘法}（Nonlinear Least Squares, NLS）进行参数估计。
+以残差平方和（Residual Sum of Squares, RSS）为目标函数：
+\begin{equation}
+\min_{r,\,K_{\text{eff}}} \;
+\sum_{i=1}^{n} \bigl(y(t_i) - x(t_i;\, r,\,K_{\text{eff}})\bigr)^2,\qquad
+n = 9
+\end{equation}
+其中 $y(t_i)$ 为实测回收量，$x(t_i; r, K_{\text{eff}})$ 为解析解 \eqref{eq:solution_q2} 在 $t_i$ 处的预测值。
+
+\textbf{算法实现}：使用 Python SciPy 库中的 \texttt{curve\_fit} 函数（基于 Levenberg-Marquardt 算法，
+即信赖域方法对 Gauss-Newton 法的阻尼推广），通过迭代求解上述非线性最小二乘问题。
+具体设定如下：
+\begin{itemize}
+  \item \textbf{初值选取}：$r_0 = 0.01$，$K_{\text{eff},0} = 8100$。前者取 $\gamma/2$ 量级（预期抑制效应使增长率减半），
+        后者取略大于 $K = 8011$ 的值（预期促进作用小幅提升容量）。
+  \item \textbf{参数边界约束}（硬约束，保证物理合理性）：
+        \begin{align}
+          r &\in [10^{-6},\; \gamma] = [10^{-6},\; 0.022] \label{eq:bounds_r}\\
+          K_{\text{eff}} &\in [K,\; 24000] = [8011,\; 24000] \label{eq:bounds_K}
+        \end{align}
+        下界 $r > 0$ 确保增长率为正（系统趋向饱和而非衰减）；上界 $r \le \gamma$ 保证 $\beta = \gamma/r - 1 \ge 0$。
+        下界 $K_{\text{eff}} \ge K$ 保证 $\alpha = K_{\text{eff}}/K - 1 \ge 0$。
+        上界 $K_{\text{eff}} \le 24000 \approx 3K$：该上界为宽松保守界——实测数据末值 $x(365)=8002$
+        已十分接近 $K=8011$（占比 $99.9\%$），容量若超过 $3K$ 意味着常住人口规模或人均可回收物产生量
+        发生结构性翻倍，已超出运营优化所能达成的范围。宽松设定确保拟合不被边界截断，同时排除无物理意义的解。
+  \item \textbf{收敛判定}：最大迭代次数 50\,000，函数容差默认值（$10^{-8}$）。
+  \item \textbf{参数不确定性}：由拟合协方差矩阵对角线元素开方得到渐近标准误差
+        $\sigma_r = \sqrt{\text{Cov}_{11}}$，$\sigma_{K_{\text{eff}}} = \sqrt{\text{Cov}_{22}}$，
+        对应 68\% 置信水平下的线性化置信区间 $r \pm \sigma_r$，$K_{\text{eff}} \pm \sigma_{K_{\text{eff}}}$。
+\end{itemize}
+
+\textbf{置信区间的统计基础与局限}：上述标准误差基于 Levenberg-Marquardt
+算法在最优参数处的局部线性近似导出，属渐近估计。其有效性依赖三个前提：
+观测误差独立同正态分布、模型在最优参数附近近似线性、样本量充分大。
+本文 $n=9$、自由度 $n-p=7$，渐近理论在小样本下可能偏乐观（低估真实不确定度）。
+若采用 $t$ 分布求 95\% 置信区间（$t_{0.025,7}=2.365$），则
+$r\in[0.00694,\;0.01003]$，$K_{\text{eff}}\in[7970,\;8314]$。
+本文后续分析以 $1\sigma$ 区间为参考尺度；小样本条件下更精确的推断建议采用 Bootstrap 或贝叶斯更新方法。
+
+完成 $r$ 和 $K_{\text{eff}}$ 的拟合后，由参数映射关系反解 $\alpha$、$\beta$：
 \begin{equation}
 \beta = \frac{\gamma}{r} - 1, \qquad \alpha = \frac{K_{\text{eff}}}{K} - 1
 \end{equation}
+约束条件 $r \le \gamma$ 和 $K_{\text{eff}} \ge K$ 在拟合阶段即通过参数边界 (\ref{eq:bounds_r})(\ref{eq:bounds_K}) 强制满足，
+从而自动保证 $\beta \ge 0$ 和 $\alpha \ge 0$，无需后验校正。
 
-根据模型设计要求，当拟合结果满足
-$r\le\gamma$ 且 $K_{eff}\ge K$ 时，
-可进一步保证 $\beta\ge0$ 和 $\alpha\ge0$。
+\paragraph{关于过拟合风险}
 
-该约束条件符合实际恢复过程中的物理意义，
-即促进因素不会降低系统容量，而抑制因素不会提高增长速率。
+值得注意的是，问题二 模型引入了 2 个实质上的自由参数（$r$ 和 $K_{\text{eff}}$，等价于 $\alpha$ 和 $\beta$），
+而训练数据仅有 $n = 9$ 个数据点。从 问题一 的零自由参数模型（$R^2 = 0.5319$）到 问题二 的 2 自由参数模型（$R^2 = 0.9915$），
+拟合度的急剧提升存在\textbf{过拟合}的可能性。为审慎评估这一风险：
+\begin{itemize}
+  \item 从物理角度：Logistic 函数形式本身仅有 2 个独立形状参数（增长率 + 饱和水平），
+        2 参数已经达到该函数族的最大复杂度，进一步增加参数需要改变函数形式本身。
+  \item 从统计角度：调整 $R_{\text{adj}}^2 = 1 - \frac{n-1}{n-p-1}(1-R^2)$，
+        其中 $p=2$（自由参数个数），$n=9$，代入得 $R_{\text{adj}}^2 = 0.9887$，仅比 $R^2$ 降低 $0.0028$，
+        说明参数增加带来的拟合改善远超自由度的惩罚。
+  \item 从残差模式角度：问题二 残差缺乏明显的系统模式（符号正负交替、幅度在 $\pm 100$ 吨/天内），
+        而 问题一 残差呈一致负偏（系统性高估），这表明 问题二 捕捉到的不是数据噪声而是真实的结构性改进。
+  \item 然而，鉴于样本量极小，模型的泛化能力仍需在新数据上验证——这是本文的一个固有局限
+        （详见第 6.2 节模型不足与改进方向）。
+\end{itemize}
 
-
-\begin{center}
+\begin{table}[htbp]
+\centering
+\caption{问题二 扩展模型参数一览}
+\label{tab:q2_params}
 \begin{tabular}{llrl}
 \toprule
 类别 & 符号 & 拟合值 & 单位 \\
 \midrule
-固定          & $K$                & 8011        & tons/day \\
-固定          & $\gamma$           & 0.022       & 1/day \\
-固定          & $x_0$              & 6314        & tons/day \\
+固定  & $K$                & 8011        & 吨/天 \\
+固定  & $\gamma$           & 0.022       & 天$^{-1}$ \\
+固定  & $x_0$              & 6314        & 吨/天 \\
 \midrule
-\textbf{拟合} & $r$                & $\mathbf{0.008485} \pm 0.000655$ & 1/day \\
-\textbf{拟合} & $K_{\text{eff}}$   & $\mathbf{8142.22} \pm 72.77$ & tons/day \\
+\textbf{拟合} & $r$                & $\mathbf{0.00849} \pm 0.00066$ & 天$^{-1}$ \\
+\textbf{拟合} & $K_{\text{eff}}$   & $\mathbf{8142} \pm 73$ & 吨/天 \\
 \midrule
-导出          & $\alpha$           & $\mathbf{0.016379}$ & --- \\
-导出          & $\beta$            & $\mathbf{1.592906}$ & --- \\
+导出  & $\alpha$           & $\mathbf{0.0164} \pm 0.0091$ & 无量纲 \\
+导出  & $\beta$            & $\mathbf{1.59} \pm 0.20$ & 无量纲 \\
 \bottomrule
 \end{tabular}
-\end{center}
+\end{table}
+
+\textbf{导出参数的不确定度传播（Delta方法）}：$\alpha$ 和 $\beta$ 由拟合参数 $r$、$K_{\text{eff}}$ 经非线性映射导出，其标准误差需通过一阶Taylor展开（Delta方法）传播。由 $\beta = \gamma/r - 1$ 和 $\alpha = K_{\text{eff}}/K - 1$：
+\begin{equation}
+\sigma_\beta = \left|\frac{\partial\beta}{\partial r}\right| \sigma_r
+             = \frac{\gamma}{r^2}\,\sigma_r
+             = \frac{0.022}{(0.00849)^2} \times 0.00066
+             \approx 0.20
+\end{equation}
+\begin{equation}
+\sigma_\alpha = \left|\frac{\partial\alpha}{\partial K_{\text{eff}}}\right| \sigma_{K_{\text{eff}}}
+              = \frac{1}{K}\,\sigma_{K_{\text{eff}}}
+              = \frac{1}{8011} \times 73
+              \approx 0.0091
+\end{equation}
+该线性近似在 $r$ 和 $K_{\text{eff}}$ 的相对不确定度较小（$\sigma_r/r \approx 7.8\%$，
+$\sigma_{K_{\text{eff}}}/K_{\text{eff}} \approx 0.9\%$）的条件下是合理的。
+\begin{equation}
+\text{协方差}\;\operatorname{Cov}(\alpha,\beta) \approx 0 \quad
+\text{（$\alpha$ 仅依赖 $K_{\text{eff}}$，$\beta$ 仅依赖 $r$，拟合协方差
+$\operatorname{Cov}(r,K_{\text{eff}})$ 需由协方差矩阵给出，此处保守取零）}
+\end{equation}
+
+\textbf{$\alpha$ 的统计显著性}：小样本下（$n-p=7$）采用 $t$ 分布构造置信区间。
+取 $t_{0.025,7}=2.365$，$\alpha$ 的 95\% 置信区间为
+$\alpha \pm t_{0.025,7}\,\sigma_\alpha = 0.0164 \pm 2.365 \times 0.0091 = [-0.0051,\;0.0379]$。
+该区间包含零，说明在 95\% 置信水平下\textbf{不能排除 $\alpha = 0$ 的原假设}——
+即促进系数对有效容量的正向贡献在统计上不显著。
+这不意味着促进策略无效（见问题四讨论——$\alpha$ 仅捕获对容量的直接效应，
+宣传引导等促进手段可能通过 $\gamma$ 和 $\beta$ 间接发挥作用），
+但表明在当前数据精度（$n=9$）下，$\alpha$ 的点估计 $0.0164$ 对应的容量提升（约 $1.6\%$）
+不应被过度解读为确凿的系统性增益。$\beta$ 的 95\% 置信区间为
+$\beta \pm t_{0.025,7}\,\sigma_\beta = 1.59 \pm 2.365 \times 0.20 = [1.12,\;2.07]$，
+显著大于零——抑制效应的存在具有统计显著性。\textbf{需注意}：上述渐近置信区间依赖大样本近似（$n \to \infty$），在 $n=9$ 下其可靠性需经独立交叉验证，不宜直接作为定论。
+
+\textbf{Bootstrap 交叉验证}：残差 Bootstrap\cite{efron} 以经验分布替代未知的真实误差分布来模拟参数的抽样分布，不依赖渐近正态假设——但其自身在 $n=9$ 下也受限于两个事实：（1）仅 9 个残差的离散经验分布对真实误差分布的逼近精度有限；（2）误差 i.i.d. 假设在小样本下无法检验。因此，Bootstrap 在此的定位不是替代 Delta 方法的"更优解"，而是提供一条不依赖渐近假说的\textbf{独立参照线}——若两种基于不同前提的方法给出相近结果，则推断可信度增强；若差异显著，则两种方法均需被质疑。
+
+以原拟合残差为经验分布，有放回重抽样生成 $B=10\,000$ 组伪数据，每组独立重拟合 $r$ 和 $K_{\text{eff}}$，由经验分位数直接读出 95\% 置信区间：
+\begin{itemize}
+  \item $r$：Bootstrap 95\% CI $[0.00734,\;0.00951]$（渐近 $[0.00694,\;0.01003]$）
+  \item $K_{\text{eff}}$：Bootstrap 95\% CI $[8016,\;8267]$（渐近 $[7970,\;8314]$）
+  \item $\alpha$：Bootstrap 95\% CI $[0.0006,\;0.0319]$（渐近 $[-0.0051,\;0.0379]$）
+  \item $\beta$：Bootstrap 95\% CI $[1.31,\;2.00]$（渐近 $[1.12,\;2.07]$）
+\end{itemize}
+Bootstrap 与 Delta 方法的 CI 量级一致（SE 比值 0.85--0.88），方向相同——两种基于完全不同前提的方法相互印证，增强了参数推断的可信度。原担忧的``渐近近似偏乐观''并未出现，Delta 方法在实际数据中反而略有保守。
+
+\textbf{$\alpha$ 显著性的交叉验证判断}：渐近 CI 包含零而 Bootstrap CI 排除零，两种方法在 $\alpha$ 的显著性上给出了不同的边界判断。不应简单地以 Bootstrap 为准而否定 Delta——更审慎的解读是：\textbf{两种方法的证据指向$\alpha > 0$的方向，但信号强度处于边缘区域}（Bootstrap CI 下限 $0.0006$ 仅勉强跨过零线）。这一判断的保守程度是恰当的——它既不否认促进效应的存在，也不过度依赖单一统计方法的边界判决。\textbf{统计边缘显著 $\neq$ 实际显著}：无论哪种 CI，$\alpha$ 的弹性均为 $\varepsilon_{K_{\text{eff}},\alpha}=0.016 \ll 1$——促进效应对容量的边际贡献已接近极限这一物理判断，在 Delta 和 Bootstrap 两种框架下完全一致，不受显著性边界分歧的影响。
 
 \textbf{参数物理意义分析}：
 \begin{itemize}
-  \item $\alpha=0.0164>0$ 表明系统存在正向促进作用，
-使有效环境容量提高约 $1.64\%$，
-即 $K_{eff}$ 略高于基础模型中的理论容量 $K$。
-  \item $\beta=1.5929>0$ 表明系统受到明显抑制作用，
-有效增长率降低至
-$r=\gamma/(1+\beta)=0.0085$，
-约为原始增长率的 $38.6\%$。
-
-该结果说明实际恢复过程中的增长速度受到较强限制。
-  \item $r/\gamma = 1/(1+\beta) = 0.386$：综合分析可知，
-增长率修正幅度明显大于容量修正幅度，
-说明在当前恢复阶段，内部限制因素对系统演化过程起主要作用。
+  \item $\alpha = 0.0164 \pm 0.0091$：点估计为正，促进效应对有效容量的贡献约为 $+1.64\%$。
+  渐近 95\% CI $[-0.0051,\;0.0379]$ 包含零，Bootstrap 95\% CI $[0.0006,\;0.0319]$ 不包含零——
+  两种方法的证据方向一致（均指向 $\alpha > 0$），但信号处于统计显著性边界，不宜对 $\alpha$ 的精确数值做过度解读。
+  无论哪种框架，弹性 $\varepsilon_{K_{\text{eff}},\alpha}=0.016 \ll 1$ 均表明促进效应对容量的边际贡献已接近极限。
+  这不意味着促进策略本身无效（见问题四——促进手段可能通过提升 $\gamma$ 或降低 $\beta$ 间接发挥作用），
+  而是表明 $\alpha$ 对容量的直接贡献在当前覆盖密度下已进入收益递减区间。
+  \item $\beta = 1.59 \pm 0.20$（渐近 95\% CI $[1.12,\;2.07]$，Bootstrap 95\% CI $[1.31,\;2.00]$，均显著大于零）：
+  系统受到统计显著的抑制作用，有效增长率降低至 $r = \gamma/(1+\beta) \approx 0.00849$，
+  仅为固有增长率的 $38.6\%$。该结果说明实际恢复过程中的增长速度受到较强限制。
+  \item $r/\gamma = 1/(1+\beta) \approx 0.386$：增长率修正幅度（约 $-61.4\%$）
+  明显大于容量修正幅度（约 $+1.6\%$），内部限制因素对系统演化过程起主要作用。
 \end{itemize}
 
-\subsection{计算}
+\subsubsection{计算}
 
 为了验证扩展模型相对于基础 Logistic 模型的改进效果，
-本文将 Q1 基础模型与引入 $\alpha,\beta$ 参数后的扩展模型进行对比。
+本文将 问题一 基础模型与引入 $\alpha,\beta$ 参数后的扩展模型进行对比。
 
 通过比较两类模型的拟合指标，
 分析调节参数对于提高预测精度和降低系统误差的有效性。
 
-\begin{center}
-\begin{tabular}{lcc}
+\begin{table}[htbp]
+\centering
+\caption{问题一 与 问题二 模型拟合指标对比}
+\label{tab:q1_q2_comparison}
+\begin{tabular}{lccc}
 \toprule
-Metric & Q1 (no $\alpha,\beta$) & Q2 (with $\alpha,\beta$) \\
+指标 & 问题一（无 $\alpha,\beta$） & 问题二（含 $\alpha,\beta$） & 改进幅度 \\
 \midrule
-$R^2$  & 0.5319 & \textbf{0.9915} \\
-MAE    & 315.6  & \textbf{38.3} \\
-MAPE   & 4.42\% & \textbf{0.53\%} \\
+$R^2$         & 0.5319  & \textbf{0.9915} & 提升 $0.4596$ \\
+$R_{\text{adj}}^2$ & 0.5319  & \textbf{0.9887} & 提升 $0.4568$ \\
+MAE（吨/天）  & 315.6   & \textbf{38.3}   & $-87.9\%$ \\
+RMSE（吨/天） & 385.4   & \textbf{51.9}   & $-86.5\%$ \\
+MAPE         & 4.42\%  & \textbf{0.53\%}  & $-88.0\%$ \\
 \bottomrule
 \end{tabular}
-\end{center}
+\end{table}
 
 从预测结果可以看出，引入 $\alpha$ 和 $\beta$ 后，
 模型预测值与实际观测值之间的偏差明显降低。
 
-相比 Q1 中持续存在的系统性高估现象，
+相比 问题一 中持续存在的系统性高估现象，
 扩展模型在整个时间范围内均保持较小残差，
 说明调节参数能够有效修正基础 Logistic 模型中增长率设定偏高的问题。
 
-\subsection{预测}
+\subsubsection{预测}
 
-\begin{center}
+\begin{table}[htbp]
+\centering
+\caption{问题二 预测值与残差分析}
+\label{tab:q2_predictions}
 \begin{tabular}{crrrr}
 \toprule
-$t$ (days) & Actual & Predicted & Residual & Rel.\ Error \\
+$t$（天） & 实测值（吨/天） & 预测值（吨/天） & 残差（吨/天） & 相对误差 \\
 \midrule
 0   & 6314 & 6314.0 & $-0.0$    & $-0.00\%$ \\
 30  & 6542 & 6649.5 & $-107.5$  & $-1.64\%$ \\
@@ -357,174 +556,270 @@ $t$ (days) & Actual & Predicted & Residual & Rel.\ Error \\
 365 & 8002 & 8037.1 & $-35.1$   & $-0.44\%$ \\
 \bottomrule
 \end{tabular}
-\end{center}
+\end{table}
 
+\subsection{问题三：平衡点与稳定性分析}
 
+问题一 与 问题二 完成了模型的建立与参数估计——它们回答了``系统服从何种方程''和``参数取何值能最好地拟合数据''这两个\textbf{正向建模}问题。然而，对于一座城市的回收体系管理者而言，更关键的问题是\textbf{定性层面的}：系统在参数空间内是否始终保持渐近稳定？在何种参数条件下可能发生失稳？安全运行的边界在哪里？$R^2 = 0.9915$ 只能说明模型精确描述了已经观测到的行为——它不能保证系统在未来不会因为参数漂移或外部冲击而失稳。
 
-\section{问题三：平衡点与稳定性分析}
+从本节开始，分析进入动力系统理论的\textbf{动态系统分析}范式。我们将运用相线分析（phase line analysis）判断系统的长期行为模式，借助 Lyapunov 线性化方法给出收敛速率的定量估计，最后通过分岔理论（bifurcation theory）对参数空间进行彻底的结构安全性审视——逐一遍历所有可能的分岔类型，证明每一种在当前物理条件下均不可能发生。
 
-\subsection{模型建立}
+\subsubsection{模型与物理定义域}
 
-对称拮抗模型。$\alpha$（促进）、$\beta$（抑制）\textbf{恒为正数}：
+问题二 建立的对称拮抗模型可化为标准一维自治 Logistic 系统
+$\dot{x} = f(x)$，其向量场为：
 \begin{equation}\label{eq:ode_q3}
-\frac{dx}{dt} = \frac{\gamma}{1+\beta} \cdot x \cdot \left(1 - \frac{x}{K(1+\alpha)}\right), \qquad \alpha \geq 0,\; \beta \geq 0
+f(x) = \frac{\gamma}{1+\beta} \cdot x \cdot \left(1 - \frac{x}{K(1+\alpha)}\right)
+     = r x \left(1 - \frac{x}{K_{\text{eff}}}\right), \qquad
+r = \frac{\gamma}{1+\beta},\;\; K_{\text{eff}} = K(1+\alpha)
 \end{equation}
+其中 $\alpha \geq 0$, $\beta \geq 0$ 由参数定义保证。
+问题二 拟合给出 $r = 0.00849$, $K_{\text{eff}} = 8142$,
+$\alpha = 0.0164$, $\beta = 1.59$。
 
-标准 logistic 形式：
-\begin{equation}\label{eq:logistic}
-\frac{dx}{dt} = r \cdot x \cdot \left(1 - \frac{x}{K_{\text{eff}}}\right), \qquad
-r = \frac{\gamma}{1+\beta}, \quad K_{\text{eff}} = K(1+\alpha)
-\end{equation}
-
-拟合结果：$r = 0.008485$, $K_{\text{eff}} = 8142.22$, $\alpha = 0.0164$, $\beta = 1.5929$。
-
-\subsection{平衡点与稳定性}
-
-令 $dx/dt = 0$：
+在展开稳定性分析之前，必须明确系统的\textbf{物理可达状态集}。
+由初始条件 $x(0) = x_0 = 6314 < K_{\text{eff}} = 8142$，在 logistic 动力学
+$\dot{x} = f(x)$ 作用下，$f(x) > 0$ 对任意 $x \in [x_0, K_{\text{eff}})$ 成立，
+故 $x(t)$ 从 $x_0$ 出发后单调递增且以 $K_{\text{eff}}$ 为上界——
+系统永远不会自发进入 $x > K_{\text{eff}}$ 的区域。定义物理可达状态集为：
 \begin{equation}
-r \cdot x \cdot \left(1 - \frac{x}{K_{\text{eff}}}\right) = 0
-\quad\Rightarrow\quad x_1^* = 0,\;\; x_2^* = K_{\text{eff}}
+\mathcal{D} = [x_0,\; K_{\text{eff}}] = [6314,\; 8142]
+\end{equation}
+（注：$x > K_{\text{eff}}$ 时 $f(x) < 0$，该区域在数学上存在且相线分析中会涉及，
+但由上述单调性，从 $x_0$ 出发的物理轨迹永远无法到达。）
+\textbf{这一约束对后续稳定性分析具有决定性意义}：数学上两个平衡点中，
+只有 $x^*_2 = K_{\text{eff}}$ 落在物理可达集内（$x^*_1 = 0$ 在集外，物理不可达）。
+
+\subsubsection{平衡点求解与物理解释}
+
+令 $f(x^*) = 0$：
+\begin{equation}
+r x^* \left(1 - \frac{x^*}{K_{\text{eff}}}\right) = 0
+\quad\Rightarrow\quad x^*_1 = 0,\;\; x^*_2 = K_{\text{eff}} = 8142
 \end{equation}
 
-Jacobi 导数：
-\begin{equation}
-f'(x) = r\left(1 - \frac{2x}{K_{\text{eff}}}\right)
-\end{equation}
+方程在数学上给出两个平衡点，但两者的物理地位截然不同：
+\begin{enumerate}
+  \item $x^*_1 = 0$：位于物理可达集 $\mathcal{D}$ 之外（$0 < x_0 = 6314$）。
+        回收量从 $x_0$ 出发后单调递增，\textbf{无法}降至 $0$——该平衡点在物理上是不可达的。
+  \item $x^*_2 = K_{\text{eff}} = 8142$：位于定义域内，是唯一的物理平衡点。
+        代表全市可回收物回收的饱和稳定状态。
+\end{enumerate}
+
+\textbf{因此，在物理定义域内，系统有且仅有一个平衡点} $x^* = K_{\text{eff}}$。
+后续分析将证明，该平衡点是渐近稳定的，且稳定性在参数扰动下不会丧失。
+
+\subsubsection{相线分析与定性稳定性}
+
+一维自治系统 $\dot{x} = f(x)$ 的动力学行为完全由其向量场符号决定。
+逐因子分析 $f(x)$ 的符号（第二区间虽不在物理可达集内，列入以补全数学结构）：
 
 \begin{center}
-\begin{tabular}{lccc}
+\begin{tabular}{c|c|c|c|c}
 \toprule
-平衡点 & 值 & 特征值 $\lambda$ & 稳定性 \\
+区间 & $r$ & $x$ & $1 - x/K_{\text{eff}}$ & $f(x)$ \\
 \midrule
-$x_1^*$ & $0$ & $\lambda_1 = r$ & \textbf{不稳定}（$r > 0$ 恒成立）\\
-$x_2^*$ & $K_{\text{eff}} = K(1+\alpha)$ & $\lambda_2 = -r$ & \textbf{渐近稳定}（$-r < 0$ 恒成立）\\
+$[x_0,\; K_{\text{eff}})$ & $+$ & $+$ & $+$ & $+$（回收量增长） \\
+$(K_{\text{eff}},\; +\infty)$ & $+$ & $+$ & $-$ & $-$（回收量衰减） \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-\subsection{结构稳定性}
+据此画出\textbf{物理相线}（仅显示定义域内部分）：
+\begin{center}
+$\xrightarrow{\hspace{2.5cm}} \xrightarrow{\hspace{2.5cm}}
+\;\bullet\; \xleftarrow{\hspace{2.5cm}} \xleftarrow{\hspace{2.5cm}}$ \\[4pt]
+$x_0 = 6314$\hspace{2cm}$K_{\text{eff}} = 8142$\hspace{2cm}
+\end{center}
 
+箭头从两侧均指向 $K_{\text{eff}}$，表明：
+\begin{itemize}
+  \item 当 $x(t) < K_{\text{eff}}$（回收量尚未饱和），$\dot{x} > 0$，回收量单调递增向 $K_{\text{eff}}$
+  \item 当 $x(t) > K_{\text{eff}}$（超出饱和极限的理论情形），$\dot{x} < 0$，回收量单调递减回 $K_{\text{eff}}$
+\end{itemize}
+
+\textbf{定性结论}：$x^* = K_{\text{eff}}$ 是\textbf{渐近稳定}的——任意物理初值 $x(0) \in \mathcal{D}$
+出发的轨迹均单调收敛于该平衡点，\textbf{因此不存在超调、振荡或周期行为}。
+
+这一结论具有深刻的数学基础：对任意一维自治系统 $\dot{x} = f(x)$，相点在
+一维实线上只能单向运动，永远不能``回头''，因此周期解在拓扑上不可能存在。
+若实际观测数据出现周期性波动（如季节性变化），必由外部驱动力（政策调整、
+节假日效应等）所致，而非系统内生动力学。
+
+\subsubsection{线性稳定性分析：定量收敛刻画}
+
+为获得收敛速率的定量估计，对平衡点 $x^* = K_{\text{eff}}$ 执行 Lyapunov
+线性化（亦称间接法）。令 $\eta(t) = x(t) - x^*$ 为小扰动量，对 $f(x)$
+在 $x^*$ 处做一阶 Taylor 展开：
 \begin{equation}
-\beta \geq 0 \;\Rightarrow\; 1+\beta \geq 1 \;\Rightarrow\; r = \frac{\gamma}{1+\beta} \in (0,\, \gamma]
+\dot{\eta} = f(x^* + \eta) = f(x^*) + f'(x^*)\eta + O(\eta^2)
+           \approx f'(x^*)\,\eta
 \end{equation}
+其中 $f(x^*) = 0$（平衡点定义），$O(\eta^2)$ 项在小扰动下可忽略。
+令 $\lambda = f'(x^*)$，得一阶线性微分方程 $\dot{\eta} = \lambda \eta$，
+解为 $\eta(t) = \eta_0 e^{\lambda t}$。
+
+计算模型的导数及其在平衡点处的值：
+\begin{equation}
+f'(x) = \frac{d}{dx}\left[ r x \left(1 - \frac{x}{K_{\text{eff}}}\right) \right]
+       = r\left(1 - \frac{2x}{K_{\text{eff}}}\right)
+\end{equation}
+\begin{equation}
+f'(0) = r > 0 \;\;(\text{数学上不稳定，物理不可达});\qquad
+f'(K_{\text{eff}}) = r(1 - 2) = -r < 0 \;\;(\text{渐近稳定})
+\end{equation}
+
+$\lambda = f'(K_{\text{eff}}) = -r < 0$ \textbf{恒为负}——物理平衡点具有
+指数收敛性质。进一步可定义\textbf{特征时间尺度}：
+\begin{equation}
+\tau = \frac{1}{|f'(K_{\text{eff}})|} = \frac{1}{r}
+     = \frac{1+\beta}{\gamma}
+     = \frac{1+1.59}{0.022} \approx 117.7 \;\text{天}
+\end{equation}
+
+该时间尺度的物理含义是：小扰动衰减至初始值的 $1/e \approx 37\%$ 约需 118 天。
+对于``沪尚回收''体系，这意味着系统的\textbf{自然恢复周期}约为 4 个月——
+若受短期运营冲击，系统可在约一个季度的尺度内自然回归正常水平。
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.75\linewidth]{stability_analysis.png}
-    \caption{\texttt{stability\_analysis.png}}
+    \caption{相线分析、势函数与线性稳定性验证}
     \label{fig:stability_analysis}
 \end{figure}
 
-\textbf{关键结论}：$\alpha, \beta \geq 0$ 是定义本身（促进系数和抑制系数），
-因此在整个有效参数空间中 $r > 0$ \textbf{恒成立}。
+如图\ref{fig:stability_analysis}所示，相线分析（左上）表明$K_{\text{eff}}$两侧向量场均指向平衡点，
+势函数（右上）在$K_{\text{eff}}$处取全局极小值，线性化验证（下）确认小扰动呈指数衰减——
+三项证据一致支持平衡点的渐近稳定性。
+
+\subsubsection{结构稳定性：参数空间内的分岔分析}
+
+平衡点的稳定性结论回答了``当前参数下系统是否稳定''，但还需回答：\textbf{当参数发生变化时，稳定性是否会丧失？}对此需借助\textbf{分岔理论}\cite{strogatz}审视参数空间的结构安全性。
+
+将模型显式展开：$f(x) = r x - \frac{r}{K_{\text{eff}}} x^2$，无量纲化后得 $\dot{\tilde{x}} = r\tilde{x} - r\tilde{x}^2$，属\textbf{跨临界分岔}标准型族——若 $r$ 可自由穿越零，则 $x^*=0$ 与 $x^*=K_{\text{eff}}$ 的稳定性在 $r=0$ 处交换。然而物理约束锁死了穿越的可能：
+\begin{equation}
+\beta \geq 0 \;\Rightarrow\; r = \frac{\gamma}{1+\beta} \in (0,\; \gamma],\qquad \gamma = 0.022 > 0
+\end{equation}
+$r > 0$ \textbf{恒成立}，系统被不可逆地约束于分岔图 $r > 0$ 半平面——$x^* = 0$ 不稳定、$x^* = K_{\text{eff}}$ 稳定的格局不会改变。其余分岔类型亦不适用：鞍-结分岔要求不动点成对湮灭，而 $x^*=0$ 由因式分解产生、不可能消失；叉形分岔要求 $f(-x)=-f(x)$ 的奇对称性，而模型中 $x^2$ 项的存在直接排除了这一可能。
+
+\paragraph{结构稳定性结论}
 
 \begin{center}
 \fbox{%
-\begin{minipage}{0.85\textwidth}
+\begin{minipage}{0.88\textwidth}
 \centering
-\textbf{系统具有结构稳定性。}\\[3pt]
-对任意 $\alpha \geq 0$, $\beta \geq 0$ 和任意正初值 $x(0) > 0$，
-恒有 $x(t) \to K_{\text{eff}} > 0$。\\
-\textbf{有效参数空间内不存在任何分岔点。}
+\textbf{系统在全部有效参数空间内具有结构稳定性。}\\[4pt]
+对任意 $\alpha \geq 0$, $\beta \geq 0$ 和任意物理初值 $x(0) \geq x_0$：\\[2pt]
+(1) 物理定义域内恒存在唯一正平衡点 $x^* = K_{\text{eff}} > 0$；\\[2pt]
+(2) 该平衡点恒为渐近稳定（$\lambda = -r < 0$）；\\[2pt]
+(3) 有效参数空间内不存在任何分岔点——不动点的数量和稳定性类型均不变。\\[4pt]
+\textbf{``沪尚回收''体系在数学上不存在分岔失稳——不会发生定性的动力学突变。}
 \end{minipage}}
 \end{center}
 
-这意味着``沪尚回收''体系不会发生数学意义上的断崖式崩溃——只要促进效应
-和抑制效应保持其设计定义（正数），回收量将始终趋向正平衡值 $K_{\text{eff}}$。
+\subsubsection{实用安全边界}
 
-\subsection{实用安全边界}
+虽然系统具有数学上的结构稳定性，但运行效率要求参数保持在合理范围内。
+此处的安全边界由\textbf{性能约束}定义——确保回收体系的收敛速度不低于
+运营可接受的最低水平，而非担心数学分岔。
 
-虽然系统在数学上全局稳定，但运行效率要求参数保持在合理范围内。
-安全边界由\textbf{性能约束}定义，而非分岔：
+\paragraph{增长率约束}
 
-\subsubsection{增长率约束}
-
+有效增长率过低将导致系统恢复过慢，影响实际运营效率：
 \begin{equation}
 r = \frac{\gamma}{1+\beta} \geq r_{\min} \quad\Rightarrow\quad
 \beta \leq \frac{\gamma}{r_{\min}} - 1
 \end{equation}
+$r_{\min}$ 的取值依据为：Logistic 系统恢复至 $99\%$ 饱和水平所需时间满足保守上界
+$t_{99\%} \leq -\ln(0.01)/r = \ln(100)/r$（忽略初值因子
+$K_{\text{eff}}/x_0-1 \approx 0.29$ 的加速效应，取最不利情形）。
+要求收敛时间不超过 $2.5$ 个观测周期（$2.5 \times 365 = 912.5$ 天），
+即 $r \geq \ln(100)/912.5 \approx 0.00505$，取整得 $r_{\min} = 0.005$。
+代回约束不等式得 $\beta_{\max} = 0.022/0.005 - 1 = 3.40$。
 
-取 $r_{\min} = 0.005$（最低可接受增长率）：
-$\beta_{\max} = 0.022/0.005 - 1 = 3.40$。
-
-\subsubsection{容量约束}
-
+\paragraph{容量约束}
 \begin{equation}
 K_{\text{eff}} = K(1+\alpha) \geq K_{\min} \quad\Rightarrow\quad
 \alpha \geq \frac{K_{\min}}{K} - 1
 \end{equation}
+取 $K_{\min} = K$（至少不低于基准容量）：$\alpha \geq 0$——由定义自然满足。
 
-取 $K_{\min} = K$：$\alpha \geq 0$——由定义自然满足。
+\paragraph{安全运行范围与裕度}
 
-\subsubsection{安全运行范围}
-
-\begin{center}
-\begin{tabular}{lccc}
+\begin{table}[htbp]
+\centering
+\caption{安全运行范围与裕度指标}
+\label{tab:safety_margins}
+\begin{tabular}{lcccc}
 \toprule
-参数 & 下界 & 上界 & 当前值 \\
+指标 & 下界 & 上界 & 当前值 & 裕度 \\
 \midrule
-$\alpha$（促进） & $0$（定义） & — & $0.0164$（容量为 $K$ 的 $101.6\%$）\\
-$\beta$（抑制） & $0$（定义） & $3.40$（$r_{\min}$ 约束） & $1.59$（$r$ 为 $\gamma$ 的 $38.6\%$）\\
+$\alpha$（促进） & $0$（定义） & — & $0.0164$ & — \\
+$\beta$（抑制） & $0$（定义） & $3.40$ & $1.59$ & $1.81$ \\
+\midrule
+$r$ 高于 $r_{\min}$ & \multicolumn{2}{c}{$r_{\min}=0.005$} & $0.00849$ & $0.0035$ \\
+$r/\gamma$（有效增长率占比）& \multicolumn{2}{c}{—} & $38.6\%$ & — \\
+特征时间尺度 $\tau$ & \multicolumn{2}{c}{—} & $\approx 118$ 天 & — \\
 \bottomrule
 \end{tabular}
-\end{center}
+\end{table}
 
-\begin{center}
-\begin{tabular}{lc}
-\toprule
-安全裕度 & 数值 \\
-\midrule
-$\beta$ 距 $\beta_{\max}$ & $1.81$ \\
-$r$ 高于 $r_{\min}$ & $0.0035$ \\
-$r/\gamma$ & $38.6\%$ \\
-\bottomrule
-\end{tabular}
-\end{center}
+当前 $\beta$ 距性能约束上限仍有 $1.81$ 的充裕裕度（需在当前基础上再增大
+$+114\%$ 才触及 $r_{\min}$ 底线），系统在\textbf{收敛速度层面的安全性非常高}。
+真正的运营风险不在速度不足，而在 问题四 将揭示的\textbf{容量误判}风险。
 
-\subsection{解耦调控}
+\subsubsection{参数解耦与独立调控}
 
-该模型的一个重要优势：$\alpha$ 和 $\beta$ \textbf{完全解耦}。
-
+模型结构的另一个重要特性：$\alpha$ 和 $\beta$ \textbf{作用完全解耦}——
+本质上是因为促进效应仅作用于有效容量 $K_{\text{eff}}$、抑制效应仅作用于
+有效增长率 $r$，二者不交叉。这在分岔理论中是一个重要特性：不存在参数间的
+交互分岔（codimension-2 bifurcation），简化了控制策略设计。
 \begin{itemize}
-  \item $\alpha$ \textbf{仅影响} $K_{\text{eff}}$：调节促进力度可改变饱和容量而不影响收敛速度
-  \item $\beta$ \textbf{仅影响} $r$：控制抑制力度可改变收敛速度而不影响饱和容量
+  \item $\alpha \to K_{\text{eff}}$（容量维度）：调节促进力度改变饱和容量，
+        不影响收敛速度——对应``建站点、扩覆盖''等物理扩张策略
+  \item $\beta \to r$（速度维度）：控制抑制力度改变收敛速度，
+        不影响饱和容量——对应``提升清运效率、减少运维阻力''等运营优化策略
 \end{itemize}
 
-这一特性使得决策者能够\textbf{独立调控}两个维度：通过扩大站点覆盖提升总容量（$\alpha$），
-同时通过改善运维效率维持增长速度（降低 $\beta$）。
+这一解耦特性使得决策者可\textbf{在两个独立维度上分别施策}，
+无需担心调控一个参数时意外触发另一参数的不利连锁反应。
 
+\subsection{问题四：参数灵敏度分析}
 
+\subsubsection{问题背景与分析目标}
 
-\section{问题四：参数灵敏度分析}
-
-\subsection{问题背景与分析目标}
-
-Q2 针对上海``沪尚回收''体系建立了对称拮抗 Logistic 模型，
+问题二 针对上海``沪尚回收''体系建立了对称拮抗 Logistic 模型，
 引入促进系数 $\alpha$ 和抑制系数 $\beta$ 分别调制有效容量 $K_{\text{eff}} = K(1+\alpha)$
 与有效增长率 $r = \gamma/(1+\beta)$，
-拟合得到 $R^2 = 0.9915$，较 Q1（$R^2 = 0.5319$）提升显著。
-Q3 进一步证明了该系统在数学上具有\textbf{结构稳定性}——
+拟合得到 $R^2 = 0.9915$，较 问题一（$R^2 = 0.5319$）提升显著。
+问题三 进一步证明了该系统在数学上具有\textbf{结构稳定性}——
 只要 $\alpha, \beta \geq 0$（参数定义本身），
-回收量 $x(t)$ 恒趋向正平衡值 $K_{\text{eff}}$，不存在分岔或崩溃。
+回收量 $x(t)$ 恒趋向正平衡值 $K_{\text{eff}}$，不存在分岔失稳。
 
-然而，Q3 的稳定性结论仅保证了\textbf{定性安全}——系统不会崩溃——
-并未回答\textbf{定量敏感性}问题：
+然而，从动力系统理论的视角审视，结构稳定性仅保证了系统的\textbf{定性鲁棒性}——
+向量场 $f(x)$ 在受到小扰动后相图的拓扑结构不变。但这一概念并未回答
+\textbf{定量}问题：吸引子位置（$K_{\text{eff}}$）和收敛速率（$r$）对参数
+波动的敏感程度如何？在分岔理论中，当系统远离分岔点时，动力学行为对参数的
+变化通常是渐进的、可控的；但当系统接近分岔点时，即使是微小的参数变化
+也可能触发定性的跃变。因此，量化系统距分岔点的``距离''以及各参数对系统
+输出的弹性，是判断运营安全性的关键补充。基于此，问题四 具体回答以下问题：
 \begin{itemize}
   \item 若参数估计存在偏差，模型预测会偏离多远？
   \item 哪些参数的波动对回收量影响最剧烈？
+  \item 系统距最近分岔点的``安全距离''有多大？
   \item 在运营资源有限的前提下，应优先精确测量哪些参数、重点调控哪些环节？
 \end{itemize}
 
-本问题（Q4）正是为了填补这一空白。
-基于表 (c) 规定的 $\pm 10\%$ 单参数扰动（One-At-a-Time, OAT），
+本问题（问题四）正是为了填补这一空白。
+基于表 (c) 规定的 $\pm 10\%$ 单参数扰动（One-At-a-Time, OAT）\cite{saltelli}，
 对模型四个基础参数——固有增长率 $\gamma$、抑制系数 $\beta$、促进系数 $\alpha$、
 基准容量 $K$——进行局部灵敏度分析，
 量化各参数对拟合质量（$R^2$, MAE）和有效参数（$r$, $K_{\text{eff}}$）的影响程度，
 为``沪尚回收''体系的长效运维策略提供定量决策依据。
 
-\subsection{方法}
+\subsubsection{方法}
 
-\subsubsection{模型回顾}
+\paragraph{模型回顾}
 
 \begin{equation}\label{eq:ode_q4}
 \frac{dx}{dt} = \frac{\gamma}{1+\beta} \cdot x \cdot \left(1 - \frac{x}{K(1+\alpha)}\right)
@@ -538,7 +833,7 @@ x(t) = \frac{K_{\text{eff}}}{1 + \left(\dfrac{K_{\text{eff}}}{x_0} - 1\right) e^
 r = \frac{\gamma}{1+\beta},\quad K_{\text{eff}} = K(1+\alpha)
 \end{equation}
 
-\subsubsection{参数物理意义（结合``沪尚回收''实际场景）}
+\paragraph{参数物理意义（结合``沪尚回收''实际场景）}
 
 \begin{center}
 \begin{tabular}{lclp{7cm}}
@@ -549,7 +844,7 @@ r = \frac{\gamma}{1+\beta},\quad K_{\text{eff}} = K(1+\alpha)
   无外部作用下回收量的自然增长率，反映居民基础参与度
   与政策例行推动效率；对应背景中``居民回收习惯养成周期长''的基线水平 \\
 
-抑制系数 & $\beta$ & 1.5929 &
+抑制系数 & $\beta$ & 1.59 &
   反映清运延迟、站点运维不足、智能回收箱满溢后未及时清运、
   老年群体操作困难等负面效应的综合强度；$\beta$ 越大则有效增长率越低 \\
 
@@ -564,37 +859,37 @@ r = \frac{\gamma}{1+\beta},\quad K_{\text{eff}} = K(1+\alpha)
 \end{tabular}
 \end{center}
 
-\subsubsection{OAT 扰动方案}
+\paragraph{OAT 扰动方案}
 
 对每个参数 $p \in \{\gamma, \beta, \alpha, K\}$，
 分别令 $p \to p \times (1 \pm 0.10)$，其余参数保持基准值不变，
 重新计算 $r$, $K_{\text{eff}}$ 及所有拟合指标。
 
-\textbf{基准参数}（来自 Q2 拟合）：
+\textbf{基准参数}（来自 问题二 拟合）：
 
 \begin{center}
 \begin{tabular}{lclc}
 \toprule
 参数 & 符号 & 基准值 & 单位 \\
 \midrule
-固有增长率 & $\gamma$ & 0.022   & 1/day \\
-抑制系数   & $\beta$  & 1.5929  & — \\
-促进系数   & $\alpha$ & 0.0164  & — \\
-基准容量   & $K$      & 8011    & tons/day \\
+固有增长率 & $\gamma$ & 0.022   & 天$^{-1}$ \\
+抑制系数   & $\beta$  & 1.59  & 无量纲 \\
+促进系数   & $\alpha$ & 0.0164  & 无量纲 \\
+基准容量   & $K$      & 8011    & 吨/天 \\
 \midrule
-有效增长率 & $r = \gamma/(1+\beta)$ & 0.008485 & 1/day \\
-有效容量   & $K_{\text{eff}} = K(1+\alpha)$ & 8142.22 & tons/day \\
+有效增长率 & $r = \gamma/(1+\beta)$ & 0.00849 & 天$^{-1}$ \\
+有效容量   & $K_{\text{eff}} = K(1+\alpha)$ & 8142 & 吨/天 \\
 \bottomrule
 \end{tabular}
 \end{center}
 
 基准评估：$R^2 = 0.9915$, MAE $= 38.3$ 吨/天, RMSE $= 51.9$ 吨/天。
 
-\subsection{扰动结果与数据解读}
+\subsubsection{扰动结果与数据解读}
 
 以下对每个参数分别报告 $\pm 10\%$ 扰动结果，并结合``沪尚回收''实际运营场景进行解读。
 
-\subsubsection{$\gamma$（固有增长率）$\pm 10\%$}
+\paragraph{$\gamma$（固有增长率）$\pm 10\%$}
 
 $\gamma$ 仅通过 $r = \gamma/(1+\beta)$ 影响模型；$K_{\text{eff}}$ 不变。
 弹性 $\varepsilon_{r,\gamma} = +1.0000$（线性传递）。
@@ -604,8 +899,8 @@ $\gamma$ 仅通过 $r = \gamma/(1+\beta)$ 影响模型；$K_{\text{eff}}$ 不变
 \toprule
 输出 & $-10\%$ ($\gamma = 0.0198$) & 基准 & $+10\%$ ($\gamma = 0.0242$) \\
 \midrule
-$r$      & 0.007636 & 0.008485 & 0.009333 \\
-$K_{\text{eff}}$ & 8142.2 & 8142.2 & 8142.2 \\
+$r$      & 0.007636 & 0.00849 & 0.009333 \\
+$K_{\text{eff}}$ & 8142 & 8142 & 8142 \\
 $R^2$    & 0.9810 & 0.9915 & 0.9830 \\
 MAE      & 59.8 & 38.3 & 57.7 \\
 RMSE     & 77.7 & 51.9 & 73.5 \\
@@ -625,9 +920,9 @@ RMSE     & 77.7 & 51.9 & 73.5 \\
         即使固有人均回收意愿有 $\pm 10\%$ 的估计偏差，模型仍保持 $R^2 > 0.98$。
 \end{itemize}
 
-\subsubsection{$\beta$（抑制系数）$\pm 10\%$}
+\paragraph{$\beta$（抑制系数）$\pm 10\%$}
 
-$\beta$ 仅通过 $r = \gamma/(1+\beta)$ 影响模型。弹性 $\varepsilon_{r,\beta} = -\beta/(1+\beta) = -0.6143$
+$\beta$ 仅通过 $r = \gamma/(1+\beta)$ 影响模型。弹性 $\varepsilon_{r,\beta} = -\beta/(1+\beta) = -0.614$
 （非线性衰减——$\beta$ 越大，单位增量对 $r$ 的边际抑制越弱）。
 
 \begin{center}
@@ -635,8 +930,8 @@ $\beta$ 仅通过 $r = \gamma/(1+\beta)$ 影响模型。弹性 $\varepsilon_{r,\
 \toprule
 输出 & $-10\%$ ($\beta = 1.4336$) & 基准 & $+10\%$ ($\beta = 1.7522$) \\
 \midrule
-$r$      & 0.009040 & 0.008485 & 0.007994 \\
-$K_{\text{eff}}$ & 8142.2 & 8142.2 & 8142.2 \\
+$r$      & 0.009040 & 0.00849 & 0.007994 \\
+$K_{\text{eff}}$ & 8142 & 8142 & 8142 \\
 $R^2$    & 0.9877 & 0.9915 & 0.9882 \\
 MAE      & 49.7 & 38.3 & 48.3 \\
 RMSE     & 62.4 & 51.9 & 61.3 \\
@@ -648,7 +943,7 @@ RMSE     & 62.4 & 51.9 & 61.3 \\
 \begin{itemize}
   \item $\beta$ 的扰动效果与 $\gamma$ 相近（$R^2$ 降幅 $\sim$0.003--0.004），
         但方向相反——$\beta$ 减小（抑制减弱）使 $r$ 增大，拟合反而略微改善。
-        这与 Q2 的结论一致：当前 $\beta = 1.59$ 较大，抑制效应已占主导（$r$ 仅为 $\gamma$ 的 $38.6\%$）。
+        这与 问题二 的结论一致：当前 $\beta = 1.59$ 较大，抑制效应已占主导（$r$ 仅为 $\gamma$ 的 $38.6\%$）。
   \item 弹性 $|\varepsilon_{r,\beta}| = 0.61 < 1$ 意味着 $\beta$ 变化 $1\%$ 仅引起 $r$ 反向变化 $0.61\%$——
         \textbf{抑制效应存在边际递减}：当 $\beta$ 已经较大时，进一步增加抑制的额外伤害有限；
         反之，降低 $\beta$ 的边际收益也递减。
@@ -657,7 +952,7 @@ RMSE     & 62.4 & 51.9 & 61.3 \\
         改善运维效率是有效的，但不宜期待单点突破——消除 $10\%$ 的抑制仅能恢复约 $6.5\%$ 的增长速率。
 \end{itemize}
 
-\subsubsection{$\alpha$（促进系数）$\pm 10\%$}
+\paragraph{$\alpha$（促进系数）$\pm 10\%$}
 
 $\alpha$ 仅通过 $K_{\text{eff}} = K(1+\alpha)$ 影响模型。
 弹性 $\varepsilon_{K_{\text{eff}},\alpha} = \alpha/(1+\alpha) = +0.0161$（极不敏感）。
@@ -667,8 +962,8 @@ $\alpha$ 仅通过 $K_{\text{eff}} = K(1+\alpha)$ 影响模型。
 \toprule
 输出 & $-10\%$ ($\alpha = 0.0147$) & 基准 & $+10\%$ ($\alpha = 0.0180$) \\
 \midrule
-$r$      & 0.008485 & 0.008485 & 0.008485 \\
-$K_{\text{eff}}$ & 8129.1 & 8142.2 & 8155.3 \\
+$r$      & 0.00849 & 0.00849 & 0.00849 \\
+$K_{\text{eff}}$ & 8129.1 & 8142 & 8155.3 \\
 $R^2$    & 0.9913 & 0.9915 & 0.9913 \\
 MAE      & 37.4 & 38.3 & 41.0 \\
 RMSE     & 52.4 & 51.9 & 52.4 \\
@@ -698,7 +993,15 @@ RMSE     & 52.4 & 51.9 & 52.4 \\
         而非继续增加站点数量。
 \end{itemize}
 
-\subsubsection{$K$（基准容量）$\pm 10\%$}
+\textbf{关于 $\alpha$ 结论与 $K$ 的关系}：$\alpha = K_{\text{eff}}/K - 1$ 并非从
+数据中独立拟合，而是由 $K_{\text{eff}} \approx 8142$（数据硬约束——晚期数据点
+密集分布于饱和平台附近，将 $K_{\text{eff}}$ 锁定于窄区间）与 $K = 8011$
+（题目给定值）之差反解得出。因此 $\alpha = 0.016$ 及弹性 $0.016$ 的结论以
+$K = 8011$ 的准确性为前提。这恰是下文 $K$ 灵敏度分析将 $K$ 核定列为第一优先级
+的根本原因：$K$ 的验证是所有衍生参数结论的共同前提——在 $K$ 经核定确认后，
+$\alpha$ 的不敏感属性具有坚实的数据与物理支撑，不构成自指矛盾。
+
+\paragraph{$K$（基准容量）$\pm 10\%$}
 
 $K$ 仅通过 $K_{\text{eff}} = K(1+\alpha)$ 影响模型。
 弹性 $\varepsilon_{K_{\text{eff}},K} = +1.0000$（线性——$K$ 变化 $1\% \to K_{\text{eff}}$ 同向变化 $1\%$）。
@@ -708,8 +1011,8 @@ $K$ 仅通过 $K_{\text{eff}} = K(1+\alpha)$ 影响模型。
 \toprule
 输出 & $-10\%$ ($K = 7210$) & 基准 & $+10\%$ ($K = 8812$) \\
 \midrule
-$r$      & 0.008485 & 0.008485 & 0.008485 \\
-$K_{\text{eff}}$ & 7328.0 & 8142.2 & 8956.4 \\
+$r$      & 0.00849 & 0.00849 & 0.00849 \\
+$K_{\text{eff}}$ & 7328.0 & 8142 & 8956.4 \\
 $R^2$    & 0.2630 & 0.9915 & 0.3256 \\
 MAE      & 405.3 & 38.3 & 403.7 \\
 RMSE     & 483.6 & 51.9 & 462.6 \\
@@ -719,8 +1022,8 @@ RMSE     & 483.6 & 51.9 & 462.6 \\
 
 \textbf{数据解读}：
 \begin{itemize}
-  \item \textbf{$K$ 是压倒性的主导参数}：$K \pm 10\%$ 导致 $R^2$ 从 $0.9915$ 崩塌至 $0.26$--$0.33$，
-        MAE 从 $38.3$ 暴增至 $\sim 405$ 吨/天（$\times 10.6$）。
+  \item \textbf{$K$ 是决定性主导参数}：$K \pm 10\%$ 导致 $R^2$ 从 $0.9915$ 骤降至 $0.26$--$0.33$，
+        MAE 从 $38.3$ 急剧增大至 $\sim 405$ 吨/天（$\times 10.6$）。
         相比之下，$\gamma, \beta, \alpha$ 的扰动对 $R^2$ 的影响仅为 $K$ 的 $1/30$--$1/170$。
   \item 数学根源：观察数据——$x(365) = 8002$ 已非常接近 $K_{\text{eff}} = 8142$（占 $98.3\%$）。
         所有晚期数据点都密集分布在饱和平台附近。
@@ -728,52 +1031,69 @@ RMSE     & 483.6 & 51.9 & 462.6 \\
         从而对所有 $t \geq 90$ 天的点产生同向残差，导致 $R^2$ 剧烈下降。
         这与 $\gamma$ 或 $\beta$ 的扰动行为截然不同——
         后者只改变曲线的``弯曲程度''而非最终高度，饱和预测值始终收敛于同一个 $K_{\text{eff}}$。
-  \item 实际含义：\textbf{基准容量 $K$ 的估计精度直接决定整个模型的可用性}。
-        如果对上海市可回收物总潜力判断偏差 $10\%$（例如低估了低价值品类的回收潜力，
-        或高估了常住人口的回收参与率），模型预测将完全失效。
+
+  \item \textbf{$K$ 正负扰动的不对称性}：$K -10\%$ 使 $R^2$ 降至 $0.2630$，
+        $K +10\%$ 降至 $0.3256$，降幅差约 $0.06$。
+        $K -10\%$ 时有效容量低估，全部预测值均低于实测值（残差全部同号，
+        无抵消效应），$R^2$ 下降最为剧烈；$K +10\%$ 时，早期点的负残差
+        （预测高出实测）与晚期点的正残差（预测低于实测）方向相反、
+        部分互抵，$R^2$ 下降幅度稍弱。
+        这一不对称现象并非偶然——其根源与 $K$ 主导性相同：
+        所有实测点 $x(t)$ 均位于 $K_{\text{eff}}$ 下方（$x(t) < K_{\text{eff}}$，$\forall t$），
+        数据点在 $K_{\text{eff}}$ 两侧的分布本身就高度不对称。
+  \item 实际含义：\textbf{基准容量 $K$ 是模型预测有效性的前提条件}。
+        $\pm 10\%$ 压力测试表明，若 $K$ 的取值存在量级偏差，所有拟合指标将全面失效——
+        $K$ 的准确性是所有衍生参数结论（包括上节 $\alpha$ 的不敏感属性）和策略建议的
+        共同前提。题目给定 $K = 8011$ 吨/天为建模提供了基准输入；在实际运营中，
+        该值需通过全市可回收物潜力普查加以核定，以确保上述推论链条的基础牢固。
 \end{itemize}
 
-\subsection{灵敏度排序与参数等级}
+\subsubsection{灵敏度排序与参数等级}
 
-\subsubsection{对 $R^2$ 的影响}
+\paragraph{对 $R^2$ 的影响}
 
-\begin{center}
+\begin{table}[htbp]
+\centering
+\caption{各参数扰动对 $R^2$ 的影响排序（按偏离基线的最大降幅）}
+\label{tab:sensitivity_r2}
 \begin{tabular}{lcccc}
 \toprule
-参数 & $\Delta R^2$ & $R^2$ 范围 & 敏感等级 \\
+参数 & 基线 $R^2$ & 最差 $R^2$ & $R^2$ 降幅 & 敏感等级 \\
 \midrule
-$K$      & 0.0626 & $[0.2630,\; 0.3256]$ & \textbf{极高}（$\times 30$--$170$）\\
-$\gamma$ & 0.0020 & $[0.9810,\; 0.9830]$ & 低 \\
-$\beta$  & 0.0005 & $[0.9877,\; 0.9882]$ & 极低 \\
-$\alpha$ & 0.0000 & $[0.9913,\; 0.9913]$ & 可忽略 \\
+$K$      & 0.9915 & 0.2630 & 0.7285 & \textbf{极高}（偏离基线约70个百分点）\\
+$\gamma$ & 0.9915 & 0.9810 & 0.0105 & 中等（偏离基线约1个百分点）\\
+$\beta$  & 0.9915 & 0.9877 & 0.0038 & 低（偏离基线约0.4个百分点）\\
+$\alpha$ & 0.9915 & 0.9913 & 0.0002 & 可忽略 \\
 \bottomrule
 \end{tabular}
-\end{center}
+\end{table}
 
-\subsubsection{对 MAE 的影响}
+\paragraph{对 MAE 的影响}
 
-\begin{center}
+\begin{table}[htbp]
+\centering
+\caption{各参数扰动对 MAE 的影响排序（按偏离基线的最大增幅）}
+\label{tab:sensitivity_mae}
 \begin{tabular}{lccc}
 \toprule
-参数 & MAE 范围（吨/天） & 波动幅度 $\Delta$MAE \\
+参数 & 基线 MAE（吨/天） & 最差 MAE（吨/天） & MAE 增幅（吨/天） \\
 \midrule
-$K$      & $[403.7,\; 405.3]$ & 1.6（基准值本身已暴涨至 $\sim 10\times$）\\
-$\alpha$ & $[37.4,\; 41.0]$   & 3.6 \\
-$\gamma$ & $[57.7,\; 59.8]$   & 2.1 \\
-$\beta$  & $[48.3,\; 49.7]$   & 1.4 \\
+$K$      & 38.3 & 405.3 & $+367.0$（$\times 10.6$）\\
+$\gamma$ & 38.3 & 59.8  & $+21.5$ \\
+$\beta$  & 38.3 & 49.7  & $+11.4$ \\
+$\alpha$ & 38.3 & 41.0  & $+2.7$ \\
 \bottomrule
 \end{tabular}
-\end{center}
+\end{table}
 
-\textbf{注}：MAE 排序与 $R^2$ 排序不同——$K$ 扰动后的 MAE 波动幅度（1.6）虽然最小，
-但这是因为两个扰动方向的 MAE 都已高达 $\sim 404$；
-其\textbf{绝对值}已远超其他参数。正确理解是：$K$ 扰动后 MAE 从 38.3 跳至 $\sim 405$，
-而 $\gamma$/$\beta$/$\alpha$ 扰动后 MAE 仍在 37--60 之间——
-$K$ 的影响不是``波动小''，而是``基准值已经被摧毁了''。
+\textbf{注}：由表\ref{tab:sensitivity_r2}和表\ref{tab:sensitivity_mae}可见，
+$K$ 的主导地位是量级上的——$\pm 10\%$ 扰动使 MAE 从 38.3 急剧增大至 $\sim 405$ 吨/天（$\times 10.6$），
+而 $\gamma$、$\beta$、$\alpha$ 扰动后 MAE 仍在 37--60 之间。
+$K$ 的 $R^2$ 降幅（0.7285）是次敏感参数 $\gamma$（0.0105）的 $\sim 69$ 倍。
+所有其余参数的扰动效应在 $K$ 面前均可忽略。
 
-\subsubsection{综合敏感等级}
+\paragraph{综合敏感等级}
 
-\begin{center}
 \begin{table}[htbp]
 \centering
 \caption{参数敏感度等级划分表}
@@ -789,11 +1109,12 @@ $K$ 的影响不是``波动小''，而是``基准值已经被摧毁了''。
 \end{tabular}
 \end{table}
 
-\end{center}
+\subsubsection{解析弹性汇总}
 
-\subsection{解析弹性汇总}
-
-\begin{center}
+\begin{table}[htbp]
+\centering
+\caption{有效参数对基础参数的解析弹性汇总}
+\label{tab:elasticity_summary}
 \begin{tabular}{lccc}
 \toprule
 输出 & 输入 & 弹性 $\varepsilon$ & 传递特性 \\
@@ -804,7 +1125,7 @@ $K_{\text{eff}}$ & $\alpha$ & $+0.0161$ & 近零——$\alpha \ll 1$ 导致弹�
 $K_{\text{eff}}$ & $K$      & $+1.0000$ & 线性——$K$ 变化 $1\% \to K_{\text{eff}}$ 同向变化 $1\%$ \\
 \bottomrule
 \end{tabular}
-\end{center}
+\end{table}
 
 \textbf{弹性解释}：
 \begin{itemize}
@@ -817,60 +1138,129 @@ $K_{\text{eff}}$ & $K$      & $+1.0000$ & 线性——$K$ 变化 $1\% \to K_{\te
 即使是敏感度最高的 $K$，其弹性也仅为 $1$（比例传导，非放大）。
 这意味着\textbf{模型在局部线性化意义下是良态的}——不存在微扰导致巨变的分岔或奇点。
 
-\subsection{预测包络线分析}
+\subsubsection{预测包络线分析}
+
+图\ref{fig:sensitivity_tornado}和图\ref{fig:sensitivity_envelope}以两种可视化方法展示了
+灵敏度分析的完整结果:
+
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.75\linewidth]{sensitivity_tornado.png}
-    \caption{\texttt{sensitivity\_tornado.png}}
+    \caption{龙卷风图：各参数 $\pm 10\%$ 对 $R^2$、MAE、$r$、$K_{\text{eff}}$ 的影响。
+    (a)(b) 子图中 $K$ 的影响远超坐标轴范围（以橙色文本框标注离轴数值），意在让读者关注非 $K$ 参数之间的差异；
+    (c) $r$ 仅受 $\gamma$ 和 $\beta$ 影响，(d) $K_{\text{eff}}$ 仅受 $\alpha$ 和 $K$ 影响——
+    验证了模型的结构解耦特性。}
     \label{fig:sensitivity_tornado}
 \end{figure}
-上图从可视化角度验证了上述数值结论。
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.75\linewidth]{sensitivity_envelope.png}
-    \caption{\texttt{sensitivity\_envelope.png}}
+    \caption{(a) 所有参数 $\pm 10\%$ 的总预测包络线——包络宽度完全由 $K$ 主导；
+    (b) 各参数独立扰动带——$K$（橙色）的带宽远超其余参数，$\alpha$（绿色）几乎不可见；
+    (c) 拟合指标的数值弹性——$K$ 对 $R^2$ 的弹性（$\sim 96$）比其余参数高出约两个数量级。}
     \label{fig:sensitivity_envelope}
 \end{figure}
 
+\subsubsection{OAT 方法的局限性与补充讨论}
 
-\subsection{与 Q3 稳定性结论的联合分析}
+在进入综合结论之前，有必要对 Q4 所采用的 OAT（One-At-A-Time）局部灵敏度分析方法
+作出方法论层面的审视。OAT 的优势在于简洁直观、计算成本低，适合作为
+参数筛选的第一步——判断哪些参数值得更精确的估计、哪些参数的调控可能带来回报。
+但其局限同样显著，分述如下。
 
-Q3 证明了系统在数学上具有结构稳定性——只要 $\alpha, \beta \geq 0$，
-平衡点 $x^* = K_{\text{eff}}$ 恒为渐近稳定，不存在分岔。
-然而，\textbf{结构稳定 $\neq$ 运营安全}。
+\textbf{1. 忽略参数间的交互效应。}
+OAT 每次仅扰动一个参数，其余参数固定于基准值。但 $K$ 与 $\alpha$ 通过乘积关系
+$K_{\text{eff}} = K(1+\alpha)$ 耦合——$K$ 的扰动直接改写 $K_{\text{eff}}$，
+$\alpha$ 的扰动亦通过 $K_{\text{eff}}$ 传导。当 $K$ 和 $\alpha$ 同时偏离基准时，
+两者的效应并非简单相加：联合偏差 $\Delta K_{\text{eff}} = (K \pm \delta_K)(1+\alpha \pm \delta_\alpha) - K(1+\alpha)$
+含有一阶交互项 $\delta_K \cdot \delta_\alpha$。在当前拟合结果 $\alpha \approx 0.016 \ll 1$
+的条件下，该交互项的量级远小于 $K$ 的主效应（$\delta_\alpha$ 的效应在 $K$ 效应面前
+可忽略），但这一结论本身依赖于 $\alpha$ 小这一数据事实，而非从 OAT 框架内推导得出。
 
-Q4 灵敏度分析揭示了稳定性的\textbf{定量脆弱面}：
+\textbf{2. 敏感性排序依赖于基准点的局部线性化。}
+OAT 回答的是``在当前基准值附近，哪些参数波动最危险''，
+而非``在整个参数空间中，哪些参数始终主导系统行为''。
+本文的基准点来自拟合数据（$r = 0.00849$，$K_{\text{eff}} = 8142$），
+数据的高质量（$R^2 = 0.9915$）使得基准估计可信，因而在当前场景下
+局部灵敏度的实用性较强。但若模型被部署到不同城市或不同时间段，
+基准参数发生变化，敏感性排序可能需要重新评估。
+
+\textbf{3. 未捕获高阶敏感性结构。}
+弹性系数 $\varepsilon$ 本质上是一阶导数在基准点的取值，仅描述参数的\textbf{局部}影响。
+当 $|\varepsilon| \ll 1$（如 $\alpha$）时，可以确信该参数在当前基准点附近
+不敏感——即使考虑交互效应也不会改变``可忽略''这一结论。
+但当 $|\varepsilon|$ 较大（如 $K$ 的 $\varepsilon = 1$）时，
+仅凭一阶弹性无法区分``线性比例传导''与``非线性放大''——本文通过数值实验
+（$\pm 10\%$ 扰动后重拟合）补充了这一区分，确认 $K$ 的弹性确实来自线性比例关系。
+
+\textbf{后续改进方向}：若需量化参数间的交互效应对 $R^2$ 和 MAE 的贡献，
+可采用 Sobol' 全局灵敏度分析方法（Saltelli et al., 2008），
+将输出方差分解为各参数的独立贡献及其交互项。此外，
+基于贝叶斯推断的 $K$ 不确定性量化
+（为 $K$ 赋予先验分布而非点估计）可将参数不确定性与预测不确定性直接关联，
+生成带有置信区间的预测曲线——这是在 OAT 局部线性化的基础上，
+进一步提升分析严谨性的自然路径。
+
+\subsubsection{与 问题三 稳定性结论的联合分析}
+
+问题三 从动力系统的分岔理论出发，证明了当前参数空间 $(\alpha \geq 0, \beta \geq 0)$
+内系统具有结构稳定性：唯一物理平衡点 $x^* = K_{\text{eff}}$ 恒为渐近稳定，
+且 $r = \gamma/(1+\beta) > 0$ 恒成立——系统被不可逆地约束于跨临界分岔点
+$r = 0$ 的右侧，不存在分岔失稳的任何可能。
+
+然而，\textbf{结构稳定 $\neq$ 运营安全}。系统远离分岔点固然意味着不会发生
+定性的动力学突变，但同时也意味着\textbf{另一种风险被掩盖了}：当吸引子
+（平衡点 $K_{\text{eff}}$）的位置本身不确定时，系统会以可靠的收敛性
+稳定地趋向一个错误的目标值——这种失败模式比突然失稳更加隐蔽，因为
+所有的稳定性检验都会通过。问题四 的灵敏度分析正是为了暴露这种\textbf{``稳定性陷阱''}。
+
+联合 问题三 与 问题四 的全部量化证据，可以得出三个核心洞察：
 
 \begin{enumerate}
   \item \textbf{稳定性保证了方向，灵敏度决定了精度}：
-        Q3 告诉我们 $x(t) \to K_{\text{eff}}$ 一定会发生；
-        Q4 告诉我们，如果 $K$ 估计偏差 $10\%$，那么``一定会趋向的目标值''
-        本身就是错的（$K_{\text{eff}}$ 偏差 $\sim 814$ 吨/天）。
-        \textbf{系统会忠实趋向错误的目标}——这是另一种形式的``稳定性陷阱''。
+        问题三 证明 $x(t) \to K_{\text{eff}}$ 恒成立——轨迹的归宿是确定的；
+        问题四 揭示，如果 $K$ 估计偏差 $10\%$，那么``归宿''本身偏移 $\sim 814$ 吨/天
+        （$\varepsilon_{K_{\text{eff}}, K} = 1.0000$，完全线性传导）。
+        \textbf{系统轨迹将确定性地收敛至一个错误的吸引子}。在动力系统术语中，
+        这不是 Lyapunov 稳定性的丧失，而是\textbf{吸引子位置的结构性偏移}——
+        一种在传统稳定性分析框架下完全不可见但后果同样严重的失效模式。
 
-  \item \textbf{恢复速度的安全边界}：
-        Q3 定义了 $\beta \leq \gamma/r_{\min} - 1 = 3.40$（取 $r_{\min} = 0.005$）。
-        当前 $\beta = 1.59$，裕度 $1.81$。
-        Q4 进一步表明，在现有裕度内，$\beta$ 的敏感度不高——
-        即使 $\beta$ 恶化 $10\%$（增至 $1.75$），$R^2$ 仍为 $0.9882$。
-        \textbf{增长速度方面的安全裕度是充足的}——短期内不必担忧收敛过慢。
+  \item \textbf{收敛速率的安全裕度充足}：
+        问题三 从性能约束出发定义了 $\beta$ 的运营上限：
+        $\beta_{\max} = \gamma/r_{\min} - 1 = 3.40$。
+        当前 $\beta = 1.59$ 距此边界尚有 $1.81$ 的裕度（需增大 $+114\%$ 才触及底线）。
+        问题四 进一步验证了这一裕度的可靠性：即使 $\beta$ 增大 $10\%$（增至 $1.75$），
+        $R^2$ 仅从 $0.9915$ 降至 $0.9882$，系统行为几乎不变。
+        从动力系统视角看，系统距 $r = 0$ 的分岔点非常远（$r/r_{\min} \approx 1.70$），
+        远离\textbf{临界慢化}（critical slowing down）区域——特征时间尺度
+        $\tau \approx 118$ 天在参数扰动下保持稳定，不存在``越接近分岔点收敛越慢''
+        的风险。\textbf{短期内不必担忧收敛过慢导致运营失效}。
 
-  \item \textbf{真正的风险不在数学分岔，而在参数误判}：
-        Q3 的安全边界（$\beta < 3.40$）很宽，运营中几乎不可能触及。
-        但 Q4 揭示：$K$ 的 $\pm 10\%$ 偏差就能让模型 $R^2$ 跌至 $0.3$。
-        \textbf{回收体系最大的风险不是系统崩溃，而是对容量上限的误判导致的规划失误}——
-        例如低估 $K$ 则规划产能不足（站点提前满溢、居民投递无门），
-        高估 $K$ 则造成资源浪费（建设过多站点、运营成本高企）。
+  \item \textbf{真正的风险不在分岔失稳，而在吸引子错位}：
+        问题三 的安全分析排除了系统从稳定变为不稳定的可能（不存在鞍-结分岔、
+        跨临界分岔不能穿越 $r = 0$、叉形分岔因缺乏对称性而不适用）。
+        但 问题四 揭示了一个更加现实的威胁：\textbf{基准容量 $K$ 是量级上的主导参数}——
+        $\pm 10\%$ 偏差使 $R^2$ 从 $0.9915$ 急剧下降至 $\sim 0.3$，
+        其 $R^2$ 降幅（$0.7285$）是次敏感参数 $\gamma$（$0.0105$）的约 70 倍、
+        $\beta$（$0.0038$）的约 190 倍，$\alpha$ 的影响相比之下可忽略不计。在动力系统语言中，$K$ 直接决定了
+        \textbf{唯一物理吸引子的位置}。当所有数据点密集分布在饱和平台附近
+        （$x(365)/K_{\text{eff}} \approx 98.3\%$），吸引子位置的任何偏移
+        都会被所有晚期数据点``集体感知''，产生系统性同向残差——这解释了
+        $R^2$ 急剧下降的动力学机制。
+
+        运营含义：\textbf{回收体系最大的风险不是系统失稳，而是对容量上限的
+        误判导致的规划失误}——低估 $K$ 则规划产能不足、高估 $K$ 则造成
+        资源浪费。这两种失败均可在拟合指标正常的表象下发生——所有常规统计检验均能通过。
 \end{enumerate}
 
-\subsection{关键结论与长效调控策略}
+\subsubsection{关键结论与长效调控策略}
 
-基于 Q3 稳定性分析和 Q4 灵敏度分析的联合发现，
+基于 问题三 稳定性分析和 问题四 灵敏度分析的联合发现，
 为``沪尚回收''体系的长效稳定运行提出以下定量策略建议：
 
-\subsection*{1. 优先级一：精确测定基准容量 $K$（最高回报）}
+\paragraph*{1. 优先级一：精确测定基准容量 $K$（最高回报）}
 
-$K$ 是模型的核心支柱——$\pm 10\%$ 偏差直接使 $R^2$ 从 $0.9915$ 崩塌至 $\sim 0.3$，
+$K$ 是模型的核心支柱——$\pm 10\%$ 偏差直接使 $R^2$ 从 $0.9915$ 急剧下降至 $\sim 0.3$，
 敏感度远超其他参数（$\times 30$--$170$）。然而 $K$ 恰恰是四个参数中\textbf{最难直接测量}的：
 它涉及常住人口总量、人均可回收物产生系数、低价值品类占比、回收网络地理覆盖率等外生变量，
 任何一个估计环节的偏差都会沿 $\varepsilon(K_{\text{eff}}, K) = 1$ 的比例关系
@@ -884,10 +1274,10 @@ $K$ 是模型的核心支柱——$\pm 10\%$ 偏差直接使 $R^2$ 从 $0.9915$ 
         将模型重新校准纳入年度运维计划。
 \end{itemize}
 
-\subsection*{2. 优先级二：精准降低抑制系数 $\beta$（最高效的调控杠杆）}
+\paragraph*{2. 优先级二：精准降低抑制系数 $\beta$（最高效的调控杠杆）}
 
 降低 $\beta$（改善运营效率）对恢复速度的影响是提升 $\alpha$（扩大促进）
-对容量影响的 $\sim 38$ 倍（$0.6143 / 0.0161 \approx 38$）。
+对容量影响的 $\sim 38$ 倍（$0.614 / 0.0161 \approx 38$）。
 且题目背景中明确指出了三大抑制源头：
 
 \begin{itemize}
@@ -902,12 +1292,12 @@ $K$ 是模型的核心支柱——$\pm 10\%$ 偏差直接使 $R^2$ 从 $0.9915$ 
 \end{itemize}
 
 当前 $\beta$ 已使有效增长率降至固有水平的 $38.6\%$，
-说明抑制效应远大于促进效应——\textbf{运营摩擦是当前回收体系的头号效率瓶颈}。
-然而 Q4 也提示：$\beta$ 弹性为 $-0.61$，边际收益递减，
+说明抑制效应远大于促进效应——\textbf{运维阻力是当前回收体系的首要效率限制因素}。
+然而 问题四 也提示：$\beta$ 弹性为 $-0.61$，边际收益递减，
 应将资源集中在消除\textbf{最严重的瓶颈环节}
 （如清运延迟和适老化），而非追求面面俱到的微优化。
 
-\subsection*{3. 优先级三：重新审视促进策略 $\alpha$ 的着力点（当前策略需转型）}
+\paragraph*{3. 优先级三：重新审视促进策略 $\alpha$ 的着力点（当前策略需转型）}
 
 $\alpha$ 的弹性仅为 $0.016$——全市已建成 1.5 万个服务点 + 4300 台智能回收箱 + 800 个惠民服务点
 后，站点数量增加对容量的边际贡献几乎为零。\textbf{但这并不意味着宣传引导没有价值}——
@@ -924,8 +1314,9 @@ $\alpha$ 的弹性仅为 $0.016$——全市已建成 1.5 万个服务点 + 4300
 
 \textbf{建议措施}：
 \begin{itemize}
-  \item 停止以``增加站点数量''为核心考核指标的扩张策略——
-        当前覆盖率已接近饱和，边际回报极低。
+  \item 以``增加站点数量''为核心考核指标的扩张策略已进入边际收益递减区间——
+        在 $K_{\text{eff}} \approx 8142$ 的数据硬约束下，$\alpha$ 对容量的弹性仅 $0.016$，
+        继续扩大站点密度对总回收量的提升极为有限。
   \item 将促进工作的考核重心从``建了多少点''转向``每个点服务了多少人、
         实际投递频次和居民满意度''——关注促进策略对 $\gamma$ 和 $\beta$ 的间接效应，
         而非 $\alpha$ 本身。
@@ -933,17 +1324,20 @@ $\alpha$ 的弹性仅为 $0.016$——全市已建成 1.5 万个服务点 + 4300
         （清运优化、适老化改造），实现\textbf{从规模扩张向质量提升的战略转型}。
 \end{itemize}
 
-\subsection*{4. 优先级四：$\gamma$ 保持监测即可（低维护成本）}
+\paragraph*{4. 优先级四：$\gamma$ 保持监测即可（低维护成本）}
 
 $\gamma$ 的扰动影响中等（$R^2$ 保持在 $0.98$ 以上），弹性为 1（线性传递，无放大），
 且 $\gamma$ 受制于居民回收习惯等慢变量，短期波动有限。
 建议每季度通过小样本抽样调查验证 $\gamma$ 的稳定性，无需高频精确跟踪。
 
-\subsection*{5. 总体资源分配建议}
+\paragraph*{5. 总体资源分配建议}
 
-综合 Q3 和 Q4 的全部量化证据，建议``沪尚回收''体系的长效运维资源按以下优先级分配：
+综合 问题三 和 问题四 的全部量化证据，建议``沪尚回收''体系的长效运维资源按以下优先级分配：
 
-\begin{center}
+\begin{table}[htbp]
+\centering
+\caption{分层资源分配与长效运维策略}
+\label{tab:resource_allocation}
 \begin{tabular}{clp{7cm}}
 \toprule
 优先级 & 参数 & 行动方向与预期效果 \\
@@ -966,40 +1360,64 @@ $\gamma$ 的扰动影响中等（$R^2$ 保持在 $0.98$ 以上），弹性为 1�
   预期效果：维持对居民参与度长期趋势的基本感知。 \\
 \bottomrule
 \end{tabular}
-\end{center}
+\end{table}
 
-
-
-\section{模型评价}
+\section{模型评价与改进}
 
 \subsection{模型优点}
 
 \begin{enumerate}
-    \item 建模思路递进清晰，能够逐步反映回收体系从自然增长到复杂运营机制的演化过程；
-    \item 参数具有明确实际意义，便于与回收体系的管理措施相对应；
-    \item 同时考虑了增长规律、稳定性和灵敏度，能够为长期运维提供综合决策依据。
+    \item \textbf{建模思路递进清晰}：从仅含容量约束的基础 Logistic 模型（问题一），到引入拮抗调节参数的扩展模型（问题二），再到动力系统稳定性分析（问题三）和参数灵敏度量化（问题四），四步递进完整覆盖了``建模—拟合—稳定性判定—灵敏度控制''的全流程，每步均建立在前一步的发现之上。
+    \item \textbf{参数物理意义明确}：$\gamma$（固有增长率）对应居民基础参与度，$\alpha$（促进系数）对应站点扩张与宣传引导的容量放大效应，$\beta$（抑制系数）对应清运延迟与运维不足的速率压缩效应，$K$（基准容量）对应常住人口与人均可回收物产生量——每个参数均可与具体管理措施直接对应，使模型的定量结论具有可操作性。
+    \item \textbf{结论有严格的数学保证，且提供了独特的风险洞察}：区别于纯统计方法，本文关于系统安全性的每一条结论——$\lambda = -r < 0$ 的渐近稳定性、跨临界分岔的不可穿越性、鞍-结分岔与叉形分岔的不适用性——均可追溯到严格的数学论证，而非数值实验的经验推断。在此基础上，动力系统框架进一步揭示了``吸引子错位''（$K$ 估计偏差）这一传统统计诊断无法发现的核心风险——系统会以可靠的收敛性趋向一个错误的目标值，这是在分岔分析证明系统结构稳定之后暴露出来的更深层的脆弱性。
 \end{enumerate}
 
-\subsection{模型不足}
+\subsection{模型不足与改进方向}
 
 \begin{enumerate}
-    \item 促进作用与抑制作用被视为阶段内恒定，未考虑其随时间变化的情况；
-    \item 未进一步区分不同类型可回收物之间的差异；
-    \item 模型基于全市总体数据，未体现区域间的空间异质性。
+    \item \textbf{时不变假设}：模型将促进系数 $\alpha$ 和抑制系数 $\beta$ 视为阶段内恒定，未考虑其随时间演化的动态过程。\textbf{改进方向}：可将 $\alpha(t)$ 和 $\beta(t)$ 建模为时变函数（如 logistic 衰减型 $\beta(t) = \beta_0/(1 + e^{-k(t-t_0)})$ 刻画政策干预的阶段性效果，或分段常数函数对应不同运维周期），引入系统辨识方法（如滑动窗口估计）跟踪参数的时变轨迹，从而为动态调整运维策略提供实时依据。
+    \item \textbf{品类同质化假设}：模型以总回收量 $x(t)$ 为单一状态变量，未区分纸类、塑料、金属、玻璃等不同品类的差异化回收规律。\textbf{改进方向}：可构建多品类耦合 ODE 系统 $\dot{x}_i = f_i(x_1, \dots, x_n)$，其中各品类的固有增长率 $\gamma_i$ 和饱和容量 $K_i$ 独立估计，并通过交互项（如品类间的替代或互补效应）刻画耦合关系。这将使模型能够识别低价值品类的增长瓶颈，为制定差异化的补贴与宣传策略提供量化依据。
+    \item \textbf{空间均质化假设}：模型基于全市总量数据，未体现中心城区与郊区、不同街道间的空间异质性。\textbf{改进方向}：可引入分区耦合的 ODE 系统 $\dot{x}_j = f_j(x_j) + \sum_{k \neq j} D_{jk}(x_k - x_j)$，其中 $D_{jk}$ 为区域间的扩散系数，$x_j$ 为第 $j$ 区的回收量。该框架可分析区域间回收量的溢出与竞争效应，为优化站点空间布局和清运路线提供决策支持。
+    \item \textbf{数据量有限}：模型基于 365 天（共 9 个数据点，采样间隔 30--95 天不等）的时序数据拟合，参数估计的置信区间（$r$ 的 $\pm 0.00066$，$K_{\text{eff}}$ 的 $\pm 73$）相对较宽。本文已通过残差 Bootstrap（$B=10\,000$）验证了参数估计在小样本下的稳健性，Bootstrap 置信区间与渐近区间量级一致。\textbf{改进方向}：随着运营数据持续积累，可引入贝叶斯更新框架（以当前 Bootstrap 后验为下一轮先验）逐步缩小参数不确定度，或采用 Sobol' 全局灵敏度分析替代 OAT 局部方法以量化参数间交互效应对预测方差的总贡献。
 \end{enumerate}
 
+\subsection{模型适用性说明}
+
+本文模型的核心假设——一维自治 Logistic 动力学——适用于以下场景：（1）回收体系已建立并持续运营，回收量呈单调增长趋势；（2）体系的总容量在一定时期内保持稳定；（3）促进与抑制因素的相对强度在分析周期内不发生根本性逆转。对于体系初创期（回收量可能波动或下降）、政策剧烈调整期（参数可能发生结构性突变）、或需要在品类/空间维度上进行精细化分析的场景，建议采用上述改进方向中的扩展模型。
+
 \section{结论}
-本文以上海“沪尚回收”全域可回收物回收网络为研究对象，构建递进式Logistic动力学模型，依次完成基础增长建模、促进-抑制耦合模型优化、系统平衡点稳定性判别与多参数灵敏度量化分析，形成一套完整的城市回收体系定量分析框架。
-首先，仅考虑容量约束的基础Logistic模型存在明显系统性高估，拟合精度不足（$R^2=0.5319$）；引入表征宣传站点扩张的促进系数$\alpha$、清运运维短板的抑制系数$\beta$后构建拮抗改进模型，$R^2$提升至0.9915，MAPE降至0.53\%，可精准还原回收量长期演化规律。拟合结果显示当前体系抑制效应远大于促进效应，运维阻滞将系统有效增长率压缩至固有水平的38.6\%，而网点扩容对饱和容量的提升仅有1.64\%。
-其次，稳定性分析证明，只要$\alpha,\beta\ge0$，回收系统全局渐近稳定，不存在断崖崩溃分岔；以最低可接受增速划定抑制系数安全上限3.40，当前$\beta=1.59$具备充足运营裕度，系统核心风险并非数学失稳，而是运营效率退化。
-再者，OAT单参数扰动灵敏度结果表明，基准饱和容量$K$为极度敏感参数，$\pm10\%$偏差即可造成模型预测失效；抑制系数$\beta$是短期提效最优调控抓手，其对增速的影响强度约为站点扩张类促进手段的38倍；促进系数$\alpha$接近无敏感，持续新增回收网点边际收益趋近于零。
-综合稳定性与灵敏度结论，城市绿色回收长效运营需遵循分层资源分配策略：优先开展全市可回收物潜力普查，精准核定基准容量$K$；其次优化清运调度、完成设备适老化改造、出台低价值品类补贴，定向降低抑制强度；促进策略由规模扩张转向运营提质，依托宣传提升居民基础参与度、减少运维损耗；对固有增长率仅做季度常规监测即可。
-本文模型参数贴合实际运营场景，可直接为国内同类城市回收网络规划、精细化运维提供定量支撑；后续可进一步拓展时变参数、分区域、分品类模型，完善体系动态管控能力。
+
+本文围绕上海``沪尚回收''体系回收量的动态演化规律，构建了递进式 Logistic 动力学模型，完成从基础拟合到系统安全性证明、再到参数灵敏度量化的完整分析链条。以下从四个层面提炼核心发现及其运营含义。
+
+\textbf{1. 抑制效应是当前体系的首要效率限制因素。}
+问题二 拟合结果揭示了两个拮抗参数的效应量级相差约两个数量级：抑制系数 $\beta = 1.59$ 将有效增长率压缩至固有水平的 $38.6\%$，而促进系数 $\alpha = 0.0164$ 对饱和容量的提升仅有 $1.64\%$。这一差距的运营含义是明确的——清运延迟、设备适老化不足、低价值品类回收意愿低等运维阻力，对系统效率的拖累远大于站点扩张的边际贡献。结论表明：限制因素在于已有站点的运营效率偏低，而非站点数量不足。$\alpha$ 弹性仅 $0.016$ 进一步表明，在全市已建成 1.5 万个服务点 + 4300 台智能回收箱的覆盖密度下，继续扩大站点数量的边际收益已趋近于零。
+
+\textbf{2. 系统在数学上不发生失稳，但存在更隐蔽的吸引子偏移风险。}
+问题三 从动力系统视角出发，运用相线分析、Lyapunov 线性化与分岔理论，逐一排除了鞍-结分岔、跨临界分岔（物理锁定于 $r>0$ 半平面）、叉形分岔（无奇对称性）三种失稳机制。结论是严格的：只要 $\alpha, \beta \geq 0$，物理定义域内唯一平衡点 $x^* = K_{\text{eff}}$ 恒为渐近稳定，系统不存在分岔失稳的数学可能。然而，\textbf{结构稳定 $\neq$ 运营安全}。问题四 的灵敏度分析揭示了一种更隐蔽的风险模式：系统会以可靠的收敛性稳定地趋向一个错误的吸引子。当基准容量 $K$ 被错误估计时，$K_{\text{eff}}$ 以 1:1 的比例同步偏移（$\varepsilon = 1.0000$），而所有晚期数据点密集分布在饱和平台附近（$x(365)/K_{\text{eff}} \approx 98.3\%$），使得任何偏移被所有数据点``集体感知''——$K \pm 10\%$ 即可导致 $R^2$ 从 $0.9915$ 急剧下降至 $\sim 0.3$。这不是 Lyapunov 稳定性的丧失，而是吸引子位置的结构性偏移——一种在传统稳定性检验下完全不可见、但后果同样严重的失效模式。
+
+\textbf{3. 参数灵敏度呈现极化的``K-主导''格局。}
+问题四 的 OAT 扰动实验表明，$K$ 的 $R^2$ 降幅（$0.7285$）是次敏感参数 $\gamma$（$0.0105$）的约 70 倍、
+$\beta$（$0.0038$）的约 190 倍，$\alpha$ 的影响相比之下可忽略不计——
+数量级差距意味着 $K$ 的主导地位是系统结构决定的，而非数据偶然。另一方面，所有解析弹性的绝对值均 $\leq 1$，模型在局部线性化意义下是良态的，不存在微扰导致巨变的奇点。$\beta$ 的弹性 $|\varepsilon_{r,\beta}| = 0.61$（边际递减）和 $r$ 距分岔点 $r=0$ 的安全距离（$r/r_{\min} \approx 1.70$）意味着系统远离临界慢化区域，收敛特征时间 $\tau \approx 118$ 天在参数扰动下保持稳定。
+
+\textbf{4. 长效运营应遵循分层资源分配策略。}
+综合上述发现，建议``沪尚回收''体系按以下优先级配置运维资源：（1）\textbf{精确测定 $K$}——开展全市可回收物潜力普查，将估计误差压缩至 $\pm 5\%$ 以内，这是确保模型预测可靠性的前提；（2）\textbf{定向降低 $\beta$}——优化清运调度算法、完成设备适老化改造、试行低价值品类补贴，每降低 $\beta$ 约 $10\%$ 可使有效增长率回升约 $6.5\%$；（3）\textbf{促进策略转型}——停止以``增加站点数量''为核心考核指标的扩张模式，将促进工作重心从覆盖率转向人均使用频次和居民满意度，关注宣传引导对 $\gamma$ 和 $\beta$ 的间接效应；（4）\textbf{常规监测 $\gamma$}——季度抽样验证即可，系统对居民基础参与度的偏差具有充分鲁棒性。
+
+\textbf{5. 局限与展望。}
+本文模型将促进与抑制效应视为阶段内恒定，未刻画其随时间演化的动态过程；基于全市总量数据，未体现区域间的空间异质性和品类间的结构差异。后续工作可沿三个方向拓展：（1）将 $\alpha(t)$ 和 $\beta(t)$ 建模为时变函数（如 logistic 衰减或分段常数），以捕捉政策干预的阶段性效果；（2）引入空间维度，构建分区耦合的 ODE 系统，分析区域间回收量的扩散与竞争效应；（3）按可回收物品类（纸类、塑料、金属、玻璃等）拆分模型，识别不同品类的差异化增长规律与敏感参数。这些拓展将进一步提升模型对真实运营场景的刻画能力和决策支持价值。
 
 \newpage
 \begin{thebibliography}{99}
 
-\bibitem{1} 西交利物浦大学数学建模训练 2026 Problem A 题目及附件数据.
+\bibitem{strogatz} Strogatz S H. Nonlinear Dynamics and Chaos: With Applications to Physics, Biology, Chemistry, and Engineering[M]. 3rd ed. CRC Press, 2024.
+
+\bibitem{verhulst} Verhulst P F. Notice sur la loi que la population suit dans son accroissement[J]. Correspondance Math\'{e}matique et Physique, 1838, 10: 113--121.
+
+\bibitem{saltelli} Saltelli A, Ratto M, Andres T, et al. Global Sensitivity Analysis: The Primer[M]. John Wiley \& Sons, 2008.
+
+\bibitem{efron} Efron B, Tibshirani R J. An Introduction to the Bootstrap[M]. Chapman \& Hall/CRC, 1994.
+
+\bibitem{problem} 西交利物浦大学数学建模训练 2026 Problem A 题目及附件数据.
 
 \end{thebibliography}
 
